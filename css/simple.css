@@ -1,0 +1,16 @@
+
+body {
+	margin: auto 100px;
+}
+
+.container {
+	margin: auto 15px;
+}
+
+p {
+	line-height: 20px;
+}
+
+#index_copy p {
+	font-size: 14px
+}

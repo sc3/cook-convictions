@@ -3,7 +3,10 @@
 {% block content %}
 <div class="container">
   <div class="jumbotron">
-    <h1>Welcome to your new project!</h1>
+    <h1>A Visualization Project for Cook County Court Conviction Data</h1>
+  </div>
+  <div class="col-md-9 col-offset-md-3">
+  	{{ read_file("content/index_copy.md")|markdown }}
   </div>
 </div>
 {% endblock content %}

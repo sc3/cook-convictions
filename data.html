@@ -1,2 +1,15 @@
-{% extends '_base.html' %}
+{% extends '_conviction.html' %}
 
+{% block content %}
+<div class="container">
+	<h1>Info About This Data</h1>
+	<div class="content">
+		<div class="row">
+			<div id="index-copy" class="col-md-9">
+				{{ read_file("content/data.md")|markdown }}	
+			</div>
+			<img src="img/ccj_large.jpg" alt="The Cook County Jail">
+		</div>
+	</div>
+</div>
+{% endblock content %}

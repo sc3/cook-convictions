@@ -8,7 +8,7 @@ In order to get started developing this project, these are the steps you should 
 ### Getting Tarbell
 First, make sure you have [Tarbell](http://tarbell.tribapps.com/) installed and setup. 
 
-If it's not already installed, here's the two steps you need to get it (assuming you have a [virtualenv](http://virtualenv.readthedocs.org/en/latest/):  
+If it's not already installed, here's the two steps you need to get it (assuming you have a [virtualenv](http://virtualenv.readthedocs.org/en/latest/)):  
 
     sudo pip install tarbell==0.9b9  
     tarbell configure  

@@ -16,8 +16,8 @@
 
       {# The actual main navbar elements #}
       <ul class="nav navbar-nav">
-        {% for item in nav %}
-        <li><a href="{{ item.path }}" class="{{ item.title }} {% if PATH == item.path %}active{% endif %}">{{ item.title }}</a></li>
+        {% for item in slides %}
+        <li><a href="#{{ item.id }}" {% if item.id in PATH %}class="active{% endif %}">{{ item.title }}</a></li>
         {% endfor %}
       </ul>
 

@@ -1,3 +1,5 @@
+## Convictions in Cook
+
 Each year, _tens of thousands_ of people stand in front of judges at the Cook County Circuit Court, one of the busiest in the country. Their offenses range from low-level marijuana charges to multiple murders that put people behind bars for life.
 
 Rare glimpses of what happened behind the courtroom doors trickle out through media reports and the few sensational cases that make headlines.

@@ -14,3 +14,15 @@ p {
 #index_copy p {
 	font-size: 14px
 }
+
+.navbar-nav {
+    font-size: 10px;
+}
+
+h2:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -110px; 
+  height: 110px; 
+  visibility: hidden; 
+}

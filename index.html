@@ -1,12 +1,22 @@
 {% extends '_base.html' %}
 
+{% block css %}
+  {{ super() }}
+  <link rel="stylesheet" type="text/css" href="css/simple.css" />
+
+{% endblock css %}
+
 {% block content %}
-<div class="container">
-  <div class="jumbotron">
-    <h1>A Visualization Project for Cook County Court Conviction Data</h1>
-  </div>
-  <div class="col-md-9 col-offset-md-3">
-  	{{ read_file("content/index_copy.md")|markdown }}
+
+<div class="reveal">
+  <div class="slides">
+    {% for slide in slides %}
+    <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>
+      {{ read_file("slides/{0}.md".format(slide.id))|markdown }}
+      <br/><hr><br/>
+    </section>
+    {% endfor %}
   </div>
 </div>
+
 {% endblock content %}

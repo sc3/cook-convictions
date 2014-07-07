@@ -1,3 +1,7 @@
+{# identify which slide this is associated with in the spreadsheet #}
+{% set slide = slides[0] %}
+
+
 ## Convictions in Cook
 
 Each year, _tens of thousands_ of people stand in front of judges at the Cook County Circuit Court, one of the busiest in the country. Their offenses range from low-level marijuana charges to multiple murders that put people behind bars for life.
@@ -15,4 +19,5 @@ This project analyzes five years worth of conviction data received through the O
 This project is part of the [Smart Chicago Collaborative's](http://www.smartchicagocollaborative.org/) [Civic Works Project](http://www.smartchicagocollaborative.org/projects/civic-innovation-in-chicago/), a program funded by the [Knight Foundation](http://knightfoundation.org/) and the [Chicago Community Trust](http://www.cct.org/) to spur and support civic innovation in Chicago.
 
 Our partners for this project are [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell content management system](http://tarbell.tribapps.com/) to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/). 
- 
+
+This is unfinished text. If you are logged into prose.io, you can edit this content [here](http://prose.io/#sc3/cook-convictions/edit/master/slides/{{slide.id}}.md).

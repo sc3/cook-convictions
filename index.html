@@ -12,7 +12,7 @@
   <div class="slides">
     {% for slide in slides %}
     <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>
-      {{ read_file("slides/{0}.md".format(slide.id))|markdown }}
+      {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
       <br/><hr><br/>
     </section>
     {% endfor %}

@@ -63,7 +63,7 @@ def read_file(context, path, absolute=False):
         path = os.path.join(os.path.dirname(__file__), '..', path)
 
     try:
-        return open(path, 'r').read()
+        return open(path, 'r').read().decode('utf-8')
     except IOError:
         return None
 

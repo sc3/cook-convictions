@@ -18,6 +18,8 @@ On this website, we've broken down the data into some of the most important thin
 
 - We're in the dark about how many cases filed by police actually resulted in a conviction
 
+- We don't know whether the prior convictions of an individual affected the sentence they were given 
+
 - This information doesn't tell us where a crime occurred, prevalence of crime in a particular community, or the total number of crimes that occur in the city. [Pop-out box opportunity? Read more: There are significant differences between the amount of crime that occurs, that is reported to police, that results in arrest, is accepted for prosecution, that is prosecuted, and the amount that ends up in a conviction. At each stage a certain amount of crimes fall out of the system.]
 
 - Some of these cases may have occurred before the conviction was recorded, meaning this data reflects events that could be from years before the conviction was recorded.

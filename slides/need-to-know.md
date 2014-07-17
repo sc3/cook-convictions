@@ -1,6 +1,4 @@
-{# identify which slide this is associated with in the spreadsheet #}
-{% set slide = slides[1] %}
-
+{% set slide_id = 'convictions' %}
 
 ## Need to Know
 
@@ -32,5 +30,4 @@ But to really understand the system, we need to take a step back and look at it 
 
 [Map of Cook county]
 
-This is unfinished text. If you are logged into prose.io, you can edit this content [here](http://prose.io/#sc3/cook-convictions/edit/master/slides/{{slide.id}}.md).
-
+{% include 'slides/_edit_this.md' %}

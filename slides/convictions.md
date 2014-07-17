@@ -1,6 +1,4 @@
-{# identify which slide this is associated with in the spreadsheet #}
-{% set slide = slides[0] %}
-
+{% set slide_id = 'convictions' %}
 
 ## Convictions in Cook
 
@@ -20,4 +18,4 @@ This project is part of the [Smart Chicago Collaborative's](http://www.smartchic
 
 Our partners for this project are [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell content management system](http://tarbell.tribapps.com/) to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/). 
 
-This is unfinished text. If you are logged into prose.io, you can edit this content [here](http://prose.io/#sc3/cook-convictions/edit/master/slides/{{slide.id}}.md).
+{% include 'slides/_edit_this.md' %}

@@ -1,6 +1,4 @@
-{# identify which slide this is associated with in the spreadsheet #}
-{% set slide = slides[7] %}
-
+{% set slide_id = 'conclude' %}
 
 ## Conclusion
 
@@ -29,5 +27,4 @@ What do we need to achieve the 8 Principles of Open Data?
 - full data available
 - searchable, electronic court records
 
-
-This is unfinished text. If you are logged into prose.io, you can edit this content [here](http://prose.io/#sc3/cook-convictions/edit/master/slides/{{slide.id}}.md).
+{% include 'slides/_edit_this.md' %}

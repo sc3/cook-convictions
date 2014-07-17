@@ -1,0 +1,3 @@
+[submodule "tarbell-template"]
+    path = _blueprint
+    url = https://github.com/bepetersn/tarbell-template

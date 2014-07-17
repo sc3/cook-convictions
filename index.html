@@ -11,7 +11,7 @@
 <div class="reveal">
   <div class="slides">
     {% for slide in slides %}
-    <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>
+    <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>  
       {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
       <br/><hr><br/>
     </section>

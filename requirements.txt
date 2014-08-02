@@ -21,6 +21,6 @@ requests==2.3.0
 sh==1.09
 six==1.7.3
 sphinx-rtd-theme==0.1.6
--e git+/home/brian/Code/flask-tarbell@f029982b6e91a0290648e4e199a42140e677fb47#egg=tarbell-origin/HEAD
+git+https://github.com/bepetersn/flask-tarbell.git@0.9-beta7
 wsgiref==0.1.2
 xlrd==0.9.3

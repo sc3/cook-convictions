@@ -1,0 +1,20 @@
+language: python
+
+# versions to test against
+python:
+  - "2.7"
+
+env: 
+  - GOOGLE_ID=fakefakefake.apps.googleusercontent.com GOOGLE_SECRET=fakfakefakefakefakfakekfak
+
+before_install: 
+#  - "SETTINGS_PATH=$(python -c 'from deploy_utils import gen_settings; return gen_settings(os.getenv('AMAZON_ID', 'AMAZON_KEY')')"
+  - "CLIENT_SECRETS_PATH=$(python -c 'from deploy_utils import gen_client_secrets; return gen_client_secrets(os.getenv('GOOGLE_ID', 'GOOGLE_SECRET')')"
+  - "tarbell configure drive $CLIENT_SECRETS_PATH"
+
+# command to install dependencies
+install: "pip install -r requirements.txt"
+
+# command to run tests
+script: "tarbell generate /tmp/throwaway"
+

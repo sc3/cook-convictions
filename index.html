@@ -2,8 +2,9 @@
 
 {% block css %}
   {{ super() }}
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
   <link rel="stylesheet" type="text/css" href="css/simple.css" />
-
+  <link rel="stylesheet" type="text/css" href="css/viz.css">
 {% endblock css %}
 
 {% block content %}
@@ -20,3 +21,28 @@
 </div>
 
 {% endblock content %}
+
+{% block library_scripts %}
+{{ super() }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+{% endblock %}
+
+{% block scripts %}
+<script src="js/convictions.js"></script>
+<script>
+$(function() {
+  // @todo: Move some of this initialization into the Convictions namespace.
+  var communityAreas = new Convictions.CommunityAreas();
+  var communityAreasMap = new Convictions.CommunityAreaMapView({
+      collection: communityAreas,
+      el: '#your-city-map'
+  });
+
+  communityAreas.url = 'data/community_areas.json';
+
+  communityAreas.fetch();
+});
+</script>
+{% endblock %}

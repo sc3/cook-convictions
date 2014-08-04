@@ -79,7 +79,11 @@
       this.tileLayer.addTo(this.map);
 
       this.bindCollectionEvents();
+
+      this.postInitialize();
     },
+
+    postInitialize: function() { return this; },
 
     /**
      * Create a map layer from a GeoJSON-based collection.
@@ -118,8 +122,33 @@
 
   var CommunityAreaMapView = Convictions.CommunityAreaMapView = MapView.extend({
     options: _.extend({}, MapView.prototype.options, {
-      popupTemplate: _.template("<%= name %>"),
+      popupTemplate: _.template("<%= name %>" +
+        "<ul>" + 
+        "<li>Convictions: <%= num_convictions %>" +
+        "<li>Convictions per-capita: <%= convictions_per_capita %></li>" +
+        "</ul>"
+      ),
+
+      bins: {
+        'convictions_per_capita': {
+          label: "Convictions per capita",
+          indices: [0.00293543,  0.04502037,  0.08689594,  0.12877151,  0.17064707,  0.21252264],
+          fill: ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
+        }
+      },
+
+      defaultFillProperty: 'convictions_per_capita'
     }),
+
+    postInitialize: function() {
+      this.fillProperty = this.options.defaultFillProperty;
+      this.legendView = new MapLegendView({
+        map: this.map,
+        bins: this.options.bins,
+        defaultFillProperty: this.options.defaultFillProperty
+      });
+      return this;
+    },
 
     bindCollectionEvents: function() {
       this.collection.on('sync', this.addGeoJSONLayer, this);
@@ -136,7 +165,8 @@
 
     style: function(feature) {
       return {
-        fillColor: this.getFillColor(feature.properties.per_capita_convictions),
+        fillColor: this.getFillColor(this.fillProperty,
+          feature.properties[this.fillProperty]),
         weight: 2,
         opacity: 1,
         color: 'white',
@@ -144,10 +174,21 @@
       };
     },
 
-    getFillColor: function(d) {
-      // @todo: Use http://colorbrewer2.org/ to pick coropleth colors based
-      // on our data.
-      return '#800026';
+    getFillColor: function(propName, propVal) {
+      var binInfo = this.options.bins[propName];
+      var max = binInfo.indices.length - 1;
+      var i, lower, upper;
+
+      for (i = 0; i < max; i++) {
+        lower = binInfo.indices[i];
+        upper = binInfo.indices[i+1];
+        if (propVal > lower && propVal <= upper) {
+          return binInfo.fill[i];
+        }
+      }
+
+      // Should never get here
+      return null;
     },
 
     onEachFeature: function(feature, layer) {
@@ -155,8 +196,69 @@
     },
 
     popupContent: function(feature) {
-      console.debug(feature.properties.name);
       return this.options.popupTemplate(feature.properties);
+    }
+  });
+
+  var CustomControlView = Backbone.View.extend({
+    initialize: function(options) {
+      _.extend(this.options, options);
+
+      this.map = this.options.map;
+      this.control = L.control({
+        position: this.options.position
+      });
+      this.control.onAdd = _.bind(this.onAdd, this);
+
+      this.postInitialize();
+
+      this.control.addTo(this.map);
+    },
+
+    postInitialize: function() {},
+
+    onAdd: function(map) {
+      return this.render().$el.get(0);
+    }
+  });
+
+  var MapLegendView = CustomControlView.extend({
+    options: {
+      position: 'bottomright'
+    },
+
+    attributes: {
+      class: 'legend'
+    },
+
+    postInitialize: function() {
+      this.fillProperty = this.options.defaultFillProperty; 
+    },
+
+    render: function() {
+      var binInfo = this.options.bins[this.fillProperty];
+      var max = binInfo.indices.length - 1;
+      var i;
+      var $dl = $('<dl>');
+
+      this.$el.empty();
+
+      this.$el.append($('<h4>' + binInfo.label + '</h4>'));
+ 
+      for (i = 0; i < max; i++) {
+        $dl.append(this.renderLegendItem(i, binInfo));
+      }
+
+      this.$el.append($dl);
+
+      return this;
+    },
+
+    renderLegendItem: function(i, binInfo) {
+      var fill = binInfo.fill[i];
+      var label = binInfo.indices[i] + " - " + binInfo.indices[i+1];
+      var $item = $('<dt style="background-color: ' + fill + '"></dt><dd>' + label + '</dd>');
+      return $item;
     }
   });
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

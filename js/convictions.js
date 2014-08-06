@@ -45,6 +45,84 @@
     }
   });
 
+  // Choropleth bins
+
+  /**
+   * A single bin.
+   */
+  var Bin = function(lower, upper, color) {
+    this.lower = lower;
+    this.upper = upper;
+    this.color = color;
+  };
+
+  _.extend(Bin.prototype, {
+    contains: function(val) {
+      return val > this.lower && val <= this.upper;
+    }
+  });
+
+  /**
+   * All the bins for a given property.
+   */
+  var BinCollection = function(property, label, breaks, colors) {
+    var brk, i;
+
+    this.property = property;
+    this.label = label;
+    this.bins = [];
+
+    for (i = 0; i < breaks.length - 1; i++) {
+      this.bins.push(new Bin(breaks[i], breaks[i+1], colors[i]));
+    }
+  };
+
+  _.extend(BinCollection.prototype, {
+    get: function(val) {
+      var i, bin;
+      for (i = 0; i < this.bins.length; i++) {
+        bin = this.bins[i];
+        if (bin.contains(val)) {
+          return bin;
+        }
+      }
+
+      return null;
+    }
+  });
+
+  _.each(['each', 'forEach'], function(method) {
+    BinCollection.prototype[method] = function() {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift(this.bins);
+      return _[method].apply(_, args);
+    };
+  });
+
+  /**
+   * Get the BinCollection for a given property.
+   */
+  var BinLookup = function() {
+    this.bins = {};
+  };
+
+  _.extend(BinLookup.prototype, {
+    add: function(bin) {
+      this.bins[bin.property] = bin;
+    },
+
+    get: function(property) {
+      return this.bins[property];
+    }
+  });
+
+  var bins = new BinLookup();
+  bins.add(new BinCollection('convictions_per_capita',
+    "Convictions per capita",
+    [0.00293543,  0.04502037,  0.08689594,  0.12877151,  0.17064707,  0.21252264],
+    ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
+  ));
+
   // Views
 
   var MapView = Backbone.View.extend({
@@ -129,13 +207,7 @@
         "</ul>"
       ),
 
-      bins: {
-        'convictions_per_capita': {
-          label: "Convictions per capita",
-          indices: [0.00293543,  0.04502037,  0.08689594,  0.12877151,  0.17064707,  0.21252264],
-          fill: ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
-        }
-      },
+      bins: bins,
 
       defaultFillProperty: 'convictions_per_capita'
     }),
@@ -175,20 +247,15 @@
     },
 
     getFillColor: function(propName, propVal) {
-      var binInfo = this.options.bins[propName];
-      var max = binInfo.indices.length - 1;
-      var i, lower, upper;
+      var propBins = this.options.bins.get(propName);
+      var bin = propBins.get(propVal); 
 
-      for (i = 0; i < max; i++) {
-        lower = binInfo.indices[i];
-        upper = binInfo.indices[i+1];
-        if (propVal > lower && propVal <= upper) {
-          return binInfo.fill[i];
-        }
+      if (bin) {
+        return bin.color;
       }
-
-      // Should never get here
-      return null;
+      else {
+        return null;
+      }
     },
 
     onEachFeature: function(feature, layer) {
@@ -236,28 +303,23 @@
     },
 
     render: function() {
-      var binInfo = this.options.bins[this.fillProperty];
-      var max = binInfo.indices.length - 1;
-      var i;
+      var propBins = this.options.bins.get(this.fillProperty);
       var $dl = $('<dl>');
 
-      this.$el.empty();
+      this.$el.append($('<h4>' + propBins.label + '</h4>'));
 
-      this.$el.append($('<h4>' + binInfo.label + '</h4>'));
- 
-      for (i = 0; i < max; i++) {
-        $dl.append(this.renderLegendItem(i, binInfo));
-      }
+      propBins.each(function(bin) {
+        $dl.append(this.renderLegendItem(bin));
+      }, this);
 
       this.$el.append($dl);
 
       return this;
     },
 
-    renderLegendItem: function(i, binInfo) {
-      var fill = binInfo.fill[i];
-      var label = binInfo.indices[i] + " - " + binInfo.indices[i+1];
-      var $item = $('<dt style="background-color: ' + fill + '"></dt><dd>' + label + '</dd>');
+    renderLegendItem: function(bin) {
+      var label = bin.lower + " - " + bin.upper;
+      var $item = $('<dt style="background-color: ' + bin.color + '"></dt><dd>' + label + '</dd>');
       return $item;
     }
   });

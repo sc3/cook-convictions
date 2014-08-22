@@ -4,6 +4,48 @@
   var charts = Convictions.charts = Convictions.charts || {};
 
   /**
+   * Wrap svg text to an element.
+   *
+   * This function is by Mike Bostock, from http://bl.ocks.org/mbostock/7555321
+   */
+  function wrapText(text, width) {
+    text.each(function() {
+      var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        }
+      }
+    });
+  }
+
+  /**
+   * https://gist.github.com/mathewbyrne/1280286
+   */
+  function slugify(text) {
+    return text.toString().toLowerCase()
+      .replace(/\s+/g, '-')           // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+      .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+      .replace(/^-+/, '')             // Trim - from start of text
+      .replace(/-+$/, '');            // Trim - from end of text
+  }
+
+
+  /**
     Factory to generate a reusable bar chart.
 
     @returns A function that can be called on a d3 selection to add
@@ -25,7 +67,16 @@
 
     * margin
     * aspectRatio
-    * tooltipFn
+    * renderTooltip
+    * width
+    * height
+    * renderBar
+    * x
+    * y
+    * xScale
+    * yScale
+    * tooltipLabel
+    * tooltipValue
    
     References:
     * http://bost.ocks.org/mike/bar/3/
@@ -39,11 +90,25 @@
     // These can be get/set with accessors defined below
     var margin = {top: 20, right: 30, bottom: 30, left: 60};
     var aspectRatio = 16 / 9; // Width to height
-    var tooltipFn; // Function to render tooltip
+    var renderTooltip; // Function to render tooltip
+    // Internal width and height of the chart
+    var width;
+    var height;
+    var renderBar;
+    var x; // Scale for x axis 
+    var y; // Scale for y axis 
+    var xScale;
+    var yScale;
+    var tooltipLabel = function(d) {
+      return d.label;
+    };
+    var tooltipValue = function(d) {
+      return d.value;
+    };
+    var postRender = function(selection) {};
 
     // Private
 
-    var width, height; // Internal width and height of the chart
     // Class that will be set on popup elements 
     var tooltipClass = 'tooltip-chart'; 
     // Distance from the pointer to where the tooltip is rendered
@@ -95,7 +160,7 @@
     /**
      * Populate a popup element.
      */
-    function renderTooltip(selection) {
+    function defaultRenderTooltip(selection) {
       var border = selection.append('rect');
       var text = selection.append('text')
           .attr('text-anchor', 'start')
@@ -108,15 +173,13 @@
       text.append('tspan')
           .attr('class', 'label')
           .attr('x', tooltipMargin.left)
-          .text(function(d) { return d.label; });
+          .text(function(d) { return tooltipLabel(d); });
 
       text.append('tspan')
           .attr('class', 'value')
           .attr('x', tooltipMargin.left)
           .attr('dy', '1.5em')
-          .text(function(d) {
-            return d.value;
-          });
+          .text(function(d) { return tooltipValue(d); });
 
       bbox = text.node().getBBox();
 
@@ -126,19 +189,40 @@
 
     // Set the default tooltip rendering function.  This can be overridden
     // with the setter below.
-    tooltipFn = renderTooltip;
+    renderTooltip = defaultRenderTooltip;
+
+    function defaultRenderBar(selection) {
+      selection.attr('x', function(d) { return x(d.label); })
+        .attr('y', function(d) { return y(d.value); })
+        .attr('height', function(d) { return height - y(d.value); })
+        .attr('width', x.rangeBand());
+    }
+
+    renderBar = defaultRenderBar;
+
+    function defaultXScale(data) {
+      return d3.scale.ordinal()
+        .domain(data.map(function(d) { return d.label; }))
+        .rangeRoundBands([0, width], 0.1);
+    }
+
+    xScale = defaultXScale;
+
+    function defaultYScale(data) {
+      return d3.scale.linear()
+        .domain([0, d3.max(data, function(d) { return d.value; })])
+        .range([height, 0]);
+    }
+
+    yScale = defaultYScale;
 
     function chart(selection) {
       selection.each(function(data, i) {
         var containerWidth = parseInt(d3.select(this).style('width'), 10);
         width = containerWidth - margin.left - margin.right;
         height = Math.ceil(width * (1 / aspectRatio)) - margin.top - margin.bottom;
-        var x = d3.scale.ordinal()
-          .domain(data.map(function(d) { return d.label; }))
-          .rangeRoundBands([0, width], 0.1);
-        var y = d3.scale.linear()
-          .domain([0, d3.max(data, function(d) { return d.value; })])
-          .range([height, 0]);
+        x = xScale(data); 
+        y = yScale(data); 
         var xAxis = d3.svg.axis()
             .scale(x);
         var yAxis = d3.svg.axis()
@@ -154,16 +238,13 @@
         var bar = svg.selectAll(".bar")
             .data(data)
           .enter().append('rect')
-            .attr('class', 'bar')
-            .attr('x', function(d) { return x(d.label); })
-            .attr('y', function(d) { return y(d.value); })
-            .attr('height', function(d) { return height - y(d.value); })
-            .attr('width', x.rangeBand())
+            .attr('class', function(d) { return 'bar ' + slugify(d.label); })
+            .call(renderBar)
             .on('mouseover', function(d, i) {
               tooltip = svg.append('g')
                   .datum(d)
                   .attr('class', tooltipClass)
-                  .call(tooltipFn)
+                  .call(renderTooltip)
                   .call(positionTooltip);
             })
             .on('mousemove', function(d, i) {
@@ -178,7 +259,6 @@
               tooltip = null;
             });
 
-
         svg.append('g')
             .attr('class', 'x axis')
             .attr('transform', 'translate(0,' + height + ')')
@@ -188,6 +268,7 @@
           .attr('class', 'y axis')
           .call(yAxis);
 
+        svg.call(postRender);
       });
     }
 
@@ -205,14 +286,110 @@
       return chart;
     };
 
-    chart.tooltipFn = function(_) {
-      if (!arguments.length) return tooltipFn;
-      tooltipFn = _;
+    chart.renderTooltip = function(_) {
+      if (!arguments.length) return renderTooltip;
+      renderTooltip = _;
+      return chart;
+    };
+
+    chart.x = function(_) {
+      if (!arguments.length) return x;
+      x = _;
+      return chart;
+    };
+
+    chart.y = function(_) {
+      if (!arguments.length) return y;
+      y = _;
+      return chart;
+    };
+
+    chart.xScale = function(_) {
+      if (!arguments.length) return xScale;
+      xScale = _;
+      return chart;
+    };
+
+    chart.yScale = function(_) {
+      if (!arguments.length) return yScale;
+      yScale = _;
+      return chart;
+    };
+
+    chart.width = function(_) {
+      if (!arguments.length) return width;
+      width = _;
+      return chart;
+    };
+
+    chart.height = function(_) {
+      if (!arguments.length) return height;
+      height = _;
+      return chart;
+    };
+
+    chart.renderBar = function(_) {
+      if (!arguments.length) return renderBar;
+      renderBar = _;
+      return chart;
+    };
+
+    chart.tooltipLabel = function(_) {
+      if (!arguments.length) return tooltipLabel;
+      tooltipLabel = _;
+      return chart;
+    };
+
+    chart.tooltipValue = function(_) {
+      if (!arguments.length) return tooltipValue;
+      tooltipValue = _;
+      return chart;
+    };
+
+    chart.postRender = function(_) {
+      if (!arguments.length) return postRender;
+      postRender = _;
       return chart;
     };
 
     return chart;
   }
 
+  function horizontalBarChart() {
+    var chart = barChart()
+      .margin({
+        top: 20,
+        right: 0,
+        bottom: 30,
+        left: 150
+      })
+      .xScale(function(data) {
+        return d3.scale.linear()
+          .domain([0, d3.max(data, function(d) { return d.value; })])
+          .range([0, chart.width()]);
+      })
+      .yScale(function(data) {
+        return d3.scale.ordinal()
+          .domain(data.map(function(d) { return d.label; }))
+          .rangeRoundBands([chart.height(), 0], 0.1);
+      })
+      .renderBar(function(selection) {
+        selection.attr('x', 0)
+          .attr('y', function(d) { return chart.y()(d.label); })
+          .attr('height', function(d) { return chart.y().rangeBand(); })
+          .attr('width', function(d) { return chart.x()(d.value); });
+      })
+      .postRender(function(selection) {
+        selection.selectAll('.tick text')
+            .call(wrapText, chart.margin().left - 20)
+            .attr('y', -(chart.y().rangeBand() / 2))
+          .selectAll('.tick text tspan')
+            .attr('dx', '-1em');
+      });
+
+    return chart;
+  }
+
   charts.barChart = barChart;
+  charts.horizontalBarChart = horizontalBarChart;
 })(window, document, d3, window.Convictions || {});

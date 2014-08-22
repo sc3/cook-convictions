@@ -57,8 +57,30 @@ $(function() {
       .call(chart);
   }
 
+  function createDrugChart(el) {
+    var data = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
+    var total = d3.sum(data, function(d) {
+      return d.value;
+    });
+    var pctData = data.map(function(d) {
+      return {
+        label: d.label,
+        value: (d.value / total) * 100
+      };
+    });
+    var formatValue = d3.format(",.1%");
+    var chart = Convictions.charts.horizontalBarChart()
+        .tooltipValue(function(d) {
+          return formatValue(d.value / 100);
+        });
+    d3.select(el)
+      .datum(pctData)
+      .call(chart);
+  }
+
   createCommunityAreaMap('#your-city-map');
   createCategoryChart('#charges-categories-chart');
+  createDrugChart('#drug-charges-chart');
 });
 </script>
 {% endblock %}

@@ -2,6 +2,9 @@
 
 ## Charge Types
 
+<blockquote> Here is some text. </blockquote>
+ > hello 
+
 <div id="charges-categories-chart" class="chart"></div>
 
 <div id="drug-charges-chart" class="chart"></div>

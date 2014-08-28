@@ -2,7 +2,7 @@
 
 ## Offense disparities
 
-<blockquote> Drug charges - posesion vs m/d </blockquote>
+<blockquote> When an individual is arrested on a drug charge, they can be booked for manufacturing and deliver, or for possession. Whether it is one or the other depends on many factors - the patrolling officer, whether a person has any priors, or even whether they're able to make a deal with the prosecutor. The majority of drug-related convictions in Cook County are for possession.  </blockquote>
 
 <div id="charges-categories-chart" class="chart"></div>
 
@@ -10,6 +10,6 @@
 
 <div id="drug-charges-chart" class="chart"></div>
 
-<blockquote> Drug charges - amounts  </blockquote>
+<blockquote> Convictions can vary by amounts. A charge for 100 grams of cocaine can hold a starkly difference sentence to that for 5 grams. Most of the manufacture and delivery charges skew towards smaller amounts - in part because people are more likely to carry smaller amounts, but also because plea deals will often leave individuals with convictions for smaller amounts of hard drugs. </blockquote>
 
 {% include 'slides/_edit_this.md' %}

@@ -1,0 +1,34 @@
+/* Styles for vizualization elements */
+#your-city-map {
+  width: 100%;
+  height: 500px;
+}
+
+.legend {
+}
+
+.legend dl {
+  width: 200px;
+}
+
+.legend dt, dd {
+  display: block;
+  float: left;
+  height: 20px;
+  line-height: 20px;
+}
+
+
+.legend dt {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart-bar .tooltip-chart rect {
+  fill: #fff;
+  stroke: #000;
+}

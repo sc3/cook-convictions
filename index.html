@@ -2,8 +2,9 @@
 
 {% block css %}
   {{ super() }}
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
   <link rel="stylesheet" type="text/css" href="css/simple.css" />
-
+  <link rel="stylesheet" type="text/css" href="css/viz.css">
 {% endblock css %}
 
 {% block content %}
@@ -20,3 +21,66 @@
 </div>
 
 {% endblock content %}
+
+{% block library_scripts %}
+{{ super() }}
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+{% endblock %}
+
+{% block scripts %}
+<script src="js/convictions.js"></script>
+<script src="js/convictions-charts.js"></script>
+<script>
+$(function() {
+  // @todo: Move some of this initialization into the Convictions namespace.
+  function createCommunityAreaMap(el) {
+    var communityAreas = new Convictions.CommunityAreas();
+    var communityAreasMap = new Convictions.CommunityAreaMapView({
+      collection: communityAreas,
+      el: el 
+    });
+
+    communityAreas.url = 'data/community_areas.json';
+
+    communityAreas.fetch();
+  }
+
+  function createCategoryChart(el) {
+    var chart = Convictions.charts.barChart();
+
+    var data = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Uncategorized"}];
+    d3.select(el)
+      .datum(data)
+      .call(chart);
+  }
+
+  function createDrugChart(el) {
+    var data = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
+    var total = d3.sum(data, function(d) {
+      return d.value;
+    });
+    var pctData = data.map(function(d) {
+      return {
+        label: d.label,
+        value: (d.value / total) * 100
+      };
+    });
+    var formatValue = d3.format(",.1%");
+    var chart = Convictions.charts.horizontalBarChart()
+        .tooltipValue(function(d) {
+          return formatValue(d.value / 100);
+        });
+    d3.select(el)
+      .datum(pctData)
+      .call(chart);
+  }
+
+  createCommunityAreaMap('#your-city-map');
+  createCategoryChart('#charges-categories-chart');
+  createDrugChart('#drug-charges-chart');
+});
+</script>
+{% endblock %}

@@ -5,24 +5,36 @@ cook-convictions
 
 In order to get started developing this project, these are the steps to follow.
 
-### Getting Tarbell
-First, make sure you have [Tarbell](http://tarbell.tribapps.com/) installed and setup. 
+### Install Tarbell
 
-If it's not already installed, here's the two steps you need to get it (assuming you have a [virtualenv](http://virtualenv.readthedocs.org/en/latest/)):  
+First, make sure you have [Tarbell](http://tarbell.tribapps.com/) installed and configured. 
 
-    sudo pip install tarbell==0.9b6  
+It's best to install Tarbell inside of a [virtualenv](http://virtualenv.readthedocs.org/en/latest/).
+
+To install Tarbell:  
+
+    pip install tarbell==0.9b6  
+
+To configure Tarbell:
+
     tarbell configure  
 
-Note: When it asks you, you should set up Google Spreadsheets, but you can leave Amazoon S3 setup for later.
+When the configuration script asks you, you should set up Google Spreadsheets, but you can leave Amazoon S3 setup for later.
 
-### Getting the mockup
+### Running this site 
 
 Clone the repo:  
 
     git clone git@github.com:sc3/cook-convictions.git
 
-Do some setup and launch the Tarbell preview server:  
+Change directory to the site's working copy:
 
     cd cook-convictions  
+
+Load the Tarbell [blueprint](http://tarbell.readthedocs.org/en/latest/build.html#understanding-tarbell-blueprints), from https://github.com/bepetersn/tarbell-template:
+
     git submodule update --init  
+
+Run the Tarbell [preview server](http://tarbell.readthedocs.org/en/latest/reference.html#tarbell-serve):
+
     tarbell serve  

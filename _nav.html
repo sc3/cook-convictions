@@ -1,3 +1,4 @@
+<!-- {# % import 'slides/_macros.html' as macros % #} -->
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     {# Brand and toggle get grouped for better mobile display #}
@@ -16,11 +17,14 @@
 
       {# The actual main navbar elements #}
       <ul class="nav navbar-nav">
-        {% for item in slides %}
-        <li><a href="#{{ item.id }}" {% if item.id in PATH %}class="active{% endif %}">{{ item.title }}</a></li>
+        {% for section in sections %}
+        <li>
+          <a href="#{{ section.id }}"></a> 
+<!--           {# {{ section.title }} -- {{ macros.get_slides(section)|length }} #} -->
+        </li>
+        
         {% endfor %}
       </ul>
-
       <ul class="social-menu nav navbar-nav navbar-right">
           {% if opengraph_description and opengraph_image %}
           <li>

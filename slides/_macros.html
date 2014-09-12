@@ -1,0 +1,8 @@
+
+{% macro get_slides(section) %}
+  {% for slide in slides %}
+    {% if slide.section_id == section.id %}
+      {{ slide }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}

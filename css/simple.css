@@ -1,22 +1,15 @@
 
 body {
-	margin: auto 150px;
+  margin: auto 150px;
 }
 
 .container {
-	margin: auto 15px;
+  margin: auto 15px;
 }
 
 p {
-	line-height: 20px;
-}
-
-#intro-copy p {
-	font-size: 18px
-}
-
-.navbar-nav {
-    font-size: 10px;
+  line-height: 20px;
+  font-size: 16px
 }
 
 h2:before { 
@@ -27,12 +20,15 @@ h2:before {
   visibility: hidden; 
 }
 
-#credit {
-  margin: 1% 5% 0 5%;
-  font-size: 0.9em;
-  color: gray;
+.navbar-nav {
+  font-size: 17px;
 }
 
-#extra-intro {
-  display: none;
+#credit {
+  margin: 1% 5% 0 5%;
+}
+
+#credit p {
+  font-size: 0.9em;
+  color: gray;
 }

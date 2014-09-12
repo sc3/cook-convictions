@@ -1,6 +1,6 @@
 {% set slide_id = 'story-charges' %}
 
-## Offense disparities
+## Among drug crimes, a world of disparities
 
 <blockquote> Though there are offense diparities in many areas, we decided to focus on one of the most controversial - drug convictions. From disparities in crack cocaine to low-level marijuana arrests, looking at the data about drug disparities has been an important source for understanding the criminal justice system. 
 

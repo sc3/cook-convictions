@@ -21,12 +21,4 @@ Even among young people, 18 year olds are the most likely to committ crimes, wit
 On the fourth slide, we want to look more closely at the 18-24 age bracket, since the focus of this slide is the extent to which crime skews young. We haven't yet decided what we will analyze, but some suggestions include differences in conviction by sex, the high rates of youth homicide, youth with convictions who live in high-poverty
 community areas, and drug crime vs. other offenses.
 
-{# TODO: See why using selectattr filter with equalto test instead of if statment this doesn't work #}
-
-{# TODO: Factor this into include #}
-
-{% for warning in warnings %}
-{% if warning.slide_id == slide_id %}
-<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-warning-sign"></span> {{ warning.value }}</div>
-{% endif %}
-{% endfor %}
+{% include '_warnings.html' %}

@@ -15,6 +15,6 @@ In this graphic, we divided marijuana possession charges by their class. The maj
 
 <div id="drug-charges-chart" class="chart"></div>
 
-<blockquote> Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest. Our analtsis shows most of the convictions are of XXX XXX </blockquote>
+Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest. Our analtsis shows most of the convictions are of XXX XXX
 
 {% include 'slides/_edit_this.md' %}

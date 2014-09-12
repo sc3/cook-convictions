@@ -43,7 +43,7 @@ $(function() {
   var DATA_BASE_URL = 'data';
   var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
   var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
-  var CONVICTIONS_BY_AGE = DATA_BASE_URL + '/convictions_by_age.json';
+  var CONVICTIONS_BY_AGE_URL = DATA_BASE_URL + '/convictions_by_age.json';
 
   var CONVICTIONS_BY_TYPE = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Uncategorized"}];
   var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
@@ -91,9 +91,70 @@ $(function() {
       .call(chart);
   }
 
+  function ageRangeLabel(d) {
+    var label = "";
+
+    if (d.invalid_ages) {
+      return "Unknown Age"
+    }
+
+    if (d.age_min) {
+      label += d.age_min;
+      if (d.age_max) {
+        label += " - ";
+      }
+    }
+    else {
+      label += "<"
+    }
+
+    if (d.age_max) {
+      label += d.age_max; 
+    }
+    else {
+      label += "+";
+    }
+ 
+    return label;
+  }
+
+  function createAgeChart(el, data) {
+    var xformedData = data.sort(function(a, b) {
+      if (a.invalid_ages) {
+        return 1;
+      }
+      else if (b.invalid_ages) {
+        return -1;
+      }
+      else if (a.age_min < b.age_min) {
+        return -1;
+      }
+      else if (a.age_min == b.age_min) {
+        return 1;
+      }
+      else {
+        return 1;
+      }
+    })
+    .map(function(d) {
+      return {
+        value: d.total_convictions,
+        label: ageRangeLabel(d)
+      };
+    });
+    var chart = Convictions.charts.horizontalBarChart()
+
+    d3.select(el)
+      .datum(xformedData)
+      .call(chart);
+  }
+
   createCommunityAreaMap('#your-city-map');
   createCategoryChart('#charges-categories-chart');
   createDrugChart('#drug-charges-chart');
+  $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
+    createAgeChart('#convictions-by-age-chart', data);
+  });
   
   // Download the JSONified version of the tarbell context
   $.getJSON('/data.json', function(data) {

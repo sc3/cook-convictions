@@ -4,7 +4,11 @@
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
   <link rel="stylesheet" type="text/css" href="css/simple.css" />
+  <link rel="stylesheet" type="text/css" href="css/convictions.css">
+  <!--
   <link rel="stylesheet" type="text/css" href="css/viz.css">
+  <link rel="stylesheet" type="text/css" href="css/stats.css">
+  -->
 {% endblock css %}
 
 {% block content %}
@@ -35,6 +39,16 @@
 <script src="js/convictions-charts.js"></script>
 <script>
 $(function() {
+  // Data and URLs to data
+  var DATA_BASE_URL = 'data';
+  var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
+  var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
+  var CONVICTIONS_BY_AGE = DATA_BASE_URL + '/convictions_by_age.json';
+
+  var CONVICTIONS_BY_TYPE = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Uncategorized"}];
+  var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
+  var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
+
   // @todo: Move some of this initialization into the Convictions namespace.
   function createCommunityAreaMap(el) {
     var communityAreas = new Convictions.CommunityAreas();
@@ -43,7 +57,7 @@ $(function() {
       el: el 
     });
 
-    communityAreas.url = 'data/community_areas.json';
+    communityAreas.url = COMMUNITY_AREAS_URL; 
 
     communityAreas.fetch();
   }
@@ -51,14 +65,13 @@ $(function() {
   function createCategoryChart(el) {
     var chart = Convictions.charts.barChart();
 
-    var data = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Uncategorized"}];
     d3.select(el)
-      .datum(data)
+      .datum(CONVICTIONS_BY_TYPE)
       .call(chart);
   }
 
   function createDrugChart(el) {
-    var data = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
+    var data = DRUG_CONVICTIONS; 
     var total = d3.sum(data, function(d) {
       return d.value;
     });
@@ -81,6 +94,25 @@ $(function() {
   createCommunityAreaMap('#your-city-map');
   createCategoryChart('#charges-categories-chart');
   createDrugChart('#drug-charges-chart');
+  
+  // Download the JSONified version of the tarbell context
+  $.getJSON('/data.json', function(data) {
+     var glossary = data.glossary;
+
+     // Look for items with a 'data-term' attribute set and enable a 
+     // definition popover 
+     $('[data-term]').each(function() {
+       var $el = $(this);
+       var term = $el.data('term');
+       var entry = glossary[term];
+
+       $el.popover({
+         content: entry.value,
+         title: entry.label,
+         trigger: 'click hover'
+       });
+     });
+  })
 });
 </script>
 {% endblock %}

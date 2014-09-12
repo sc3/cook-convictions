@@ -1,0 +1,23 @@
+/* 
+ * Styles for prominent statistics, which include a number, a label, a large
+ * icon and a description.
+ */
+
+.big-stat-row {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.big-stat p {
+  text-align: justify;
+}
+
+.big-stat img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.big-stat h3 {
+  text-align: center;
+}

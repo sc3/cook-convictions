@@ -17,7 +17,7 @@ SPREADSHEET_KEY = "11q1h1ft59mVZbUWMqIiWN4nUh1tQA7rZYxMaU0NcXS0"
 EXCLUDES = ["*.md", "requirements.txt"]
 
 # Create JSON data at ./data.json, disabled by default
-# CREATE_JSON = True
+CREATE_JSON = True
 
 # S3 bucket configuration
 S3_BUCKETS = {

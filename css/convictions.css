@@ -1,0 +1,15 @@
+/*
+ * Main stylesheet for this project
+ */
+
+/* Words with a popup definition */
+
+[data-term] {
+  text-decoration: underline;
+}
+
+{# Low-rent asset pipeline #}
+
+{% include "css/_viz.css" %}
+
+{% include "css/_stats.css" %}

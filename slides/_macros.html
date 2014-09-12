@@ -1,8 +1,10 @@
 
-{% macro get_slides(section) %}
+{% macro num_slides(section) %}
+  {% set section_slides = [] %}
   {% for slide in slides %}
     {% if slide.section_id == section.id %}
-      {{ slide }}
+      {% do section_slides.append(slide.id) %}
     {% endif %}
   {% endfor %}
+  {{ section_slides|count }}
 {% endmacro %}

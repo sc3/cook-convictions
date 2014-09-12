@@ -12,6 +12,10 @@ p {
   font-size: 16px
 }
 
+
+/* Get hash navigation to actually
+   go where it's supposed to */
+
 h2:before { 
   display: block; 
   content: " "; 
@@ -20,9 +24,7 @@ h2:before {
   visibility: hidden; 
 }
 
-.navbar-nav {
-  font-size: 17px;
-}
+/* Credit */
 
 #credit {
   margin: 1% 5% 0 5%;
@@ -31,4 +33,35 @@ h2:before {
 #credit p {
   font-size: 0.9em;
   color: gray;
+}
+
+
+/* Nav */
+
+.navbar-nav {
+  font-size: 17px;
+}
+
+ul.subnav {
+  width: 100%;
+  line-height: 0;
+  height: 6px;
+  bottom: 6px;
+  position: absolute;
+}
+
+ul.subnav li {
+  text-align: center;
+  display: inline-block;
+  height: 5px;
+  width: 5px;
+  border-radius: 5px;
+}
+
+.slide-circle.active {
+  background-color: #D22;
+}
+
+.slide-circle {
+  background-color: #B99;
 }

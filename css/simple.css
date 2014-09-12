@@ -11,8 +11,8 @@ p {
 	line-height: 20px;
 }
 
-#index_copy p {
-	font-size: 14px
+#intro-copy p {
+	font-size: 18px
 }
 
 .navbar-nav {
@@ -25,4 +25,14 @@ h2:before {
   margin-top: -110px; 
   height: 110px; 
   visibility: hidden; 
+}
+
+#credit {
+  margin: 1% 5% 0 5%;
+  font-size: 0.9em;
+  color: gray;
+}
+
+#extra-intro {
+  display: none;
 }

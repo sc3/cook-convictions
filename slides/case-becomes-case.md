@@ -8,4 +8,6 @@ Here are a few things to remember about the criminal court system:
 
 - Many cases filed by police don't result in a conviction.
 
+- It can take years for a case to move through the system, from when a police report is filed and throught to a conviction or not. 
+
 {Sarah's edited infographic} 

@@ -3,7 +3,6 @@
 {% block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
-  <link rel="stylesheet" type="text/css" href="css/simple.css" />
   <link rel="stylesheet" type="text/css" href="css/convictions.css">
 {% endblock css %}
 
@@ -16,11 +15,17 @@
 
 <div class="reveal">
   <div class="slides">
-    {% for slide in slides %}
-    <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">  
-      {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
-      <br/><hr><br/>
-    </section>
+    {% for section in sections %}
+      <section id="{{ section.id }}">
+      {% for slide in slides %}
+      {% if slide.section_id == section.id %}
+      <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">  
+        {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
+        <br/><hr><br/>
+      </section>
+      {% endif %}
+      {% endfor %}
+      </section>
     {% endfor %}
   </div>
 </div>
@@ -175,6 +180,14 @@ $(function() {
        });
      });
   })
+
+  $('body').scrollspy({target: '#top-nav'})
+  .on('activate.bs.scrollspy', function (e) {
+    console.debug(e.target);
+  });
+
+
+
 });
 </script>
 {% endblock %}

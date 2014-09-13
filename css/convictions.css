@@ -8,6 +8,36 @@
   text-decoration: underline;
 }
 
+
+/* General stuff */
+
+body {
+  position: relative;
+}
+
+.container {
+  margin: auto 15px;
+}
+
+p {
+  line-height: 20px;
+  font-size: 16px
+}
+
+/* Get hash navigation to actually
+   go where it's supposed to */
+
+h2:before { 
+  display: block; 
+  content: " "; 
+  margin-top: -110px; 
+  height: 110px; 
+  visibility: hidden; 
+}
+
+
+/* Cover page */
+
 #cover-page {
   margin-bottom: 2em;
   display: block;
@@ -41,5 +71,5 @@
 {# Low-rent asset pipeline #}
 
 {% include "css/_viz.css" %}
-
 {% include "css/_stats.css" %}
+{% include "css/_nav.css" %}

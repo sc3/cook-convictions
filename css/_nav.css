@@ -1,0 +1,33 @@
+
+.navbar-nav {
+  font-size: 17px;
+}
+
+ul.subnav {
+  width: 100%;
+  line-height: 0;
+  height: 6px;
+  bottom: 6px;
+  position: absolute;
+  list-style-type: none;
+}
+
+ul.subnav li {
+  display: inline-block;
+}
+
+ul.subnav li a {
+  display: inline-block;
+  text-align: center;
+  height: 5px;
+  width: 5px;
+  border-radius: 5px;
+}
+
+ul.subnav>.active>a {
+  background-color: #D22;
+}
+
+.slide-circle {
+  background-color: #B99;
+}

@@ -6,6 +6,4 @@ With more than 100,000 people walking through it's doors, Cook County's courtroo
 
 We've mapped how convictions are spread around the city. Click on the a community area to find out how many convictions its residents get per capita, and what they are most often convicted for. 
 
-<div id="your-city-map"></div>
-
 {% include 'slides/_edit_this.md' %}

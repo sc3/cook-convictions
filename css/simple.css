@@ -1,6 +1,5 @@
 
 body {
-  margin: auto 150px;
 }
 
 .container {
@@ -11,7 +10,6 @@ p {
   line-height: 20px;
   font-size: 16px
 }
-
 
 /* Get hash navigation to actually
    go where it's supposed to */
@@ -48,11 +46,16 @@ ul.subnav {
   height: 6px;
   bottom: 6px;
   position: absolute;
+  list-style-type: none;
 }
 
 ul.subnav li {
-  text-align: center;
   display: inline-block;
+}
+
+ul.subnav li a {
+  display: inline-block;
+  text-align: center;
   height: 5px;
   width: 5px;
   border-radius: 5px;

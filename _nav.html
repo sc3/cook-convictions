@@ -1,4 +1,3 @@
-{% import 'slides/_macros.html' as macros with context %}
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     {# Brand and toggle get grouped for better mobile display #}
@@ -22,14 +21,13 @@
           <a href="#{{ section.id }}">
             {{ section.title }}
           </a>
-          {% set num_slides = macros.num_slides(section)|trim|int %}
-          {% if num_slides > 0 %}
           <ul class="subnav">
-          {% for i in range(num_slides) %}
-            <li class="slide-circle {{'active' if i == 0 and section.id == 'complicated-system'}}" id="{{section.id}}-circle-{{i}}"></li>
+          {% for slide in slides %}
+            {% if slide.section_id == section.id and slide.in_nav %}
+            <li><a class="slide-circle {{'active' if i == 0 and section.id == 'complicated-system'}}" id="{{section.id}}-circle-{{i}}" title="{{ slide.title }}" href="#{{ slide.id }}"></a></li>
+            {% endif %}
           {% endfor %}
           </ul>
-          {% endif %} 
         </li>
         {% endfor %}
       </ul>

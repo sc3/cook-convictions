@@ -1,5 +1,6 @@
 {% set slide_id = 'story-story' %}
 
+
 ## The Story Behind the Story
 
 This data is public information, but it didn't come easily. It took the Chicago Justice Project over two years to obtain the data used in this project.

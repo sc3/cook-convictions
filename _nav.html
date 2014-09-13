@@ -1,4 +1,5 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+
+<nav id="top-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     {# Brand and toggle get grouped for better mobile display #}
     <div class="navbar-header">
@@ -24,7 +25,7 @@
           <ul class="subnav">
           {% for slide in slides %}
             {% if slide.section_id == section.id and slide.in_nav %}
-            <li><a class="slide-circle {{'active' if i == 0 and section.id == 'complicated-system'}}" id="{{section.id}}-circle-{{i}}" title="{{ slide.title }}" href="#{{ slide.id }}"></a></li>
+            <li class="{{ 'active' if slide.id == slides[0].id }}"><a class="slide-circle" title="{{ slide.title }}" href="#{{ slide.id }}"></a></li>
             {% endif %}
           {% endfor %}
           </ul>

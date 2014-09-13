@@ -181,6 +181,12 @@ $(function() {
        });
      });
   })
+
+  $('body').scrollspy({target: '#top-nav'})
+  .on('activate.bs.scrollspy', function (e) {
+    console.debug(e);
+  });
+
 });
 </script>
 {% endblock %}

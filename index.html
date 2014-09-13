@@ -5,18 +5,19 @@
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
   <link rel="stylesheet" type="text/css" href="css/simple.css" />
   <link rel="stylesheet" type="text/css" href="css/convictions.css">
-  <!--
-  <link rel="stylesheet" type="text/css" href="css/viz.css">
-  <link rel="stylesheet" type="text/css" href="css/stats.css">
-  -->
 {% endblock css %}
 
 {% block content %}
 
+<div id="cover-page">
+  <img src="img/courtroom_sketch__5036265062_034b3f65ae_o.jpg" />
+  <div class="container"><h1>{{ title }}</h1></div>
+</div>
+
 <div class="reveal">
   <div class="slides">
     {% for slide in slides %}
-    <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>  
+    <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">  
       {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
       <br/><hr><br/>
     </section>

@@ -8,7 +8,7 @@ Tarbell project configuration
 NAME = "cook-convictions"
 
 # Descriptive title of project
-TITLE = "Conviction Data Project"
+TITLE = "Convicted in Cook"
 
 # Google spreadsheet key
 SPREADSHEET_KEY = "11q1h1ft59mVZbUWMqIiWN4nUh1tQA7rZYxMaU0NcXS0"
@@ -29,6 +29,6 @@ S3_BUCKETS = {
 
 # Default template variables
 DEFAULT_CONTEXT = {
-    'name': 'cook-convictions',
-    'title': 'Conviction Data Project'
+    'name': NAME, 
+    'title': TITLE, 
 }

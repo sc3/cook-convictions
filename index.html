@@ -3,7 +3,6 @@
 {% block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
-  <link rel="stylesheet" type="text/css" href="css/simple.css" />
   <link rel="stylesheet" type="text/css" href="css/convictions.css">
 {% endblock css %}
 
@@ -184,8 +183,10 @@ $(function() {
 
   $('body').scrollspy({target: '#top-nav'})
   .on('activate.bs.scrollspy', function (e) {
-    console.debug(e);
+    console.debug(e.target);
   });
+
+
 
 });
 </script>

@@ -3,13 +3,21 @@
   font-size: 17px;
 }
 
+.navbar-nav>.active {
+  background-color: #E7E7E7
+}
+
+.navbar-nav>li, .navbar-nav>li>a {
+  padding-bottom: 5px;
+}
+
 ul.subnav {
-  width: 100%;
   line-height: 0;
   height: 6px;
   bottom: 6px;
-  position: absolute;
   list-style-type: none;
+  padding-left: 0;
+  text-align: center;
 }
 
 ul.subnav li {

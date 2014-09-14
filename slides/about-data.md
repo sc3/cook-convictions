@@ -1,6 +1,6 @@
-{% set slide_id = 'convictions' %}
+{% set slide_id = 'about-data' %}
 
-## Need to Know
+## About the Data 
 
 We did this project because we want you -- the Chicago resident waiting for the train, the suburban commuter, the policymaker, the harried journalist -- to know what occurs in courtrooms in Cook County every day.
 

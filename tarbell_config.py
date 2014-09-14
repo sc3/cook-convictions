@@ -32,3 +32,5 @@ DEFAULT_CONTEXT = {
     'name': NAME, 
     'title': TITLE, 
 }
+
+SPREADSHEET_CACHE_TTL = 300

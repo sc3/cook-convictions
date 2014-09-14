@@ -1,4 +1,3 @@
-
 <nav id="top-nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     {# Brand and toggle get grouped for better mobile display #}
@@ -19,18 +18,20 @@
       <ul class="nav navbar-nav">
         {% for section in sections %}
         <li>
-          <a href="#{{ section.id }}">
+        <a href="{{ nav_prefix }}#{{ section.id }}">
             {{ section.title }}
           </a>
           <ul class="subnav">
           {% for slide in slides %}
             {% if slide.section_id == section.id and slide.in_nav %}
-            <li class="{{ 'active' if slide.id == slides[0].id }}"><a class="slide-circle" title="{{ slide.title }}" href="#{{ slide.id }}"></a></li>
+            <li class="{{ 'active' if slide.id == slides[0].id }}"><a class="slide-circle" title="{{ slide.title }}" href="{{ nav_prefix }}#{{ slide.id }}"></a></li>
             {% endif %}
           {% endfor %}
           </ul>
         </li>
         {% endfor %}
+
+        <li><a href="about.html">About</a></li>
       </ul>
       <ul class="social-menu nav navbar-nav navbar-right">
           {% if opengraph_description and opengraph_image %}

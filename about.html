@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+
+{% block css %}
+  {{ super() }}
+  <link rel="stylesheet" type="text/css" href="css/convictions.css">
+{% endblock css %}
+
+{% block nav %}
+{# HACK: Most of the content is on a single page, index.html and the nav
+ # links are to anchors.  However, from this page, we need to link to the
+ # anchor on index.html, otherwhise, the menu items will point to nonexistant
+ # anchors on the about page. #}
+{% set nav_prefix = 'index.html' %}
+{% include '_nav.html' %}
+{% endblock nav %}
+
+{% block content %}
+<div class="container">
+  <h1>About</h1>
+
+  <h2>Credits</h2>
+
+  {{ render_file('_credit.md')|markdown }}
+</div>
+{% endblock content %}
+

@@ -147,8 +147,10 @@
 
       // Create a Leaflet map instance and set it's initial center
       // and zoom level
-      this.map = L.map(this.$el.get(0))
-                  .setView(initialCenter, initialZoom);
+      this.map = L.map(this.$el.get(0), {
+        scrollWheelZoom: false
+      })
+      .setView(initialCenter, initialZoom);
 
       // Create a tile layer and add it to the map
       this.tileLayer = new L.TileLayer(this.options.tileUrl, {

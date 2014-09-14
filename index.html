@@ -55,111 +55,11 @@ $(function() {
   var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
   var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
 
-  // @todo: Move some of this initialization into the Convictions namespace.
-  function createCommunityAreaMap(el) {
-    var communityAreas = new Convictions.CommunityAreas();
-    var communityAreasMap = new Convictions.CommunityAreaMapView({
-      collection: communityAreas,
-      el: el 
-    });
-
-    communityAreas.url = COMMUNITY_AREAS_URL; 
-
-    communityAreas.fetch();
-  }
-
-  function createCategoryChart(el) {
-    var chart = Convictions.charts.barChart();
-
-    d3.select(el)
-      .datum(CONVICTIONS_BY_TYPE)
-      .call(chart);
-  }
-
-  function createDrugChart(el) {
-    var data = DRUG_CONVICTIONS; 
-    var total = d3.sum(data, function(d) {
-      return d.value;
-    });
-    var pctData = data.map(function(d) {
-      return {
-        label: d.label,
-        value: (d.value / total) * 100
-      };
-    });
-    var formatValue = d3.format(",.1%");
-    var chart = Convictions.charts.horizontalBarChart()
-        .tooltipValue(function(d) {
-          return formatValue(d.value / 100);
-        });
-    d3.select(el)
-      .datum(pctData)
-      .call(chart);
-  }
-
-  function ageRangeLabel(d) {
-    var label = "";
-
-    if (d.invalid_ages) {
-      return "Unknown Age"
-    }
-
-    if (d.age_min) {
-      label += d.age_min;
-      if (d.age_max) {
-        label += " - ";
-      }
-    }
-    else {
-      label += "<"
-    }
-
-    if (d.age_max) {
-      label += d.age_max; 
-    }
-    else {
-      label += "+";
-    }
- 
-    return label;
-  }
-
-  function createAgeChart(el, data) {
-    var xformedData = data.sort(function(a, b) {
-      if (a.invalid_ages) {
-        return 1;
-      }
-      else if (b.invalid_ages) {
-        return -1;
-      }
-      else if (a.age_min < b.age_min) {
-        return -1;
-      }
-      else if (a.age_min == b.age_min) {
-        return 1;
-      }
-      else {
-        return 1;
-      }
-    })
-    .map(function(d) {
-      return {
-        value: d.total_convictions,
-        label: ageRangeLabel(d)
-      };
-    });
-    var chart = Convictions.charts.horizontalBarChart()
-
-    d3.select(el)
-      .datum(xformedData)
-      .call(chart);
-  }
-
-  createCommunityAreaMap('#your-city-map');
-  createCategoryChart('#charges-categories-chart');
-  createDrugChart('#drug-charges-chart');
+  Convictions.createCommunityAreaMap('#your-city-map', COMMUNITY_AREAS_URL);
+  Convictions.createCategoryChart('#charges-categories-chart', CONVICTIONS_BY_TYPE);
+  Convictions.createDrugChart('#drug-charges-chart', DRUG_CONVICTIONS);
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
-    createAgeChart('#convictions-by-age-chart', data);
+    Convictions.createAgeChart('#convictions-by-age-chart', data);
   });
   
   // Download the JSONified version of the tarbell context
@@ -181,6 +81,8 @@ $(function() {
      });
   })
 
+  // Update the navigation highlighting as we scroll to various sections
+  // in the page
   $('body').scrollspy({target: '#top-nav'})
     .on('activate.bs.scrollspy', function (e) {
       // @todo Update the hash portion of the location based on the scroll

@@ -325,4 +325,16 @@
       return $item;
     }
   });
+
+  Convictions.createCommunityAreaMap = function(el, dataUrl) {
+    var communityAreas = new CommunityAreas();
+    var communityAreasMap = new CommunityAreaMapView({
+      collection: communityAreas,
+      el: el
+    });
+
+    communityAreas.url = dataUrl; 
+
+    communityAreas.fetch();
+  };
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

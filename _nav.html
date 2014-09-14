@@ -24,7 +24,7 @@
           <ul class="subnav">
           {% for slide in slides %}
             {% if slide.section_id == section.id and slide.in_nav %}
-            <li class="{{ 'active' if slide.id == slides[0].id }}"><a class="slide-circle" title="{{ slide.title }}" href="{{ nav_prefix }}#{{ slide.id }}"></a></li>
+            <li class="{{ 'active' if slide.id == slides[0].id }}"><a class="slide-circle" title="{{ slide.title }}" href="{{ nav_prefix }}#{{ slide.id }}"><span>{{ slide.title }}</span></a></li>
             {% endif %}
           {% endfor %}
           </ul>

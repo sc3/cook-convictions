@@ -1,7 +1,12 @@
 body > footer {
   width: 100%;
-  position: fixed;
   bottom: 0;
+}
+
+@media (min-width: 768px) {
+  body > footer {
+    position: fixed;
+  }
 }
 
 #credit-bar {

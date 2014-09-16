@@ -3,7 +3,7 @@
 
   // Models and Collections
 
-  var CommunityArea = Convictions.CommunityArea = Backbone.Model.extend({
+  var GeoJSONModel = Convictions.GeoJSONModel = Backbone.Model.extend({
     idAttribute: 'number',
 
     initialize: function(attrs, options) {
@@ -31,8 +31,8 @@
   /**
    * Chicago Community Areas
    */
-  var CommunityAreas = Convictions.CommunityAreas = Backbone.Collection.extend({
-    model: CommunityArea,
+  var GeoJSONCollection = Convictions.GeoJSONCollection = Backbone.Collection.extend({
+    model: GeoJSONModel,
 
     parse: function(response) {
       // @todo Save coordinate reference system?
@@ -137,6 +137,8 @@
     initialize: function(options) {
       var initialCenter, initialZoom;
 
+      this.preInitialize(options);
+
       // Allow overriding our declared options with options passed
       // to the constructor.
       _.extend(this.options, options);
@@ -160,23 +162,18 @@
 
       this.bindCollectionEvents();
 
-      this.postInitialize();
+      this.postInitialize(options);
     },
 
-    postInitialize: function() { return this; },
+    preInitialize: function(options) { return this; },
+
+    postInitialize: function(options) { return this; },
 
     /**
      * Create a map layer from a GeoJSON-based collection.
      */
     _layerFromCollection: function(map, collection, style, onEachFeature) {
-      var layer;
-
-      map = map || this.map;
-      collection = collection || this.collection;
-      style = style || _.bind(this.style, this);
-      onEachFeature = onEachFeature || _.bind(this.onEachFeature, this);
-
-      layer = L.geoJson(null, {
+      var layer = L.geoJson(null, {
         onEachFeature: onEachFeature,  
       }).addTo(map);
       collection.each(function(model) {
@@ -214,6 +211,10 @@
       defaultFillProperty: 'convictions_per_capita'
     }),
 
+    preInitialize: function(options) {
+      this.chicagoCollection = options.chicagoCollection;
+    },
+
     postInitialize: function() {
       this.fillProperty = this.options.defaultFillProperty;
       this.legendView = new MapLegendView({
@@ -225,16 +226,36 @@
     },
 
     bindCollectionEvents: function() {
-      this.collection.on('sync', this.addGeoJSONLayer, this);
+      this.collection.on('sync', this.addCommunityAreasLayer, this);
+      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
     },
 
-    addGeoJSONLayer: function() {
+    addMapLayer: function(layerAttr, collection, style, onEachFeature) {
+      collection = collection || this.collection;
+      style = style || _.bind(this.style, this);
+      onEachFeature = onEachFeature || _.bind(this.onEachFeature, this);
+
       // If the layer already exists, remove it first.
-      if (this.communityAreasLayer) {
-        this.map.removeLayer(this.communityAreasLayer);
+      if (this[layerAttr]) {
+        this.map.removeLayer(this[layerAttr]);
       }
 
-      this.communityAreasLayer = this._layerFromCollection();
+      this[layerAttr] = this._layerFromCollection(this.map, collection, style, onEachFeature);
+      return this[layerAttr];
+    },
+
+    addCommunityAreasLayer: function() {
+      this.addMapLayer('communityAreasLayer', this.collection);
+    },
+
+    addChicagoLayer: function() {
+      // HACK: Ensure that this layer is always added last
+      if (!this.communityAreasLayer) {
+        this.collection.once('sync', this.addChicagoLayer, this);
+        return;
+      }
+      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
+        this.onEachFeatureChicago);
     },
 
     style: function(feature) {
@@ -245,6 +266,16 @@
         opacity: 1,
         color: 'white',
         fillOpacity: 0.7
+      };
+    },
+
+    styleChicago: function(feature) {
+      return {
+        fillColor: null,
+        fillOpacity: 0,
+        color: 'black',
+        weight: 3,
+        opacity: 1
       };
     },
 
@@ -263,6 +294,8 @@
     onEachFeature: function(feature, layer) {
       layer.bindPopup(this.popupContent(feature));
     },
+
+    onEachFeatureChicago: function() {}, 
 
     popupContent: function(feature) {
       return this.options.popupTemplate(feature.properties);
@@ -326,15 +359,19 @@
     }
   });
 
-  Convictions.createCommunityAreaMap = function(el, dataUrl) {
-    var communityAreas = new CommunityAreas();
+  Convictions.createCommunityAreaMap = function(el, caUrl, chicagoUrl) {
+    var communityAreas = new GeoJSONCollection();
+    var chicago = new GeoJSONCollection();
     var communityAreasMap = new CommunityAreaMapView({
       collection: communityAreas,
+      chicagoCollection: chicago,
       el: el
     });
 
-    communityAreas.url = dataUrl; 
+    communityAreas.url = caUrl; 
+    chicago.url = chicagoUrl;
 
     communityAreas.fetch();
+    chicago.fetch();
   };
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

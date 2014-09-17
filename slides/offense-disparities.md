@@ -9,7 +9,7 @@ Though there are offense diparities in many areas, we decided to focus on one of
  The majority of drug-related convictions in Cook County are for possession.
 
 
-Marijuana, and how it's used in the criminal justice system, has long been a contested issue. Chicago recently gave police officers leeway to use their own discretion in arresting an individual for a marijuana charge rather than fining them. Despite this, investigative reports and our data has shown that criminal convictions for marijuana possession continue to be high. 
+Marijuana, and how it's used in the criminal justice system, has long been a contested issue. Chicago recently gave police officers leeway to use their own discretion in arresting an individual for a marijuana charge rather than fining them. 
 
 In this graphic, we divided marijuana possession charges by their class. The majority of possession charges where class XXX, meaning the majority of people are convicted under the (harshest/not harshest) classs.
 

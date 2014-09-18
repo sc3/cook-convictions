@@ -57,8 +57,7 @@ $(function() {
   var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
   var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
 
-  Convictions.createCommunityAreaMap('#your-city-map-container', COMMUNITY_AREAS_URL, CHICAGO_URL);
-  Convictions.createSuburbsMap('#suburbs-map-container', SUBURBS_URL, CHICAGO_URL);
+  Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL);
   Convictions.createCategoryChart('#charges-categories-chart', CONVICTIONS_BY_TYPE);
   Convictions.createDrugChart('#drug-charges-chart', DRUG_CONVICTIONS);
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {

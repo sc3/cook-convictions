@@ -340,33 +340,41 @@
     }
   });
 
-  var communityAreaBreaks = [2.93543,  45.02037,  86.89594,  128.77151,  170.64707,  212.52264];
-  var communityAreaBins = new BinLookup();
-  communityAreaBreaks = _.map(communityAreaBreaks, function(val) {
-    return Math.round(val);
+  // @todo: Better breaks
+  // https://github.com/sc3/cook-convictions/issues/57
+  var convictionRateBreaks = [0, 0.04250453, 0.08500906, 0.12751358, 0.17001811, 0.21252264];
+  var convictionRateBins = new BinLookup();
+  convictionRateBreaks = _.map(convictionRateBreaks, function(val) {
+    return Math.round(val * 1000);
   });
-  communityAreaBins.add(new BinCollection('convictions_per_1000',
+  convictionRateBins.add(new BinCollection('convictions_per_1000',
     "Convictions per 1000",
-    communityAreaBreaks,
+    convictionRateBreaks,
     ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
   ));
 
-  var CommunityAreaMapView = Convictions.CommunityAreaMapView = ConvictionRateMapView.extend({
+  var ChicagoMapView = Convictions.ChicagoMapView = ConvictionRateMapView.extend({
     options: _.extend({}, ConvictionRateMapView.prototype.options, {
-      bins: communityAreaBins
+      bins: convictionRateBins
     }),
 
     preInitialize: function(options) {
+      this.suburbsCollection = options.suburbsCollection;
       this.chicagoCollection = options.chicagoCollection;
     },
 
     bindCollectionEvents: function() {
       this.collection.on('sync', this.addCommunityAreasLayer, this);
+      this.suburbsCollection.on('sync', this.addSuburbsLayer, this);
       this.chicagoCollection.on('sync', this.addChicagoLayer, this);
     },
 
     addCommunityAreasLayer: function() {
       this.addMapLayer('communityAreasLayer', this.collection);
+    },
+
+    addSuburbsLayer: function() {
+      this.addMapLayer('suburbsLayer', this.suburbsCollection);
     },
 
     addChicagoLayer: function() {
@@ -375,58 +383,8 @@
         this.collection.once('sync', this.addChicagoLayer, this);
         return;
       }
-      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
-        this.onEachFeatureChicago);
-    },
-
-    styleChicago: function(feature) {
-      return {
-        fillColor: null,
-        fillOpacity: 0,
-        color: 'black',
-        weight: 3,
-        opacity: 1
-      };
-    },
-
-    onEachFeatureChicago: function() {}
-  });
-
-
-  var suburbsBreaks = [0, 0.0004275, 0.00114653,  0.00273978,  0.00827156,  0.06927922];
-  var suburbsBins = new BinLookup();
-  // Convert breaks from per capita to per 1000, round
-  suburbsBreaks = _.map(suburbsBreaks, function(val) {
-    return Math.ceil(val * 1000);
-  });
-  suburbsBins.add(new BinCollection('convictions_per_1000',
-    "Convictions per 1000",
-    suburbsBreaks,
-    ['#feedde', '#fdbe85', '#fd8d3c', '#e6550d', '#a63603']
-  ));
-
-  var SuburbsMapView = Convictions.SuburbsMapView = ConvictionRateMapView.extend({
-    options: _.extend({}, ConvictionRateMapView.prototype.options, {
-      bins: suburbsBins
-    }),
-
-    preInitialize: function(options) {
-      this.chicagoCollection = options.chicagoCollection;
-    },
-
-    bindCollectionEvents: function() {
-      this.collection.on('sync', this.addSuburbsLayer, this);
-      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
-    },
-
-    addSuburbsLayer: function() {
-      this.addMapLayer('suburbsLayer', this.collection);
-    },
-
-    addChicagoLayer: function() {
-      // HACK: Ensure that this layer is always added last
-      if (!this.suburbsLayer) {
-        this.collection.once('sync', this.addChicagoLayer, this);
+      else if (!this.suburbsLayer) {
+        this.suburbsCollection.once('sync', this.addChicagoLayer, this);
         return;
       }
       this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
@@ -446,34 +404,22 @@
     onEachFeatureChicago: function() {}
   });
 
-  Convictions.createCommunityAreaMap = function(el, caUrl, chicagoUrl) {
+  Convictions.createChicagoMap = function(el, caUrl, suburbsUrl, chicagoUrl) {
     var communityAreas = new ConvictionGeoJSONCollection();
+    var suburbs = new ConvictionGeoJSONCollection();
     var chicago = new GeoJSONCollection();
-    var communityAreasMap = new CommunityAreaMapView({
+    var communityAreasMap = new ChicagoMapView({
       collection: communityAreas,
+      suburbsCollection: suburbs,
       chicagoCollection: chicago,
       el: el
     });
 
     communityAreas.url = caUrl;
-    chicago.url = chicagoUrl;
-
-    communityAreas.fetch();
-    chicago.fetch();
-  };
-
-  Convictions.createSuburbsMap = function(el, suburbsUrl, chicagoUrl) {
-    var suburbs = new ConvictionGeoJSONCollection();
-    var chicago = new GeoJSONCollection();
-    var map = new SuburbsMapView({
-      collection: suburbs,
-      chicagoCollection: chicago,
-      el: el
-    });
-
     suburbs.url = suburbsUrl;
     chicago.url = chicagoUrl;
 
+    communityAreas.fetch();
     suburbs.fetch();
     chicago.fetch();
   };

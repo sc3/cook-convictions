@@ -21,7 +21,7 @@
      */
     toGeoJSON: function() {
       return {
-        type: "Feature", 
+        type: "Feature",
         properties: _.clone(this.attributes),
         geometry: _.clone(this.geometry)
       };
@@ -29,7 +29,8 @@
   });
 
   /**
-   * Chicago Community Areas
+   * A collection wrapping a GeoJSON FeatureCollection, such as Chicago
+   * Community Areas.
    */
   var GeoJSONCollection = Convictions.GeoJSONCollection = Backbone.Collection.extend({
     model: GeoJSONModel,
@@ -43,6 +44,26 @@
         return response;
       }
     }
+  });
+
+  var ConvictionGeoJSONModel = GeoJSONModel.extend({
+    initialize: function(attrs, options) {
+      var convictionsPerCapita;
+
+      GeoJSONModel.prototype.initialize.apply(this, arguments);
+
+      // Convert per capita rate to per 1000
+      // @todo: Decide if this would be better to pre-bake into the data
+      // I'm initially doing it here because it makes it more flexible.
+      convictionsPerCapita = this.get('convictions_per_capita');
+      if (!_.isUndefined(convictionsPerCapita)) {
+         this.set('convictions_per_1000', Math.round(convictionsPerCapita * 1000));
+      }
+    }
+  });
+
+  var ConvictionGeoJSONCollection = GeoJSONCollection.extend({
+    model: ConvictionGeoJSONModel
   });
 
   // Choropleth bins
@@ -116,12 +137,6 @@
     }
   });
 
-  var bins = new BinLookup();
-  bins.add(new BinCollection('convictions_per_capita',
-    "Convictions per capita",
-    [0.00293543,  0.04502037,  0.08689594,  0.12877151,  0.17064707,  0.21252264],
-    ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
-  ));
 
   // Views
 
@@ -131,7 +146,7 @@
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
       // Start our maps in the center of Chicago
       initialCenter: [41.881944, -87.627778],
-      initialZoom: 11 
+      initialZoom: 11
     },
 
     initialize: function(options) {
@@ -157,7 +172,7 @@
       // Create a tile layer and add it to the map
       this.tileLayer = new L.TileLayer(this.options.tileUrl, {
         attribution: this.options.attribution
-      }); 
+      });
       this.tileLayer.addTo(this.map);
 
       this.bindCollectionEvents();
@@ -174,7 +189,7 @@
      */
     _layerFromCollection: function(map, collection, style, onEachFeature) {
       var layer = L.geoJson(null, {
-        onEachFeature: onEachFeature,  
+        onEachFeature: onEachFeature,
       }).addTo(map);
       collection.each(function(model) {
           layer.addData(model.toGeoJSON());
@@ -194,111 +209,6 @@
 
     bindCollectionEvents: function() {
       return this;
-    }
-  });
-
-  var CommunityAreaMapView = Convictions.CommunityAreaMapView = MapView.extend({
-    options: _.extend({}, MapView.prototype.options, {
-      popupTemplate: _.template("<%= name %>" +
-        "<ul>" + 
-        "<li>Convictions: <%= num_convictions %>" +
-        "<li>Convictions per-capita: <%= convictions_per_capita %></li>" +
-        "</ul>"
-      ),
-
-      bins: bins,
-
-      defaultFillProperty: 'convictions_per_capita'
-    }),
-
-    preInitialize: function(options) {
-      this.chicagoCollection = options.chicagoCollection;
-    },
-
-    postInitialize: function() {
-      this.fillProperty = this.options.defaultFillProperty;
-      this.legendView = new MapLegendView({
-        map: this.map,
-        bins: this.options.bins,
-        defaultFillProperty: this.options.defaultFillProperty
-      });
-      return this;
-    },
-
-    bindCollectionEvents: function() {
-      this.collection.on('sync', this.addCommunityAreasLayer, this);
-      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
-    },
-
-    addMapLayer: function(layerAttr, collection, style, onEachFeature) {
-      collection = collection || this.collection;
-      style = style || _.bind(this.style, this);
-      onEachFeature = onEachFeature || _.bind(this.onEachFeature, this);
-
-      // If the layer already exists, remove it first.
-      if (this[layerAttr]) {
-        this.map.removeLayer(this[layerAttr]);
-      }
-
-      this[layerAttr] = this._layerFromCollection(this.map, collection, style, onEachFeature);
-      return this[layerAttr];
-    },
-
-    addCommunityAreasLayer: function() {
-      this.addMapLayer('communityAreasLayer', this.collection);
-    },
-
-    addChicagoLayer: function() {
-      // HACK: Ensure that this layer is always added last
-      if (!this.communityAreasLayer) {
-        this.collection.once('sync', this.addChicagoLayer, this);
-        return;
-      }
-      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
-        this.onEachFeatureChicago);
-    },
-
-    style: function(feature) {
-      return {
-        fillColor: this.getFillColor(this.fillProperty,
-          feature.properties[this.fillProperty]),
-        weight: 2,
-        opacity: 1,
-        color: 'white',
-        fillOpacity: 0.7
-      };
-    },
-
-    styleChicago: function(feature) {
-      return {
-        fillColor: null,
-        fillOpacity: 0,
-        color: 'black',
-        weight: 3,
-        opacity: 1
-      };
-    },
-
-    getFillColor: function(propName, propVal) {
-      var propBins = this.options.bins.get(propName);
-      var bin = propBins.get(propVal); 
-
-      if (bin) {
-        return bin.color;
-      }
-      else {
-        return null;
-      }
-    },
-
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup(this.popupContent(feature));
-    },
-
-    onEachFeatureChicago: function() {}, 
-
-    popupContent: function(feature) {
-      return this.options.popupTemplate(feature.properties);
     }
   });
 
@@ -334,7 +244,7 @@
     },
 
     postInitialize: function() {
-      this.fillProperty = this.options.defaultFillProperty; 
+      this.fillProperty = this.options.defaultFillProperty;
     },
 
     render: function() {
@@ -359,8 +269,185 @@
     }
   });
 
+  /**
+   * A choropleth of conviction rate
+   */
+  var ConvictionRateMapView = MapView.extend({
+    options: _.extend({}, MapView.prototype.options, {
+      popupTemplate: _.template("<%= name %>" +
+        "<ul>" +
+        "<li>Convictions: <%= num_convictions %>" +
+        "<li>Convictions per 1000: <%= convictions_per_1000 %></li>" +
+        "</ul>"
+      ),
+
+      defaultFillProperty: 'convictions_per_1000'
+    }),
+
+    postInitialize: function() {
+      this.fillProperty = this.options.defaultFillProperty;
+      this.legendView = new MapLegendView({
+        map: this.map,
+        bins: this.options.bins,
+        defaultFillProperty: this.options.defaultFillProperty
+      });
+      return this;
+    },
+
+    addMapLayer: function(layerAttr, collection, style, onEachFeature) {
+      collection = collection || this.collection;
+      style = style || _.bind(this.style, this);
+      onEachFeature = onEachFeature || _.bind(this.onEachFeature, this);
+
+      // If the layer already exists, remove it first.
+      if (this[layerAttr]) {
+        this.map.removeLayer(this[layerAttr]);
+      }
+
+      this[layerAttr] = this._layerFromCollection(this.map, collection, style, onEachFeature);
+      return this[layerAttr];
+    },
+
+    style: function(feature) {
+      return {
+        fillColor: this.getFillColor(this.fillProperty,
+          feature.properties[this.fillProperty]),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.7
+      };
+    },
+
+    getFillColor: function(propName, propVal) {
+      var propBins = this.options.bins.get(propName);
+      var bin = propBins.get(propVal);
+
+      if (bin) {
+        return bin.color;
+      }
+      else {
+        return null;
+      }
+    },
+
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup(this.popupContent(feature));
+    },
+
+    popupContent: function(feature) {
+      return this.options.popupTemplate(feature.properties);
+    }
+  });
+
+  var communityAreaBreaks = [2.93543,  45.02037,  86.89594,  128.77151,  170.64707,  212.52264];
+  var communityAreaBins = new BinLookup();
+  communityAreaBreaks = _.map(communityAreaBreaks, function(val) {
+    return Math.round(val);
+  });
+  communityAreaBins.add(new BinCollection('convictions_per_1000',
+    "Convictions per 1000",
+    communityAreaBreaks,
+    ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
+  ));
+
+  var CommunityAreaMapView = Convictions.CommunityAreaMapView = ConvictionRateMapView.extend({
+    options: _.extend({}, ConvictionRateMapView.prototype.options, {
+      bins: communityAreaBins
+    }),
+
+    preInitialize: function(options) {
+      this.chicagoCollection = options.chicagoCollection;
+    },
+
+    bindCollectionEvents: function() {
+      this.collection.on('sync', this.addCommunityAreasLayer, this);
+      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
+    },
+
+    addCommunityAreasLayer: function() {
+      this.addMapLayer('communityAreasLayer', this.collection);
+    },
+
+    addChicagoLayer: function() {
+      // HACK: Ensure that this layer is always added last
+      if (!this.communityAreasLayer) {
+        this.collection.once('sync', this.addChicagoLayer, this);
+        return;
+      }
+      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
+        this.onEachFeatureChicago);
+    },
+
+    styleChicago: function(feature) {
+      return {
+        fillColor: null,
+        fillOpacity: 0,
+        color: 'black',
+        weight: 3,
+        opacity: 1
+      };
+    },
+
+    onEachFeatureChicago: function() {}
+  });
+
+
+  var suburbsBreaks = [0, 0.0004275, 0.00114653,  0.00273978,  0.00827156,  0.06927922];
+  var suburbsBins = new BinLookup();
+  // Convert breaks from per capita to per 1000, round
+  suburbsBreaks = _.map(suburbsBreaks, function(val) {
+    return Math.ceil(val * 1000);
+  });
+  suburbsBins.add(new BinCollection('convictions_per_1000',
+    "Convictions per 1000",
+    suburbsBreaks,
+    ['#feedde', '#fdbe85', '#fd8d3c', '#e6550d', '#a63603']
+  ));
+
+  var SuburbsMapView = Convictions.SuburbsMapView = ConvictionRateMapView.extend({
+    options: _.extend({}, ConvictionRateMapView.prototype.options, {
+      bins: suburbsBins
+    }),
+
+    preInitialize: function(options) {
+      this.chicagoCollection = options.chicagoCollection;
+    },
+
+    bindCollectionEvents: function() {
+      this.collection.on('sync', this.addSuburbsLayer, this);
+      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
+    },
+
+    addSuburbsLayer: function() {
+      this.addMapLayer('suburbsLayer', this.collection);
+    },
+
+    addChicagoLayer: function() {
+      // HACK: Ensure that this layer is always added last
+      if (!this.suburbsLayer) {
+        this.collection.once('sync', this.addChicagoLayer, this);
+        return;
+      }
+      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
+        this.onEachFeatureChicago);
+    },
+
+    styleChicago: function(feature) {
+      return {
+        fillColor: null,
+        fillOpacity: 0,
+        color: 'black',
+        weight: 3,
+        opacity: 1
+      };
+    },
+
+    onEachFeatureChicago: function() {}
+  });
+
   Convictions.createCommunityAreaMap = function(el, caUrl, chicagoUrl) {
-    var communityAreas = new GeoJSONCollection();
+    var communityAreas = new ConvictionGeoJSONCollection();
     var chicago = new GeoJSONCollection();
     var communityAreasMap = new CommunityAreaMapView({
       collection: communityAreas,
@@ -368,10 +455,26 @@
       el: el
     });
 
-    communityAreas.url = caUrl; 
+    communityAreas.url = caUrl;
     chicago.url = chicagoUrl;
 
     communityAreas.fetch();
+    chicago.fetch();
+  };
+
+  Convictions.createSuburbsMap = function(el, suburbsUrl, chicagoUrl) {
+    var suburbs = new ConvictionGeoJSONCollection();
+    var chicago = new GeoJSONCollection();
+    var map = new SuburbsMapView({
+      collection: suburbs,
+      chicagoCollection: chicago,
+      el: el
+    });
+
+    suburbs.url = suburbsUrl;
+    chicago.url = chicagoUrl;
+
+    suburbs.fetch();
     chicago.fetch();
   };
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

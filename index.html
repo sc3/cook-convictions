@@ -19,7 +19,7 @@
       <section id="{{ section.id }}">
       {% for slide in slides %}
       {% if slide.section_id == section.id %}
-      <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">  
+      <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
         {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
         <br/><hr><br/>
       </section>
@@ -49,6 +49,7 @@ $(function() {
   var DATA_BASE_URL = 'data';
   var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
   var CHICAGO_URL = DATA_BASE_URL + '/chicago.json';
+  var SUBURBS_URL = DATA_BASE_URL + '/suburbs.json';
   var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
   var CONVICTIONS_BY_AGE_URL = DATA_BASE_URL + '/convictions_by_age.json';
 
@@ -56,19 +57,20 @@ $(function() {
   var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
   var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
 
-  Convictions.createCommunityAreaMap('#your-city-map', COMMUNITY_AREAS_URL, CHICAGO_URL);
+  Convictions.createCommunityAreaMap('#your-city-map-container', COMMUNITY_AREAS_URL, CHICAGO_URL);
+  Convictions.createSuburbsMap('#suburbs-map-container', SUBURBS_URL, CHICAGO_URL);
   Convictions.createCategoryChart('#charges-categories-chart', CONVICTIONS_BY_TYPE);
   Convictions.createDrugChart('#drug-charges-chart', DRUG_CONVICTIONS);
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
     Convictions.createAgeChart('#convictions-by-age-chart', data);
   });
-  
+
   // Download the JSONified version of the tarbell context
   $.getJSON('/data.json', function(data) {
      var glossary = data.glossary;
 
-     // Look for items with a 'data-term' attribute set and enable a 
-     // definition popover 
+     // Look for items with a 'data-term' attribute set and enable a
+     // definition popover
      $('[data-term]').each(function() {
        var $el = $(this);
        var term = $el.data('term');

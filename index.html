@@ -3,19 +3,29 @@
 {% block css %}
   {{ super() }}
   <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css">
-  <link rel="stylesheet" type="text/css" href="css/simple.css" />
-  <link rel="stylesheet" type="text/css" href="css/viz.css">
+  <link rel="stylesheet" type="text/css" href="css/convictions.css">
 {% endblock css %}
 
 {% block content %}
 
+<div id="cover-page">
+  <img src="img/courtroom_sketch__5036265062_034b3f65ae_o.jpg" />
+  <div class="container"><h1>{{ title }}</h1></div>
+</div>
+
 <div class="reveal">
   <div class="slides">
-    {% for slide in slides %}
-    <section id="{{ slide.id }}"{% if slide.class %} class="{{ slide.class }}"{% endif %}>  
-      {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
-      <br/><hr><br/>
-    </section>
+    {% for section in sections %}
+      <section id="{{ section.id }}">
+      {% for slide in slides %}
+      {% if slide.section_id == section.id %}
+      <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
+        {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
+        <br/><hr><br/>
+      </section>
+      {% endif %}
+      {% endfor %}
+      </section>
     {% endfor %}
   </div>
 </div>
@@ -35,52 +45,51 @@
 <script src="js/convictions-charts.js"></script>
 <script>
 $(function() {
-  // @todo: Move some of this initialization into the Convictions namespace.
-  function createCommunityAreaMap(el) {
-    var communityAreas = new Convictions.CommunityAreas();
-    var communityAreasMap = new Convictions.CommunityAreaMapView({
-      collection: communityAreas,
-      el: el 
+  // Data and URLs to data
+  var DATA_BASE_URL = 'data';
+  var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
+  var CHICAGO_URL = DATA_BASE_URL + '/chicago.json';
+  var SUBURBS_URL = DATA_BASE_URL + '/suburbs.json';
+  var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
+  var CONVICTIONS_BY_AGE_URL = DATA_BASE_URL + '/convictions_by_age.json';
+
+  var CONVICTIONS_BY_TYPE = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Other"}];
+  var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
+  var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
+
+  Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL);
+  Convictions.createCategoryChart('#charges-categories-chart', CONVICTIONS_BY_TYPE);
+  Convictions.createDrugChart('#drug-charges-chart', DRUG_CONVICTIONS);
+  $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
+    Convictions.createAgeChart('#convictions-by-age-chart', data);
+  });
+
+  // Download the JSONified version of the tarbell context
+  $.getJSON('/data.json', function(data) {
+     var glossary = data.glossary;
+
+     // Look for items with a 'data-term' attribute set and enable a
+     // definition popover
+     $('[data-term]').each(function() {
+       var $el = $(this);
+       var term = $el.data('term');
+       var entry = glossary[term];
+
+       $el.popover({
+         content: entry.value,
+         title: entry.label,
+         trigger: 'click hover'
+       });
+     });
+  })
+
+  // Update the navigation highlighting as we scroll to various sections
+  // in the page
+  $('body').scrollspy({target: '#top-nav'})
+    .on('activate.bs.scrollspy', function (e) {
+      // @todo Update the hash portion of the location based on the scroll
+      // position
     });
-
-    communityAreas.url = 'data/community_areas.json';
-
-    communityAreas.fetch();
-  }
-
-  function createCategoryChart(el) {
-    var chart = Convictions.charts.barChart();
-
-    var data = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 36275, "label": "Drug Crimes"}, {"value": 90526, "label": "Uncategorized"}];
-    d3.select(el)
-      .datum(data)
-      .call(chart);
-  }
-
-  function createDrugChart(el) {
-    var data = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
-    var total = d3.sum(data, function(d) {
-      return d.value;
-    });
-    var pctData = data.map(function(d) {
-      return {
-        label: d.label,
-        value: (d.value / total) * 100
-      };
-    });
-    var formatValue = d3.format(",.1%");
-    var chart = Convictions.charts.horizontalBarChart()
-        .tooltipValue(function(d) {
-          return formatValue(d.value / 100);
-        });
-    d3.select(el)
-      .datum(pctData)
-      .call(chart);
-  }
-
-  createCommunityAreaMap('#your-city-map');
-  createCategoryChart('#charges-categories-chart');
-  createDrugChart('#drug-charges-chart');
 });
 </script>
 {% endblock %}

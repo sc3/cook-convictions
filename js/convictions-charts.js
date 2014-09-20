@@ -390,6 +390,95 @@
     return chart;
   }
 
+  function createCategoryChart(el, data) {
+    var chart = barChart();
+
+    d3.select(el)
+      .datum(data)
+      .call(chart);
+  }
+
+  function createDrugChart(el, data) {
+    var total = d3.sum(data, function(d) {
+      return d.value;
+    });
+    var pctData = data.map(function(d) {
+      return {
+        label: d.label,
+        value: (d.value / total) * 100
+      };
+    });
+    var formatValue = d3.format(",.1%");
+    var chart = horizontalBarChart()
+      .tooltipValue(function(d) {
+        return formatValue(d.value / 100);
+      });
+    d3.select(el)
+      .datum(pctData)
+      .call(chart);
+  }
+
+  function ageRangeLabel(d) {
+    var label = "";
+
+    if (d.invalid_ages) {
+      return "Unknown Age";
+    }
+
+    if (d.age_min) {
+      label += d.age_min;
+      if (d.age_max) {
+        label += " - ";
+      }
+    }
+    else {
+      label += "<";
+    }
+
+    if (d.age_max) {
+      label += d.age_max; 
+    }
+    else {
+      label += "+";
+    }
+ 
+    return label;
+  }
+
+  function createAgeChart(el, data) {
+    var xformedData = data.sort(function(a, b) {
+      if (a.invalid_ages) {
+        return 1;
+      }
+      else if (b.invalid_ages) {
+        return -1;
+      }
+      else if (a.age_min < b.age_min) {
+        return -1;
+      }
+      else if (a.age_min == b.age_min) {
+        return 1;
+      }
+      else {
+        return 1;
+      }
+    })
+    .map(function(d) {
+      return {
+        value: d.total_convictions,
+        label: ageRangeLabel(d)
+      };
+    });
+    var chart = horizontalBarChart();
+
+    d3.select(el)
+      .datum(xformedData)
+      .call(chart);
+  }
+
   charts.barChart = barChart;
   charts.horizontalBarChart = horizontalBarChart;
+  Convictions.createCategoryChart = createCategoryChart;
+  Convictions.createDrugChart = createDrugChart;
+  Convictions.createAgeChart = createAgeChart;
 })(window, document, d3, window.Convictions || {});

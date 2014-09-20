@@ -1,14 +1,19 @@
 /* Styles for vizualization elements */
-#your-city-map {
+#your-city-map-container {
   width: 100%;
   height: 500px;
+}
+
+.leaflet-popup-content ul {
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .legend {
 }
 
 .legend dl {
-  width: 200px;
+  width: 180px;
 }
 
 .legend dt, dd {
@@ -18,10 +23,13 @@
   line-height: 20px;
 }
 
-
 .legend dt {
   width: 20px;
   margin-right: 10px;
+}
+
+.legend dd {
+  width: 140px;
 }
 
 .chart rect {

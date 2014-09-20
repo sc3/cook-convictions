@@ -1,0 +1,6 @@
+{# TODO: See why using selectattr filter with equalto test instead of if statment this doesn't work #}
+{% for warning in warnings %}
+{% if warning.slide_id == slide_id %}
+<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-warning-sign"></span> {{ warning.value }}</div>
+{% endif %}
+{% endfor %}

@@ -8,7 +8,7 @@ Tarbell project configuration
 NAME = "cook-convictions"
 
 # Descriptive title of project
-TITLE = "Conviction Data Project"
+TITLE = "Convicted in Cook"
 
 # Google spreadsheet key
 SPREADSHEET_KEY = "11q1h1ft59mVZbUWMqIiWN4nUh1tQA7rZYxMaU0NcXS0"
@@ -17,7 +17,7 @@ SPREADSHEET_KEY = "11q1h1ft59mVZbUWMqIiWN4nUh1tQA7rZYxMaU0NcXS0"
 EXCLUDES = ["*.md", "requirements.txt"]
 
 # Create JSON data at ./data.json, disabled by default
-# CREATE_JSON = True
+CREATE_JSON = True
 
 # S3 bucket configuration
 S3_BUCKETS = {
@@ -29,6 +29,8 @@ S3_BUCKETS = {
 
 # Default template variables
 DEFAULT_CONTEXT = {
-    'name': 'cook-convictions',
-    'title': 'Conviction Data Project'
+    'name': NAME, 
+    'title': TITLE, 
 }
+
+SPREADSHEET_CACHE_TTL = 300

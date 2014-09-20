@@ -4,7 +4,9 @@
 
 Crime skews young. There are several reasons for this, from the penchant for misdeeds at a young age to XX XX XX. Cook County hands down XXX more convictions to young people between the ages of 18-24 than it does to all other age groups combined (example of analysis bit). 
 
-{A breakdown, by age buckets, of all convictions given by the court. This will be a bar graph.}
+### Total convictions by age
+
+<div class="chart" id="convictions-by-age-chart"></div>
 
 The crimes committed by people of different ages also vary. (Note re which one is the most common type of crime among young people, and why) 
 
@@ -19,3 +21,4 @@ Even among young people, 18 year olds are the most likely to committ crimes, wit
 On the fourth slide, we want to look more closely at the 18-24 age bracket, since the focus of this slide is the extent to which crime skews young. We haven't yet decided what we will analyze, but some suggestions include differences in conviction by sex, the high rates of youth homicide, youth with convictions who live in high-poverty
 community areas, and drug crime vs. other offenses.
 
+{% include '_warnings.html' %}

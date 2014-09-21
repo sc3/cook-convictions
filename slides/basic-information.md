@@ -1,7 +1,11 @@
 
 ## General info 
 
-This section still needs to be written, but we should plan to use it to hold basic data, such as: 
+Many cases leave the system long before they reach a verdict, either through a plea bargain or a similar deal. Many cases filed by police also don't result in a convction.
+
+For this data set, we have cases that did result in convictions. 
+
+Here's some of the numbers we found: 
 
 {# TODO: Use a partial or whatever the equivalent Jinja pattern is for this #}
 

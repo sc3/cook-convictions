@@ -223,7 +223,7 @@
         .attr('y', function(d) { return y(d.value); })
         .attr('height', function(d) { return height - y(d.value); })
         .attr('width', x.rangeBand())
-        .attr('fill', 'steelblue');
+        .attr('fill', 'black');
     }
 
     renderBar = defaultRenderBar;
@@ -404,7 +404,8 @@
         selection.attr('x', 0)
           .attr('y', function(d) { return chart.y()(d.label); })
           .attr('height', function(d) { return chart.y().rangeBand(); })
-          .attr('width', function(d) { return chart.x()(d.value); });
+          .attr('width', function(d) { return chart.x()(d.value); })
+          .attr('fill', 'black');
       })
       .postRender(function(selection) {
         selection.selectAll('.tick text')

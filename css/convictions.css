@@ -27,13 +27,7 @@ p {
 /* Get hash navigation to actually
    go where it's supposed to */
 
-h2:before { 
-  display: block; 
-  content: " "; 
-  margin-top: -110px; 
-  height: 110px; 
-  visibility: hidden; 
-}
+/* by some means */
 
 
 /* Cover page */

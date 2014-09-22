@@ -13,7 +13,7 @@ Marijuana, and how it's used in the criminal justice system, has long been a con
 
 In this graphic, we divided marijuana possession charges by their class. The majority of possession charges where class XXX, meaning the majority of people are convicted under the (harshest/not harshest) classs.
 
-<div id="drug-charges-chart" class="chart"></div>
+<div id="drug-charges-class-chart" class="chart"></div>
 
 Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest. Our analtsis shows most of the convictions are of XXX XXX
 

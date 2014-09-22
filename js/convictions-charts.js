@@ -88,6 +88,7 @@
 
     // Public
     // These can be get/set with accessors defined below
+    var svg;
     var margin = {top: 20, right: 30, bottom: 30, left: 60};
     var aspectRatio = 16 / 9; // Width to height
     var renderTooltip; // Function to render tooltip
@@ -106,6 +107,32 @@
       return d.value;
     };
     var postRender = function(selection) {};
+    // Element for bars added.  This needs to be a parameter
+    // because stacked bar charts will use a ``g`` element
+    // instead of the default rect.
+    var barElement = 'rect';
+    var bindMouseEvents = function(selection, svg) {
+      var tooltip = null;
+      selection 
+          .on('mouseover', function(d, i) {
+            tooltip = svg.append('g')
+                .datum(d)
+                .attr('class', tooltipClass)
+                .call(renderTooltip)
+                .call(positionTooltip);
+          })
+          .on('mousemove', function(d, i) {
+            if (tooltip !== null) {
+              tooltip.call(positionTooltip);
+            }
+          })
+          .on('mouseout', function(d, i) {
+            if (tooltip !== null) {
+              tooltip.remove();
+            }
+            tooltip = null;
+          });
+    };
 
     // Private
 
@@ -195,7 +222,8 @@
       selection.attr('x', function(d) { return x(d.label); })
         .attr('y', function(d) { return y(d.value); })
         .attr('height', function(d) { return height - y(d.value); })
-        .attr('width', x.rangeBand());
+        .attr('width', x.rangeBand())
+        .attr('fill', 'black');
     }
 
     renderBar = defaultRenderBar;
@@ -228,36 +256,18 @@
         var yAxis = d3.svg.axis()
             .scale(y)
             .orient('left');
-        var svg = d3.select(this).append('svg')
+        svg = d3.select(this).append('svg')
             .attr('class', 'chart-bar')
             .attr("width", containerWidth)
             .attr("height", height + margin.top + margin.bottom)
           .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        var tooltip = null;
         var bar = svg.selectAll(".bar")
             .data(data)
-          .enter().append('rect')
+          .enter().append(barElement)
             .attr('class', function(d) { return 'bar ' + slugify(d.label); })
             .call(renderBar)
-            .on('mouseover', function(d, i) {
-              tooltip = svg.append('g')
-                  .datum(d)
-                  .attr('class', tooltipClass)
-                  .call(renderTooltip)
-                  .call(positionTooltip);
-            })
-            .on('mousemove', function(d, i) {
-              if (tooltip !== null) {
-                tooltip.call(positionTooltip);
-              }
-            })
-            .on('mouseout', function(d, i) {
-              if (tooltip !== null) {
-                tooltip.remove();
-              }
-              tooltip = null;
-            });
+            .call(bindMouseEvents, svg);
 
         svg.append('g')
             .attr('class', 'x axis')
@@ -273,6 +283,11 @@
     }
 
     // Getters/setters for public configuration properties
+   
+    // This property is read-only
+    chart.svg = function() {
+      return svg;
+    };
 
     chart.margin = function(_) {
       if (!arguments.length) return margin;
@@ -352,6 +367,18 @@
       return chart;
     };
 
+    chart.barElement = function(_) {
+      if (!arguments.length) return barElement;
+      barElement = _;
+      return chart;
+    };
+
+    chart.bindMouseEvents = function(_) {
+      if (!arguments.length) return bindMouseEvents;
+      bindMouseEvents = _;
+      return chart;
+    };
+
     return chart;
   }
 
@@ -377,7 +404,8 @@
         selection.attr('x', 0)
           .attr('y', function(d) { return chart.y()(d.label); })
           .attr('height', function(d) { return chart.y().rangeBand(); })
-          .attr('width', function(d) { return chart.x()(d.value); });
+          .attr('width', function(d) { return chart.x()(d.value); })
+          .attr('fill', 'black');
       })
       .postRender(function(selection) {
         selection.selectAll('.tick text')
@@ -386,6 +414,104 @@
           .selectAll('.tick text tspan')
             .attr('dx', '-1em');
       });
+
+    return chart;
+  }
+
+  /**
+   * Render a stacked horizontal bar chart
+   *
+   * Each row of data should be an object.
+   *
+   * Each row of data should have a property ``label`` which
+   * will be used for the label of the row.
+   *
+   * The values of each property of the object should also be
+   * objects with a ``label`` and ``value`` property.
+   *
+   * The row needs to contain a property named 'total' whose
+   * value represents the total of all other columns.
+   */
+  function stackedHorizontalBarChart() {
+    // The columns in our data.  Each of these will be a segment
+    // in the stacked bar.
+    var segmentKeys;
+    var colorVals;
+    var color = d3.scale.ordinal();
+
+    // Extract the columns (which represent one region of the stack)
+    // as an array.
+    // This is needed to go from each row being an object and
+    // also to filter out the special columns in the data.
+    // Add starting and finishing x coordinates
+    function getValueCols(d) {
+      var cols = [];
+      var x0 = 0;
+
+      segmentKeys.forEach(function(key) {
+        if (d[key]) {
+          d[key].x0 = x0;
+          d[key].x1 = x0 += +d[key].value;
+
+          cols.push(d[key]);
+        }  
+      });
+      return cols;
+    }
+
+    var chart = horizontalBarChart();
+    // Save the original mouse event binding function.  We
+    // want to bind the events to the bar segments rather than
+    // the group elements.
+    var defaultMouseEvents = chart.bindMouseEvents();
+
+    chart
+      .barElement('g')
+      .xScale(function(data) {
+        return d3.scale.linear()
+          .domain([0, d3.max(data, function(d) { return d.total.value; })])
+          .range([0, chart.width()]);
+      })
+      // Don't bind mouse events on the outer container,
+      // instead, we'll bind them to the bar segments
+      // later.
+      .bindMouseEvents(function(selection, svg) {})
+      .renderBar(function(selection) {
+        color
+          .domain(segmentKeys)
+          .range(colorVals);
+
+        selection
+          .attr("transform", function(d) { return "translate(0," + chart.y()(d.label) + ")"; });
+
+        selection.selectAll('rect')
+            .data(getValueCols)
+          .enter().append('rect')
+            .attr('class', function(d) { return 'bar-segment ' + slugify(d.label); })
+            .attr('x', function(d) { return chart.x()(d.x0); })
+            .attr('y', function(d) { return chart.y()(d.label); })
+            .attr('height', function(d) { return chart.y().rangeBand(); })
+            .attr('width', function(d) { return chart.x()(d.value); })
+            .attr('fill', function(d) { 
+              return color(d.key); 
+             })
+            // Bind mouse events to the bar segments
+            .call(defaultMouseEvents, chart.svg());
+      });
+
+    // Getters/setters for public configuration properties
+   
+    chart.segmentKeys = function(_) {
+      if (!arguments.length) return segmentKeys;
+      segmentKeys = _;
+      return chart;
+    };
+
+    chart.colorVals = function(_) {
+      if (!arguments.length) return colorVals;
+      colorVals = _;
+      return chart;
+    };
 
     return chart;
   }
@@ -415,6 +541,32 @@
       });
     d3.select(el)
       .datum(pctData)
+      .call(chart);
+  }
+
+  function createDrugChargeClassChart(el, data, segmentKeys, colorVals) {
+    var chart = stackedHorizontalBarChart()
+      .segmentKeys(segmentKeys)
+      .colorVals(colorVals);
+
+    // Add total column to the rows
+    data.forEach(function(d) {
+      var total = {
+        label: "Total",
+        value: 0
+      }; 
+      segmentKeys.forEach(function(key) {
+        // Not every row will have all of the segments
+        if (d[key]) {
+          d[key].key = key;
+          total.value += d[key].value;
+        }
+      });
+      d.total = total;
+    });
+
+    d3.select(el)
+      .datum(data)
       .call(chart);
   }
 
@@ -479,6 +631,7 @@
   charts.barChart = barChart;
   charts.horizontalBarChart = horizontalBarChart;
   Convictions.createCategoryChart = createCategoryChart;
+  Convictions.createDrugChargeClassChart = createDrugChargeClassChart;
   Convictions.createDrugChart = createDrugChart;
   Convictions.createAgeChart = createAgeChart;
 })(window, document, d3, window.Convictions || {});

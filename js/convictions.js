@@ -79,7 +79,7 @@
 
   _.extend(Bin.prototype, {
     contains: function(val) {
-      return val > this.lower && val <= this.upper;
+      return val >= this.lower && val < this.upper;
     }
   });
 
@@ -312,9 +312,10 @@
       return {
         fillColor: this.getFillColor(this.fillProperty,
           feature.properties[this.fillProperty]),
-        weight: 2,
+        weight: 1,
         opacity: 1,
-        color: 'white',
+        //color: 'white',
+        color: '#808080',
         fillOpacity: 0.7
       };
     },
@@ -340,17 +341,29 @@
     }
   });
 
-  // @todo: Better breaks
-  // https://github.com/sc3/cook-convictions/issues/57
-  var convictionRateBreaks = [0, 0.04250453, 0.08500906, 0.12751358, 0.17001811, 0.21252264];
+  var convictionRateBreaks = [0, 10, 30, 60, 100, 225];
   var convictionRateBins = new BinLookup();
-  convictionRateBreaks = _.map(convictionRateBreaks, function(val) {
-    return Math.round(val * 1000);
-  });
   convictionRateBins.add(new BinCollection('convictions_per_1000',
     "Convictions per 1000",
     convictionRateBreaks,
-    ['#edf8fb', '#b2e2e2', '#66c2a4', '#66c2a4', '#006d2c']
+    // Purples
+    /*
+    [
+      '#f2f0f7',
+      '#cbc9e2',
+      '#9e9ac8',
+      '#756bb1',
+      '#54278f',
+    ]
+    */
+    // Grays
+    [
+      '#f7f7f7',
+      '#cccccc',
+      '#969696',
+      '#636363',
+      '#252525',
+    ]
   ));
 
   var ChicagoMapView = Convictions.ChicagoMapView = ConvictionRateMapView.extend({

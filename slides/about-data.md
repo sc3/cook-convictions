@@ -24,6 +24,4 @@ What makes this project unique is our use of bulk data. On your own, you can go 
 
 But to really understand the system, we need to take a step back and look at it as a whole. We'll walk you into the previously closed doors of the Cook County Circuit Court. At the end, you'll have the chance to download the data on your own.
 
-[Map of Cook county]
-
 {% include 'slides/_edit_this.md' %}

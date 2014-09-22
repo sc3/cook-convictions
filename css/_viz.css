@@ -32,10 +32,6 @@
   width: 140px;
 }
 
-.chart rect {
-  fill: steelblue;
-}
-
 .chart-bar .tooltip-chart rect {
   fill: #fff;
   stroke: #000;

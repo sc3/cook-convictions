@@ -56,10 +56,34 @@ $(function() {
   var CONVICTIONS_BY_TYPE = [{"value": 4183, "label": "Violent Index Crimes"}, {"value": 10477, "label": "Property Index Crimes"}, {"value": 48002, "label": "Drug Crimes"}, {"value": 78799, "label": "Other"}];
   var DRUG_CONVICTIONS = [{"value": 3825, "label": "Manufacture or delivery of non-cannibus drugs"}, {"value": 4015, "label": "Dealing in a school Area"}, {"value": 33679, "label": "Cannibus related"}, {"value": 38521, "label": "Non-cannibus possession"}];
   var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
+  var CONVICTIONS_DRUG_BY_CLASS = [{"label": "Manufacture or Delivery", "felony_1": {"label": "Class 1 Felony", "value": 5744}, "unkwn_class": {"label": "Unknown Class", "value": 4530}, "felony_4": {"label": "Class 4 Felony", "value": 1762}, "misd_b": {"label": "Class B Misdemeanor", "value": 25}, "felony_2": {"label": "Class 2 Felony", "value": 853}, "misd_a": {"label": "Class A Misdemeanor", "value": 691}, "felony_x": {"label": "Class X Felony", "value": 34}, "felony_3": {"label": "Class 3 Felony", "value": 1223}}, {"label": "Possession", "no_class": {"label": "No Class", "value": 1}, "felony_2": {"label": "Class 2 Felony", "value": 40}, "misd_a": {"label": "Class A Misdemeanor", "value": 74}, "felony_x": {"label": "Class X Felony", "value": 0}, "misd_c": {"label": "Class C Misdemeanor", "value": 32}, "felony_1": {"label": "Class 1 Felony", "value": 554}, "unkwn_class": {"label": "Unknown Class", "value": 16}, "felony_4": {"label": "Class 4 Felony", "value": 32127}, "misd_b": {"label": "Class B Misdemeanor", "value": 112}, "felony_3": {"label": "Class 3 Felony", "value": 189}}]; 
+  // Slugs for drug charge classes in above data, in order of
+  // increasing severity
+  var DRUG_CHARGE_CLASSES = [
+    'unkwn_class',
+    'no_class',
+    'misd_c',
+    'misd_b',
+    'misd_a',
+    'felony_4',
+    'felony_3',
+    'felony_2',
+    'felony_1',
+    'felony_x'
+  ];
 
   Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL);
   Convictions.createCategoryChart('#charges-categories-chart', CONVICTIONS_BY_TYPE);
-  Convictions.createDrugChart('#drug-charges-chart', DRUG_CONVICTIONS);
+  Convictions.createDrugChargeClassChart('#drug-charges-class-chart', CONVICTIONS_DRUG_BY_CLASS, DRUG_CHARGE_CLASSES, [
+    '#66c2a5',
+    '#fc8d62',
+    '#8da0cb',
+    '#e78ac3',
+    '#a6d854',
+    '#ffd92f',
+    '#e5c494',
+    '#b3b3b3'
+  ]);
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
     Convictions.createAgeChart('#convictions-by-age-chart', data);
   });

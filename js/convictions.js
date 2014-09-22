@@ -309,7 +309,6 @@
     },
 
     style: function(feature) {
-      console.debug(feature);
       return {
         fillColor: this.getFillColor(this.fillProperty,
           feature.properties[this.fillProperty]),

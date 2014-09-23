@@ -21,7 +21,6 @@
       {% if slide.section_id == section.id %}
       <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
         {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
-        <br/><hr><br/>
       </section>
       {% endif %}
       {% endfor %}

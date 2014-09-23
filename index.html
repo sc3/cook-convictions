@@ -9,24 +9,25 @@
 {% block content %}
 
 <div id="cover-page">
-  <img src="img/courtroom_rough.jpg" />
-  <div class="container"><h1>{{ title }}</h1></div>
+  <div class="bg-img"></div>
+  <div class="bg-shade">
+      <h1>{{ title }}</h1>
+  </div>
+  <div class="bg-clear"></div>
 </div>
 
-<div class="reveal">
-  <div class="slides">
-    {% for section in sections %}
-      <section id="{{ section.id }}">
-      {% for slide in slides %}
-      {% if slide.section_id == section.id %}
-      <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
-        {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
-      </section>
-      {% endif %}
-      {% endfor %}
-      </section>
-    {% endfor %}
-  </div>
+<div class="slides">
+{% for section in sections %}
+  <section id="{{ section.id }}">
+  {% for slide in slides %}
+  {% if slide.section_id == section.id %}
+  <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
+    {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
+  </section>
+  {% endif %}
+  {% endfor %}
+  </section>
+{% endfor %}
 </div>
 
 {% endblock content %}

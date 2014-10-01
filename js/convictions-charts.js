@@ -32,6 +32,10 @@
     });
   }
 
+  function isFunction(o) {
+    return !!(o && o.constructor && o.call && o.apply);
+  }
+
   /**
    * https://gist.github.com/mathewbyrne/1280286
    */
@@ -133,6 +137,8 @@
             tooltip = null;
           });
     };
+    var labelX;
+    var labelY;
 
     // Private
 
@@ -244,6 +250,32 @@
 
     yScale = defaultYScale;
 
+    function defaultRenderLabelY(selection, label) {
+      // Select the y axis
+      selection.select('.axis.y')
+        .append('text')
+          .attr('transform', 'rotate(-90)')
+          .attr('y', 6)
+          .attr('dy', '.71em')
+          .style('text-anchor', 'end')
+          .text(label);
+    }
+
+    function defaultRenderLabelX(selection, label) {
+      // Select the x axis
+      var axis = selection.select('.axis.x');
+      var width = axis.node().getBBox().width;
+
+      axis.append('text')
+        //.attr('transform', 'rotate(-90)')
+        //.attr('y', 6)
+        .attr('dy', '-.25em')
+        .attr('x', width)
+        .attr('dx', '-.25em')
+        .style('text-anchor', 'end')
+        .text(label);
+    }
+
     function chart(selection) {
       selection.each(function(data, i) {
         var containerWidth = parseInt(d3.select(this).style('width'), 10);
@@ -277,6 +309,26 @@
         svg.append('g')
           .attr('class', 'y axis')
           .call(yAxis);
+
+        if (isFunction(labelY)) {
+          // labelY is a function.  Call it.
+          svg.call(labelY);
+        }
+        else if (labelY) {
+          // labelY is text.  Call the default label rendering function with
+          // the text
+          svg.call(defaultRenderLabelY, labelY);
+        }
+
+        if (isFunction(labelX)) {
+          // labelX is a function.  Call it.
+          svg.call(labelX);
+        }
+        else if (labelX) {
+          // labelX is text.  Call the default label rendering function with
+          // the text
+          svg.call(defaultRenderLabelX, labelX);
+        }
 
         svg.call(postRender);
       });
@@ -376,6 +428,18 @@
     chart.bindMouseEvents = function(_) {
       if (!arguments.length) return bindMouseEvents;
       bindMouseEvents = _;
+      return chart;
+    };
+
+    chart.labelX = function(_) {
+      if (!arguments.length) return labelX;
+      labelX = _;
+      return chart;
+    };
+
+    chart.labelY = function(_) {
+      if (!arguments.length) return labelY;
+      labelY = _;
       return chart;
     };
 
@@ -517,7 +581,8 @@
   }
 
   function createCategoryChart(el, data) {
-    var chart = barChart();
+    var chart = barChart()
+      .labelY("Convictions");
 
     d3.select(el)
       .datum(data)
@@ -547,7 +612,8 @@
   function createDrugChargeClassChart(el, data, segmentKeys, colorVals) {
     var chart = stackedHorizontalBarChart()
       .segmentKeys(segmentKeys)
-      .colorVals(colorVals);
+      .colorVals(colorVals)
+      .labelX("Convictions");
 
     // Add total column to the rows
     data.forEach(function(d) {
@@ -621,7 +687,8 @@
         label: ageRangeLabel(d)
       };
     });
-    var chart = horizontalBarChart();
+    var chart = horizontalBarChart()
+      .labelX("Convictions");
 
     d3.select(el)
       .datum(xformedData)

@@ -589,26 +589,6 @@
       .call(chart);
   }
 
-  function createDrugChart(el, data) {
-    var total = d3.sum(data, function(d) {
-      return d.value;
-    });
-    var pctData = data.map(function(d) {
-      return {
-        label: d.label,
-        value: (d.value / total) * 100
-      };
-    });
-    var formatValue = d3.format(",.1%");
-    var chart = horizontalBarChart()
-      .tooltipValue(function(d) {
-        return formatValue(d.value / 100);
-      });
-    d3.select(el)
-      .datum(pctData)
-      .call(chart);
-  }
-
   function createDrugChargeClassChart(el, data, segmentKeys, colorVals) {
     var chart = stackedHorizontalBarChart()
       .segmentKeys(segmentKeys)
@@ -699,6 +679,5 @@
   charts.horizontalBarChart = horizontalBarChart;
   Convictions.createCategoryChart = createCategoryChart;
   Convictions.createDrugChargeClassChart = createDrugChargeClassChart;
-  Convictions.createDrugChart = createDrugChart;
   Convictions.createAgeChart = createAgeChart;
 })(window, document, d3, window.Convictions || {});

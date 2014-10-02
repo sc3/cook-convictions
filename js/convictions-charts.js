@@ -58,7 +58,7 @@
     The returned function should be applied to a d3 selection using the
     call() method.  For example:
 
-    var chart = barChart(); 
+    var chart = barChart();
     var selection = d3.select('#chart-container')
       .datum(data)
       .call(chart);
@@ -81,7 +81,7 @@
     * yScale
     * tooltipLabel
     * tooltipValue
-   
+
     References:
     * http://bost.ocks.org/mike/bar/3/
     * http://bost.ocks.org/mike/chart/
@@ -100,8 +100,8 @@
     var width;
     var height;
     var renderBar;
-    var x; // Scale for x axis 
-    var y; // Scale for y axis 
+    var x; // Scale for x axis
+    var y; // Scale for y axis
     var xScale;
     var yScale;
     var tooltipLabel = function(d) {
@@ -117,7 +117,7 @@
     var barElement = 'rect';
     var bindMouseEvents = function(selection, svg) {
       var tooltip = null;
-      selection 
+      selection
           .on('mouseover', function(d, i) {
             tooltip = svg.append('g')
                 .datum(d)
@@ -142,10 +142,10 @@
 
     // Private
 
-    // Class that will be set on popup elements 
-    var tooltipClass = 'tooltip-chart'; 
+    // Class that will be set on popup elements
+    var tooltipClass = 'tooltip-chart';
     // Distance from the pointer to where the tooltip is rendered
-    var tooltipOffset = 4; 
+    var tooltipOffset = 4;
     // Margins of the popup element
     var tooltipMargin = {top: 4, right: 4, bottom: 4, left: 4};
 
@@ -154,7 +154,7 @@
      *
      * @param selection - d3 selection for an SVG group element for
      *   the tooltip.
-     *   
+     *
      */
     function positionTooltip(selection) {
       // This should get the DOM Node for the inner chart element
@@ -170,7 +170,7 @@
       var y = position[1];
 
       // Generally, the tooltip should be positioned below and to the right
-      // of the mouse pointer.  However, if this results in the element 
+      // of the mouse pointer.  However, if this results in the element
       // falling outside of the chart boundary we need to position it above
       // or to the left of the mouse.
       if (x + bbox.width > containerWidth) {
@@ -281,8 +281,8 @@
         var containerWidth = parseInt(d3.select(this).style('width'), 10);
         width = containerWidth - margin.left - margin.right;
         height = Math.ceil(width * (1 / aspectRatio)) - margin.top - margin.bottom;
-        x = xScale(data); 
-        y = yScale(data); 
+        x = xScale(data);
+        y = yScale(data);
         var xAxis = d3.svg.axis()
             .scale(x);
         var yAxis = d3.svg.axis()
@@ -335,7 +335,7 @@
     }
 
     // Getters/setters for public configuration properties
-   
+
     // This property is read-only
     chart.svg = function() {
       return svg;
@@ -518,7 +518,7 @@
           d[key].x1 = x0 += +d[key].value;
 
           cols.push(d[key]);
-        }  
+        }
       });
       return cols;
     }
@@ -556,15 +556,15 @@
             .attr('y', function(d) { return chart.y()(d.label); })
             .attr('height', function(d) { return chart.y().rangeBand(); })
             .attr('width', function(d) { return chart.x()(d.value); })
-            .attr('fill', function(d) { 
-              return color(d.key); 
+            .attr('fill', function(d) {
+              return color(d.key);
              })
             // Bind mouse events to the bar segments
             .call(defaultMouseEvents, chart.svg());
       });
 
     // Getters/setters for public configuration properties
-   
+
     chart.segmentKeys = function(_) {
       if (!arguments.length) return segmentKeys;
       segmentKeys = _;
@@ -600,7 +600,7 @@
       var total = {
         label: "Total",
         value: 0
-      }; 
+      };
       segmentKeys.forEach(function(key) {
         // Not every row will have all of the segments
         if (d[key]) {
@@ -634,12 +634,12 @@
     }
 
     if (d.age_max) {
-      label += d.age_max; 
+      label += d.age_max;
     }
     else {
       label += "+";
     }
- 
+
     return label;
   }
 
@@ -675,8 +675,30 @@
       .call(chart);
   }
 
+  function renderChart() {
+    var el = arguments[0];
+    var renderFn = arguments[1];
+    var renderArgs = [el];
+    var debounceWait = 1000;
+    var i;
+    var render;
+
+    for (i = 2; i < arguments.length; i++) {
+      renderArgs.push(arguments[i]);
+    }
+
+    render = function() {
+      $(el).empty();
+      renderFn.apply(this, renderArgs);
+    };
+
+    render();
+    $(window).resize(_.debounce(render, debounceWait));
+  }
+
   charts.barChart = barChart;
   charts.horizontalBarChart = horizontalBarChart;
+  Convictions.renderChart = renderChart;
   Convictions.createCategoryChart = createCategoryChart;
   Convictions.createDrugChargeClassChart = createDrugChargeClassChart;
   Convictions.createAgeChart = createAgeChart;

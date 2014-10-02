@@ -1,6 +1,6 @@
 {% set slide_id = 'about-data' %}
 
-## About the Data 
+## Windy City Convictions by the Numbers
 
 We did this project because we want you -- the Chicago resident waiting for the train, the suburban commuter, the policymaker, the harried journalist -- to know what occurs in courtrooms in Cook County every day.
 

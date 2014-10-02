@@ -1,6 +1,6 @@
 {% set slide_id = 'story-youth' %}
 
-## Youth Convictions	
+## Youth carry overwhelming number of convictions in Cook County	
 
 Crime skews young. There are several reasons for this, from the penchant for misdeeds at a young age to XX XX XX. 
 

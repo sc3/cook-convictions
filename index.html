@@ -124,9 +124,6 @@ $(function() {
   var renderChart = Convictions.renderChart;
 
   var chicagoMap = Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL, true);
-  chicagoMap.collection.fetch();
-  chicagoMap.suburbsCollection.fetch();
-  chicagoMap.chicagoCollection.fetch();
 
   renderChart('#charges-categories-chart', Convictions.createCategoryChart, 
     CONVICTIONS_BY_TYPE);

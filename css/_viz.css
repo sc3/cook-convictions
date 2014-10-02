@@ -1,5 +1,6 @@
 /* Styles for vizualization elements */
-#your-city-map-container {
+#your-city-map-container,
+#affecting-women-map-container {
   width: 100%;
   height: 500px;
 }

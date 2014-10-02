@@ -48,7 +48,7 @@
 
   var ConvictionGeoJSONModel = GeoJSONModel.extend({
     initialize: function(attrs, options) {
-      var convictionsPerCapita;
+      var affectingWomenPerCapita, convictionsPerCapita;
 
       GeoJSONModel.prototype.initialize.apply(this, arguments);
 
@@ -57,7 +57,12 @@
       // I'm initially doing it here because it makes it more flexible.
       convictionsPerCapita = this.get('convictions_per_capita');
       if (!_.isUndefined(convictionsPerCapita)) {
-         this.set('convictions_per_1000', Math.round(convictionsPerCapita * 1000));
+       this.set('convictions_per_1000', Math.round(convictionsPerCapita * 1000));
+      }
+
+      affectingWomenPerCapita = this.get('affecting_women_per_capita');
+      if (!_.isUndefined(affectingWomenPerCapita)) {
+        this.set('affecting_women_per_1000', Math.round(affectingWomenPerCapita * 1000));
       }
     }
   });
@@ -366,6 +371,16 @@
     ]
   ));
 
+  var affectingWomenBreaks = [0, 1, 2, 3];
+  convictionRateBins.add(new BinCollection('affecting_women_per_1000',
+    "Convictions for crimes affecting women per 1000",
+    affectingWomenBreaks,
+    [
+      '#f7f7f7',
+      '#cccccc',
+      '#969696',
+    ]));
+
   var ChicagoMapView = Convictions.ChicagoMapView = ConvictionRateMapView.extend({
     options: _.extend({}, ConvictionRateMapView.prototype.options, {
       bins: convictionRateBins
@@ -417,7 +432,7 @@
     onEachFeatureChicago: function() {}
   });
 
-  Convictions.createChicagoMap = function(el, caUrl, suburbsUrl, chicagoUrl) {
+  Convictions.createChicagoMap = function(el, caUrl, suburbsUrl, chicagoUrl, fetch) {
     var communityAreas = new ConvictionGeoJSONCollection();
     var suburbs = new ConvictionGeoJSONCollection();
     var chicago = new GeoJSONCollection();
@@ -432,8 +447,24 @@
     suburbs.url = suburbsUrl;
     chicago.url = chicagoUrl;
 
-    communityAreas.fetch();
-    suburbs.fetch();
-    chicago.fetch();
+    if (fetch) {
+      communityAreas.fetch();
+      suburbs.fetch();
+      chicago.fetch();
+    }
+
+    return communityAreasMap;
+  };
+
+  Convictions.createAffectingWomenMap = function(el, communityAreas, suburbs, chicagoBorder) {
+    var affectingWomenMap = new ChicagoMapView({
+      collection: communityAreas,
+      suburbsCollection: suburbs,
+      chicagoCollection: chicagoBorder,
+      el: el,
+      defaultFillProperty: 'affecting_women_per_1000'
+    });
+
+    return affectingWomenMap;
   };
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

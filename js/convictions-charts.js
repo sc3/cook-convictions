@@ -589,7 +589,7 @@
       .call(chart);
   }
 
-  function createDrugChargeClassChart(el, data, segmentKeys, colorVals) {
+  function createDrugChargeChart(el, data, segmentKeys, colorVals) {
     var chart = stackedHorizontalBarChart()
       .segmentKeys(segmentKeys)
       .colorVals(colorVals)
@@ -700,6 +700,6 @@
   charts.horizontalBarChart = horizontalBarChart;
   Convictions.renderChart = renderChart;
   Convictions.createCategoryChart = createCategoryChart;
-  Convictions.createDrugChargeClassChart = createDrugChargeClassChart;
+  Convictions.createDrugChargeChart = createDrugChargeChart;
   Convictions.createAgeChart = createAgeChart;
 })(window, document, d3, window.Convictions || {});

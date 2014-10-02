@@ -54,8 +54,8 @@ section > ul > li {
   /* fix background */
   background-attachment: fixed;
 
-  /* center it */
-  background-position: center center;
+  /* center it and clear the top nav bar*/
+  background-position: center 50px;
 
   /* Scale it nicely to the element */
   background-size: cover;

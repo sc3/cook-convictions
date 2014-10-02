@@ -1,8 +1,10 @@
 {% set slide_id = 'story-youth' %}
 
-## Youth Violence	
+## Youth Convictions	
 
-Crime skews young. There are several reasons for this, from the penchant for misdeeds at a young age to XX XX XX. Cook County hands down XXX more convictions to young people between the ages of 18-24 than it does to all other age groups combined (example of analysis bit). 
+Crime skews young. There are several reasons for this, from the penchant for misdeeds at a young age to XX XX XX. 
+
+<p class="lead"> Cook County hands down more convictions to young people between the ages of 18-24 than it does to all other age groups combined. </p>
 
 ### Total convictions by age
 

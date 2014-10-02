@@ -43,4 +43,3 @@ Here's some of the numbers we found:
  
 <div id="charges-categories-chart" class="chart"></div>
 
-Caveat: if we don't have enough general info to fill this, it can be meshed with another area

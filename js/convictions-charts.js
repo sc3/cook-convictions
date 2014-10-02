@@ -644,29 +644,26 @@
   }
 
   function createAgeChart(el, data) {
-    var xformedData = data.sort(function(a, b) {
-      if (a.invalid_ages) {
-        return 1;
-      }
-      else if (b.invalid_ages) {
-        return -1;
-      }
-      else if (a.age_min < b.age_min) {
-        return -1;
-      }
-      else if (a.age_min == b.age_min) {
-        return 1;
-      }
-      else {
-        return 1;
-      }
-    })
-    .map(function(d) {
-      return {
-        value: d.total_convictions,
-        label: ageRangeLabel(d)
-      };
-    });
+    var xformedData = data.filter(function(d) {
+        return !d.invalid_ages; 
+      })
+      .sort(function(a, b) {
+        if (a.age_min < b.age_min) {
+          return 1;
+        }
+        else if (a.age_min == b.age_min) {
+          return 0;
+        }
+        else {
+          return -1;
+        }
+      })
+      .map(function(d) {
+        return {
+          value: d.total_convictions,
+          label: ageRangeLabel(d)
+        };
+      });
     var chart = horizontalBarChart()
       .labelX("Convictions");
 

@@ -123,11 +123,24 @@ $(function() {
 
   var renderChart = Convictions.renderChart;
 
+  /**
+   * Size the map container to the full height of the window
+   */
+  function sizeMapContainer(el) {
+    var height = $(window).height() - $('#top-nav').height() - $('#page-footer').height();
+    $(el).height(height);
+  }
+
+  sizeMapContainer('#your-city-map-container');
   var chicagoMap = Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL, true);
+  $(window).resize(_.debounce(function() {
+    sizeMapContainer('#your-city-map-container');
+    chicagoMap.invalidateSize();
+  }, 1000));
 
   renderChart('#charges-categories-chart', Convictions.createCategoryChart, 
     CONVICTIONS_BY_TYPE);
-
+ 
   renderChart('#drug-charges-class-chart', Convictions.createDrugChargeChart,
     CONVICTIONS_DRUG_BY_CLASS, DRUG_CHARGE_CLASSES, DRUG_CLASS_COLORS);
 
@@ -138,6 +151,7 @@ $(function() {
     renderChart('#convictions-by-age-chart', Convictions.createAgeChart,
       data);
   });
+
 
   // Download the JSONified version of the tarbell context
   $.getJSON('/data.json', function(data) {

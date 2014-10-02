@@ -151,7 +151,7 @@
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
       // Start our maps in the center of Chicago
       initialCenter: [41.881944, -87.627778],
-      initialZoom: 11
+      initialZoom: 10
     },
 
     initialize: function(options) {
@@ -214,6 +214,10 @@
 
     bindCollectionEvents: function() {
       return this;
+    },
+
+    invalidateSize: function() {
+      this.map.invalidateSize(arguments);
     }
   });
 

@@ -150,8 +150,11 @@ $(function() {
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
     renderChart('#convictions-by-age-chart', Convictions.createAgeChart,
       data);
+    renderChart('#violent-convictions-by-age-chart', Convictions.createAgeChart,
+      data, 'violent_convictions');
+    renderChart('#drug-convictions-by-age-chart', Convictions.createAgeChart,
+      data, 'drug_convictions');
   });
-
 
   // Download the JSONified version of the tarbell context
   $.getJSON('/data.json', function(data) {

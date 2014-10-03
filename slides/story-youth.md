@@ -12,9 +12,15 @@ The crimes committed by people of different ages also vary. (Note re which one i
 
 Caveat: This is different to the total number of convictions, since we are picking specific groupings.
 
-{bar graph with one extra layer of detail}
+### Violent convictions by age
 
-Even among young people, 18 year olds are the most likely to committ crimes, with 94-year-olds seemingly the least likely. 
+<div class="chart" id="violent-convictions-by-age-chart"></div>
+
+### Drug convictions by age
+
+<div class="chart" id="drug-convictions-by-age-chart"></div>
+
+Even among young people, 18 year olds are the most likely to commit crimes, with 94-year-olds seemingly the least likely. 
 
 {Remove the age buckets, and show index crime convictions year-by-year.}
 

@@ -643,7 +643,18 @@
     return label;
   }
 
-  function createAgeChart(el, data) {
+  /**
+   * Create a chart of convictions by age range.
+   *
+   * @param {string} el CSS selector representing the container element for
+   *   the chart.
+   * @param {array} data List of objects that represent conviction counts for
+   *   an age range.
+   * @param {string} field Property in data object representing the conviction
+   *   count.
+   */
+  function createAgeChart(el, data, field) {
+    field = field || 'total_convictions';
     var xformedData = data.filter(function(d) {
         return !d.invalid_ages; 
       })
@@ -660,7 +671,7 @@
       })
       .map(function(d) {
         return {
-          value: d.total_convictions,
+          value: d[field],
           label: ageRangeLabel(d)
         };
       });

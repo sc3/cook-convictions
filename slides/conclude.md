@@ -1,6 +1,6 @@
 {% set slide_id = 'conclude' %}
 
-## Conclusion
+## Data in the Future
 
 **Explore the data**: [Link to the data]
 
@@ -22,7 +22,7 @@ Chicago, IL 60602 ]
 
 [3. Often the Clerk's office will require a fee both for programming time and for computer time to extract the data from their systems to fulfill your request.]
 
-What do we need to achieve the 8 Principles of Open Data?
+**What do we need to achieve the 8 Principles of Open Data?**
 - no fees
 - full data available
 - searchable, electronic court records

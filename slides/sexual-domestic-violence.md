@@ -1,6 +1,6 @@
 {% set slide_id = 'sexual-domestic-violence' %}
 
-## Sexual and domestic violence
+## A slice of reality: convictions for sexual and domestic violence
 
 The people that are victimized by domestic or sexual violence are very different - men and women of many ages and from all over the city. Our data does not indicate any details about the people victimized by these crimes. But outside knowledge tells us that women are disproportionately affected. It also tells us that these types of crimes are heavily underreported. 
 

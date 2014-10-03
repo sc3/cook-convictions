@@ -1,5 +1,5 @@
 
-## General info 
+## Meet the Data
 
 Many cases leave the system long before they reach a verdict, either through a plea bargain or a similar deal. Many cases filed by police also don't result in a convction.
 
@@ -43,4 +43,3 @@ Here's some of the numbers we found:
  
 <div id="charges-categories-chart" class="chart"></div>
 
-Caveat: if we don't have enough general info to fill this, it can be meshed with another area

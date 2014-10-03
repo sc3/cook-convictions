@@ -6,6 +6,6 @@ But getting any more information is difficult. According to the [8 Principles of
 
 Instead, a Cook County resident looking for data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
 
-Until now.
+<p class="lead"> Until now. </p>
 
 This project analyzes five years worth of conviction data received through the Office of the Chief Judge of the Circuit Court of Cook County by the Chicago Justice Project. The goal is to shed a light on criminal convictions in Cook County.

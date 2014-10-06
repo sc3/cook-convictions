@@ -656,7 +656,7 @@
   function createAgeChart(el, data, field) {
     field = field || 'total_convictions';
     var xformedData = data.filter(function(d) {
-        return !d.invalid_ages; 
+        return !d.invalid_ages;
       })
       .sort(function(a, b) {
         if (a.age_min < b.age_min) {
@@ -683,6 +683,13 @@
       .call(chart);
   }
 
+  /**
+   * Render a chart and bind an event listener to redraw on window resize
+   *
+   * @param el {string} CSS selector for container element
+   * @param renderFn {function} function that draws the chart
+   * @param {*} [arguments] arguments passed to renderFn
+   */
   function renderChart() {
     var el = arguments[0];
     var renderFn = arguments[1];
@@ -704,10 +711,60 @@
     $(window).resize(_.debounce(render, debounceWait));
   }
 
+  /**
+   * Display a visualization of a ratio, using multiple versions of the
+   * same image to drive home the disparity.
+   */
+  function multipleImageRatioViz() {
+    // Configuration variables
+    // Public
+
+    function viz(selection) {
+      selection.each(function (data, i) {
+        var ratio;
+        var smaller;
+        var bigger;
+        var j;
+        var img;
+
+        data.sort(function(a, b) {
+          return d3.ascending(a.value, b.value);
+        });
+        smaller = data[0];
+        bigger = data[1];
+
+        ratio = Math.round(bigger.value / smaller.value);
+
+        for (j = 0; j < ratio; j++) {
+          img = selection.append('img');
+          img.attr('src', bigger.image);
+          img.classed('ratio-bigger');
+        }
+        img = selection.append('img');
+        img.attr('src', smaller.image);
+        img.classed('ratio-smaller');
+      });
+    }
+
+    return viz;
+  }
+
+  /**
+   * Draw the visualization of gender disparity for crimes affecting women.
+   */
+  function createCAFSexViz(el, data) {
+    var viz = multipleImageRatioViz();
+
+    d3.select(el)
+      .datum(data)
+      .call(viz);
+  }
+
   charts.barChart = barChart;
   charts.horizontalBarChart = horizontalBarChart;
   Convictions.renderChart = renderChart;
   Convictions.createCategoryChart = createCategoryChart;
   Convictions.createDrugChargeChart = createDrugChargeChart;
   Convictions.createAgeChart = createAgeChart;
+  Convictions.createCAFSexViz = createCAFSexViz;
 })(window, document, d3, window.Convictions || {});

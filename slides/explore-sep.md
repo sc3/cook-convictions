@@ -1,1 +1,1 @@
-<img src="img/conincook_rough02.jpg" style="max-width: 100%;">
+<img src="img/conincook202.jpg" style="max-width: 100%;">

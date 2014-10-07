@@ -6,7 +6,7 @@ With more than 100,000 people walking through it's doors, Cook County's courtroo
 
 We've mapped how convictions are spread around the city and the suburbs. 
 
-<p class="lead"> In most cases, community areas in the city have more convictions than those in the suburbs. And the closer an area is to Chicago, the more convictions it has.  </p>
+<p class="lead"> In most cases, community areas <span data-term=”community”>communityareas</span> in the city have more convictions than those in the suburbs. And the closer an area is to Chicago, the more convictions it has.  </p>
 
 Click on the a community area to find out how many convictions its residents get per capita, and what they are most often convicted for. 
 

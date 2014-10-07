@@ -12,6 +12,6 @@ The people that are victimized by domestic or sexual violence are very different
 There is also a signicant breadth of crimes that are encompassed in the terms domestic or sexual crimes. Below are a few encompassed in this definition:
 
 {crime list with 4-5 word lay description}
-Maybe: Boxes showing proportionate sizes to percent of convictions each crime represents.
+
 
 {% include '_warnings.html' %}

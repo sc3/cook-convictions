@@ -40,6 +40,8 @@ Here's some of the numbers we found:
 {# How many convictions are drug-related vs. violent vs. non-violent #}
 
 ## Drug crimes are the biggest chunk of convictions
+
+{% include '_warnings.html' %}
  
 <div id="charges-categories-chart" class="chart"></div>
 

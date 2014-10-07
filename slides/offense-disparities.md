@@ -10,7 +10,7 @@ When an individual is arrested on a drug charge, they can be booked for manufact
 
 Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest.  
 
-In this graphic, we divided marijuana possession charges by their <span data-term="drugclass">class</span>. The majority of possession charges were class 4 felonies, meaning the majority of people were convicted for the lowest level felony. 
+In this graphic, we divided drug charges by their <span data-term="drugclass">class</span>. The majority of possession charges were class 4 felonies, meaning the majority of people were convicted for the lowest level felony. 
 <div id="drug-charges-class-chart" class="chart"></div>
 
 In this graphic, we can see the different types of drugs which make up convictions. 

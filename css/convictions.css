@@ -19,24 +19,13 @@ p {
   line-height: 20px;
 }
 
-/* Get hash navigation to actually
-   go where it's supposed to */
-
-/* by some means */
-
-section.container {
-  width: 768px;
-}
-
 section h2 {
-  font-size: 60px;
   text-align: center;
 }
 
 section > p,
 section > ul > li {
-  font-size: 22px;
-  line-height: 1.5;
+  font-size: 18px;
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }
 
@@ -75,9 +64,29 @@ section > ul > li {
 #cover-page .bg-shade h1 {
   position: relative;
   top: 35%;
-  font-size: 80px;
+  font-size: 60px;
   font-weight: bold;
   color: #fff;
+}
+
+@media (min-width: 768px) {
+  #cover-page .bg-shade h1 {
+    font-size: 80px;
+  }
+
+  section.container {
+    width: 768px;
+  }
+
+  section > p,
+  section > ul > li {
+    font-size: 22px;
+    line-height: 1.5;
+  } 
+
+  section h2 {
+    font-size: 60px;
+  }
 }
 
 

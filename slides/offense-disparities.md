@@ -4,7 +4,7 @@
 
 Though there are offense disparities in many areas, we decided to focus on one of the most controversial - drug convictions. From disparities in crack cocaine to low-level marijuana arrests, looking at the data about drug disparities has been an important source for understanding the criminal justice system. 
 
-When an individual is arrested on a drug charge, they can be booked for manufacturing and deliver, or for possession. Whether it is one or the other depends on many factors - the patrolling officer, whether a person has any priors, or even whether they're able to make a deal with the prosecutor. 
+When an individual is arrested on a drug charge, they can be booked for manufacturing and delivery, or for possession. Whether it is one or the other depends on many factors - the patrolling officer, whether a person has any priors, or even whether they're able to make a deal with the prosecutor. 
 
  
  <p class="lead"> The majority of drug-related convictions in Cook County are for possession. </p>

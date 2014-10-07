@@ -1,6 +1,6 @@
 Each year, tens of thousands of people stand in front of judges at the [Cook County Circuit Court](http://www.cookcountyclerkofcourt.org),  the largest unified court system in the country. Their offenses range from low-level marijuana charges to multiple murders that put people behind bars for life.
 
-Rare glimpses of what happened behind the courtroom doors trickle out through media reports and the few sensational cases that make headlines.
+Rare glimpses of what happens behind the courtroom doors trickle out through media reports and the few sensational cases that make headlines.
 
 But getting any more information is difficult. According to the [8 Principles of Open Data](http://opengovdata.org), a measure developed by open government advocates to create a set of universal data principles, Cook County courts, and the [Cook County Clerk of the Circuit Court](http://www.cookcountyclerkofcourt.org) who maintain the court's data, makes it only minimally available online and only meets half of the requirements.
 

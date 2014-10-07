@@ -6,18 +6,14 @@ Though there are offense disparities in many areas, we decided to focus on one o
 
 When an individual is arrested on a drug charge, they can be booked for manufacturing and delivery, or for possession. Whether it is one or the other depends on many factors - the patrolling officer, whether a person has any priors, or even whether they're able to make a deal with the prosecutor. 
 
- 
- <p class="lead"> The majority of drug-related convictions in Cook County are for possession. </p>
+<p class="lead"> The majority of drug-related convictions in Cook County are for possession. </p>
 
-Marijuana, and how it's used in the criminal justice system, has long been a contested issue. Chicago recently gave police officers leeway to use their own discretion in arresting an individual for a marijuana charge rather than fining them. 
+Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest.  
 
-In this graphic, we divided marijuana possession charges by their <span data-term="drugclass">class</span>. The majority of possession charges where class XXX, meaning the majority of people are convicted under the (harshest/not harshest) classs.
-
+In this graphic, we divided marijuana possession charges by their <span data-term="drugclass">class</span>. The majority of possession charges were class 4 felonies, meaning the majority of people were convicted for the lowest level felony. 
 <div id="drug-charges-class-chart" class="chart"></div>
 
-Convictions can vary by amounts, but what really matters is the class of a felony or misdemeanor. Many things can impact the class of a conviction - from how the product is packaged to what an individual said during an arrest. 
-
-<p class="lead"> The vast majority of drug convictions are for possession. </p>
+In this graphic, we can see the different types of drugs which make up convictions. 
 
 <div id="drug-charges-type-chart" class="chart"></div>
 

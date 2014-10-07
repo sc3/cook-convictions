@@ -3,6 +3,6 @@ This project is part of the [Smart Chicago Collaborative's](http://www.smartchic
 
 Our partners for this project are the [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). 
 
-Yana Kunichoff was the project's analyst and editor, Geoffrey Hing was the senior developer and Brian Peterson the junior developer.  
+Yana Kunichoff is the project's analyst and editor, Geoffrey Hing iss the senior developer and Brian Peterson is the junior developer.  
 
 You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell](http://tarbell.tribapps.com/) content management system to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/).

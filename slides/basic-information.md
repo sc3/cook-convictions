@@ -1,7 +1,7 @@
 
 ## Meet the Data
 
-Many cases leave the system long before they reach a verdict, either through a plea bargain or a similar deal. Many cases filed by police also don't result in a convction.
+Many cases leave the system long before they reach a verdict, <span data-term=”verdict”>Verdict</span> either through a plea bargain <span data-term=”bargain”>pleabargain</span> or a similar deal. Many cases filed by police also don't result in a convction.
 
 For this data set, we have cases that did result in convictions. 
 

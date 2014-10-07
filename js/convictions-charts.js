@@ -452,7 +452,7 @@
         top: 20,
         right: 0,
         bottom: 30,
-        left: 150
+        left: 80
       })
       .xScale(function(data) {
         return d3.scale.linear()
@@ -591,6 +591,12 @@
 
   function createDrugChargeChart(el, data, segmentKeys, colorVals) {
     var chart = stackedHorizontalBarChart()
+      .margin({
+        top: 20,
+        right: 0,
+        bottom: 30,
+        left: 100
+      })
       .segmentKeys(segmentKeys)
       .colorVals(colorVals)
       .labelX("Convictions");

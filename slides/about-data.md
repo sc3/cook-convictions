@@ -4,7 +4,7 @@
 
 We did this project because we want you -- the Chicago resident waiting for the train, the suburban commuter, the policymaker, the harried journalist -- to know what occurs in courtrooms in Cook County every day.
 
-This data is conviction data, showing both felonies and misdemeanors that occurred in Cook County Criminal Courts from January 2005 to December 2009. We also received the home address, to the hundredth block, of the person being convicted, the date of their arrest and the type of charge.
+This data is conviction <span data-term=”conviction”>Conviction</span> data, showing both felonies and misdemeanors that occurred in Cook County Criminal Courts from January 2005 to December 2009. We also received the home address, to the hundredth block, of the person being convicted, the date of their arrest and the type of charge.
 
 On this website, we've broken down the data into some of the most important things we've learned. But as you're reading, keep in mind a few things.
 

@@ -1,4 +1,8 @@
 
 This project is part of the [Smart Chicago Collaborative's](http://www.smartchicagocollaborative.org/) [Civic Works Project](http://www.smartchicagocollaborative.org/projects/civic-innovation-in-chicago/), a program funded by the [Knight Foundation](http://knightfoundation.org/) and the [Chicago Community Trust](http://www.cct.org/) to spur and support civic innovation in Chicago. 
 
-Our partners for this project are the [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell](http://tarbell.tribapps.com/) content management system to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/).
+Our partners for this project are the [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). 
+
+Tracy Siska of the Chicago Justice Project requested the data, Yana Kunichoff was the project's analyst and editor, Geoffrey Hing was the senior developer and Brian Peterson was the project's junior developer.  
+
+You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell](http://tarbell.tribapps.com/) content management system to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/).

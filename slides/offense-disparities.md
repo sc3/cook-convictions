@@ -11,7 +11,7 @@ When an individual is arrested on a drug charge, they can be booked for manufact
 
 Marijuana, and how it's used in the criminal justice system, has long been a contested issue. Chicago recently gave police officers leeway to use their own discretion in arresting an individual for a marijuana charge rather than fining them. 
 
-In this graphic, we divided marijuana possession charges by their class. The majority of possession charges where class XXX, meaning the majority of people are convicted under the (harshest/not harshest) classs.
+In this graphic, we divided marijuana possession charges by their class. <span data-term=”drugclass”>drugz</span> The majority of possession charges where class XXX, meaning the majority of people are convicted under the (harshest/not harshest) classs.
 
 <div id="drug-charges-class-chart" class="chart"></div>
 

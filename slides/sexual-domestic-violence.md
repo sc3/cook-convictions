@@ -9,7 +9,7 @@ The people that are victimized by domestic or sexual violence are very different
   <figcaption>For every conviction of a woman for this category of crime, there were {{ domestic_male_to_female_ratio|default(11)|int }} convictions of men. There were a total of {{ statistics.domestic_male.value|int }} convictions of men and {{ statistics.domestic_female.value|int }} convictions of women.</figcaption>
 </figure>
 
-There is also a signicant breadth of crimes that are encompassed in the terms domestic or sexual crimes. Below are a few encompassed in this definition:
+There is also a significant breadth of crimes that are encompassed in the terms domestic or sexual crimes. Below are a few encompassed in this definition:
 
 {crime list with 4-5 word lay description}
 

@@ -30,9 +30,9 @@ ul.subnav {
   ul.subnav li a {
     display: inline-block;
     text-align: center;
-    height: 5px;
-    width: 5px;
-    border-radius: 5px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
   }
 
   ul.subnav li a span {

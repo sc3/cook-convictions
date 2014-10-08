@@ -14,6 +14,15 @@ body {
   position: relative;
 }
 
+/* Associate hash ids with closer 
+   to their actual location. */
+[id]:before { 
+  display: block; 
+  margin-top: -60px; 
+  height: 60px; 
+  visibility: hidden; 
+}
+
 p {
   font-size: 16px;
   line-height: 20px;

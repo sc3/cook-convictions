@@ -14,12 +14,12 @@ body {
   position: relative;
 }
 
-/* Associate hash ids with closer 
+/* Associate seciton ids with closer 
    to their actual location. */
-[id]:before { 
+section[id]:before { 
   display: block; 
-  margin-top: -60px; 
-  height: 60px; 
+  margin-top: -85px; 
+  height: 85px; 
   visibility: hidden; 
 }
 

@@ -1,0 +1,4 @@
+
+{% macro popout(id) %}
+<span data-popout-id='{{ id }}'><i class="glyphicon glyphicon-search"></i></span>
+{% endmacro %}

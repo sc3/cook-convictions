@@ -29,6 +29,13 @@ section > ul > li {
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }
 
+/* Popouts */
+
+span[data-popout-id]:hover .glyphicon {
+  color: #555;
+}
+
+
 /* Cover page */
 
 #cover-page {

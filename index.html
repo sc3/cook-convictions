@@ -156,11 +156,13 @@ $(function() {
       data, 'drug_convictions');
   });
 
+  var old_jquery = $; 
 
   // Download the JSONified version of the tarbell context
   $.getJSON('/data.json', function(data) {
      var glossary = data.glossary;
      var statistics = data.statistics;
+     var popouts = data.popouts;
 
       Convictions.createCAFSexViz('#affecting-women-viz-container .viz-container', [
         {
@@ -176,7 +178,7 @@ $(function() {
      // Look for items with a 'data-term' attribute set and enable a
      // definition popover
      $('[data-term]').each(function() {
-       var $el = $(this);
+       var $el = old_jquery(this);
        var term = $el.data('term');
        var entry = glossary[term];
 
@@ -186,6 +188,23 @@ $(function() {
          trigger: 'click hover'
        });
      });
+
+     // Look for items with "data-popout-id" attribute set and enable 
+     // an explanation popover
+     $("[data-popout-id]").each(function() {
+       var $el = old_jquery(this);
+       var id = $el.data('popout-id');
+       var entry = popouts[id];
+
+       $el.popover({
+         content: entry.content,
+         title: entry.title,
+         trigger: 'click hover',
+         container: 'body',
+         placement: 'right'
+       });
+     });
+
   })
 
   // Update the navigation highlighting as we scroll to

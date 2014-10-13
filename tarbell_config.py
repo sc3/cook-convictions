@@ -6,6 +6,16 @@ Tarbell project configuration
 
 from flask import Blueprint
 
+from tarbell.app import TEMPLATE_TYPES
+
+# HACK: Work around CSS being removed from template rendering in 
+# https://github.com/newsapps/flask-tarbell/commit/cb1862007ca1a51255faedd0274dd9bbc27f1c75
+# See also https://github.com/newsapps/flask-tarbell/issues/231
+#
+# The right way to handle this would be to use a real CSS preprocessor like
+# LESS instead of concatenating CSS using Jinja.
+TEMPLATE_TYPES.append("text/css")
+
 blueprint = Blueprint('cook_convictions', __name__)
 
 @blueprint.app_template_filter('format_stat')

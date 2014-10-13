@@ -12,7 +12,10 @@ Street crime skews young. There are many theories for why this is, including qui
 
 The crimes committed by people of different ages also vary. Our conviction data shows that the vast majority of violence convictions are for young people. 
 
-Caveat: This is different to the total number of convictions, since we are picking specific groupings.
+<div class="alert alert-warning" role="alert">
+  <span class="glyphicon glyphicon-warning-sign"></span>
+  This is different to the total number of convictions, since we are picking specific groupings.
+</div>
 
 ### Violent convictions by age
 
@@ -21,7 +24,5 @@ Caveat: This is different to the total number of convictions, since we are picki
 ### Drug convictions by age
 
 <div class="chart" id="drug-convictions-by-age-chart"></div>
-
-
 
 {% include '_warnings.html' %}

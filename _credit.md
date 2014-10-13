@@ -1,4 +1,3 @@
-
 This project is part of the [Smart Chicago Collaborative's](http://www.smartchicagocollaborative.org/) [Civic Works Project](http://www.smartchicagocollaborative.org/projects/civic-innovation-in-chicago/), a program funded by the [Knight Foundation](http://knightfoundation.org/) and the [Chicago Community Trust](http://www.cct.org/) to spur and support civic innovation in Chicago. 
 
 Our partners for this project are the [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). 

@@ -32,15 +32,28 @@ p {
   line-height: 20px;
 }
 
+.popover {
+  font-size: 16px;
+  line-height: 20px;
+}
+
 section h2 {
   text-align: center;
 }
 
 section > p,
-section ul li {
+section ul li,
+section ul li p {
   font-size: 18px;
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }
+
+/* Popouts */
+
+span[data-popout-id]:hover .glyphicon {
+  color: #555;
+}
+
 
 /* Cover page */
 
@@ -96,7 +109,8 @@ section ul li {
   }
 
   section > p,
-  section > ul > li {
+  section ul li,
+  section ul li p {
     font-size: 22px;
     line-height: 1.5;
   } 

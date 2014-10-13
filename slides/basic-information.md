@@ -1,4 +1,3 @@
-
 ## Meet the Data
 
 Many cases leave the system long before they reach a <span data-term="verdict">verdict</span>, either through a <span data-term="bargain">plea bargain</span> or a similar deal. Many cases filed by police also don't result in a conviction.
@@ -39,7 +38,7 @@ Here's some of the numbers we found:
 
 {# How many convictions are drug-related vs. violent vs. non-violent #}
 
-## Drug crimes are the biggest chunk of convictions
+## More convictions for drug crimes than for violent and property crimes combined 
 
 {% include '_warnings.html' %}
  

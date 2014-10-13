@@ -14,7 +14,7 @@ body {
   position: relative;
 }
 
-h1, .h1, h2, .h2, h3, .h3 {
+h1, .h1, h2, .h2 {
   margin-bottom: 20px;
 }
 
@@ -89,6 +89,10 @@ section > ul > li {
 
   section.container {
     width: 768px;
+  }
+
+  section.container.full-width {
+    width: 970px;
   }
 
   section > p,

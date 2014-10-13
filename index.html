@@ -22,7 +22,11 @@
   {% for slide in slides %}
   {% if slide.section_id == section.id %}
   <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
+    {% if slide.id == "conclude" %}
+    {{ render_file("slides/{0}.html".format(slide.id))|safe }}
+    {% else %}
     {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
+    {% endif %}
   </section>
   {% endif %}
   {% endfor %}

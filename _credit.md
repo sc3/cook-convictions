@@ -6,4 +6,6 @@ Yana Kunichoff is the project's analyst and editor, Geoffrey Hing is the senior 
 
 [The Illustrated Press](http://illuspress.com) created the illustrations.
 
+All icons from the <a href="http://www.thenounproject.com">Noun Project</a>. Judgment icon designed by <a href="http://www.thenounproject.com/gatjensb">Bruno Gatjens Gonzalez</a>.
+
 You can find the code backing this website on [Github](https://github.com/sc3/crime-punishment). We used the Chicago Tribune's [Tarbell](http://tarbell.tribapps.com/) content management system to build our site. Content and code is under a [Creative Commons Attribution 3.0 Licence](http://creativecommons.org/licenses/by/3.0/us/).

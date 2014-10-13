@@ -21,6 +21,6 @@ requests==2.3.0
 sh==1.09
 six==1.7.3
 sphinx-rtd-theme==0.1.6
-git+https://github.com/bepetersn/flask-tarbell.git@0.9-beta7
+git+https://github.com/newsapps/flask-tarbell.git@0.9-beta7
 wsgiref==0.1.2
 xlrd==0.9.3

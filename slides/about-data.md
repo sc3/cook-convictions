@@ -8,6 +8,7 @@ This data is <span data-term="conviction">conviction</span> data, showing both f
 
 On this website, we've broken down the data into some of the most important things we've learned. But as you're reading, keep in mind a few things.
 
+- The data set contains records of {{ '{:,d}' | format_stat(statistics.dispositions.value) }} <span data-term="disposition">dispositions</span>. We decided to look at only the {{ '{:,d}' | format_stat(statistics.dispositions_2005_onward.value) }} records for cases that started in 2005 or later to be sure that we were looking at cases for which we had all the initial dispositions.
 - Our data doesn't include race or information on whether the conviction is the same as the <span data-term="initialcharge">initial charge</span>
 - We don't know how many cases are filed. [Pop-out: This means that the actual number of people streaming through the court rooms is much larger than the couple hundred thousand records we were given.]
 - We requested every <span data-term="conviction">conviction</span>, but because of data access issues in Cook County, we don't know if we received them all. 

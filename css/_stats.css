@@ -8,6 +8,10 @@
   margin-right: auto;
 }
 
+.big-stat h3 {
+  font-size: 30px;
+}
+
 .big-stat p {
   text-align: justify;
 }

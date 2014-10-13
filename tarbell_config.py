@@ -4,6 +4,14 @@
 Tarbell project configuration
 """
 
+from flask import Blueprint
+
+blueprint = Blueprint('cook_convictions', __name__)
+
+@blueprint.app_template_filter('format_stat')
+def format_stat(fmt, val):
+   return fmt.format(int(val))
+
 # Short project name
 NAME = "cook-convictions"
 

@@ -2,7 +2,7 @@
 
 ## Windy City Convictions by the Numbers
 
-We did this project because we want you -- the Chicago resident waiting for the train, the suburban commuter, the policymaker, the harried journalist -- to know what occurs in courtrooms in Cook County every day.
+We did this project because we want you - the Chicago resident waiting for the train, the suburban commuter, the policymaker, the harried journalist - to know what occurs in courtrooms in Cook County every day.
 
 This data is <span data-term="conviction">conviction</span> data, showing both felonies and misdemeanors that occurred in Cook County Criminal Courts from January 2005 to December 2009. We also received the home address, to the hundredth block, of the person being convicted, the date of their arrest and the type of charge.
 

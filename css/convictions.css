@@ -53,52 +53,7 @@ span[data-popout-id]:hover .glyphicon {
   color: #555;
 }
 
-
-/* Cover page */
-
-#cover-page {
-  margin-bottom: 2em;
-  position: relative;
-  width: 100%;
-}
-
-#cover-page .bg-img,
-#cover-page .bg-clear {
-  height: 100vh;
-  /* fix background */
-  background-attachment: fixed;
-
-  /* center it and clear the top nav bar*/
-  background-position: center 50px;
-
-  /* Scale it nicely to the element */
-  background-size: cover;
-
-  background-image: url(../img/conincook201.jpg)
-}
-
-#cover-page .bg-shade {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.45);
-  text-align: center;
-}
-
-#cover-page .bg-shade h1 {
-  position: relative;
-  top: 35%;
-  font-size: 60px;
-  font-weight: bold;
-  color: #fff;
-}
-
 @media (min-width: 768px) {
-  #cover-page .bg-shade h1 {
-    font-size: 80px;
-  }
-
   section.container {
     width: 768px;
   }
@@ -118,9 +73,9 @@ span[data-popout-id]:hover .glyphicon {
   }
 }
 
-
 {# Low-rent asset pipeline #}
 
+{% include "css/_cover_page.css" %}
 {% include "css/_viz.css" %}
 {% include "css/_stats.css" %}
 {% include "css/_nav.css" %}

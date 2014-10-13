@@ -16,6 +16,8 @@
   <div class="bg-clear"></div>
 </div>
 
+{% include "_credit_bar.html" %}
+
 <div class="slides">
 {% for section in sections %}
   <section id="{{ section.id }}">
@@ -131,7 +133,7 @@ $(function() {
    * Size the map container to the full height of the window
    */
   function sizeMapContainer(el) {
-    var height = $(window).height() - $('#top-nav').height() - $('#page-footer').height();
+    var height = $(window).height() - $('#top-nav').height();
     $(el).height(height);
   }
 

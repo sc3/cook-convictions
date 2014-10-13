@@ -2,7 +2,9 @@
 
 ## A slice of reality: convictions for sexual and domestic violence
 
-Less than 1 percent of all convictions in our data are for domestic and sexual violence. Though our data does not indicate any details about the people victimized by these crimes, studies show incidents of sexual assault and domestic violence are heavily [underreported](http://www.usatoday.com/story/news/nation/2013/11/19/study-sexual-assaults-greatly-underreported-/3648197/). 
+Less than 1 percent of all convictions in our data are for domestic and sexual violence. This includes crimes such as domestic battery, stalking or violating an order of protection.   
+
+Though our data does not indicate any details about the people victimized by these crimes, studies show incidents of sexual assault and domestic violence are heavily [underreported](http://www.usatoday.com/story/news/nation/2013/11/19/study-sexual-assaults-greatly-underreported-/3648197/). 
 
 The gender disparity for domestic and sexual violence convictions leans heavily toward men - which is the case in all of our data. 
 
@@ -11,10 +13,6 @@ The gender disparity for domestic and sexual violence convictions leans heavily 
   <figcaption>For every conviction of a woman for this category of crime, there were {{ domestic_male_to_female_ratio|default(11)|int }} convictions of men. There were a total of {{ statistics.domestic_male.value|int }} convictions of men and {{ statistics.domestic_female.value|int }} convictions of women.</figcaption>
 </figure>
 
-
-There is also a significant breadth of crimes that are encompassed in the terms domestic or sexual crimes. Below are a few encompassed in this definition:
-
-{crime list with 4-5 word lay description}
 
 
 {% include '_warnings.html' %}

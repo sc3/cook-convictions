@@ -14,6 +14,15 @@ body {
   position: relative;
 }
 
+/* Associate seciton ids with closer 
+   to their actual location. */
+section[id]:before { 
+  display: block; 
+  margin-top: -85px; 
+  height: 85px; 
+  visibility: hidden; 
+}
+
 p {
   font-size: 16px;
   line-height: 20px;

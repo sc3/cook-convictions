@@ -37,7 +37,7 @@ section h2 {
 }
 
 section > p,
-section > ul > li {
+section ul li {
   font-size: 18px;
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }

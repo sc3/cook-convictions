@@ -711,6 +711,7 @@
     render = function() {
       $(el).empty();
       renderFn.apply(this, renderArgs);
+      $('body').scrollspy('refresh');
     };
 
     render();

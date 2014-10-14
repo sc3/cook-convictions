@@ -213,26 +213,25 @@ $(function() {
   // various sections in the page
   $('body').scrollspy({target: '#top-nav'})
     .on('activate.bs.scrollspy', function (e) {
-    // Set the correct hash based on the scroll position
-    var $target = $(e.target);
-    var $anchor = $target.find('a.slide-circle');
+      // Set the correct hash based on the scroll position
+      var $target = $(e.target);
+      var $anchor = $target.find('a.slide-circle');
 
-    // we only care about slides, not sections
-    if ($anchor.length == 1) {
-      var hash = $anchor.attr('href');
+      // we only care about slides, not sections
+      if ($anchor.length == 1) {
+        var hash = $anchor.attr('href');
 
-      // update the history object instead of the
-      // location's hash, so we don't jump around
-      // when we scroll backwards
-      if(history.replaceState) {
-          history.replaceState(null, null, hash);
+        // update the history object instead of the
+        // location's hash, so we don't jump around
+        // when we scroll backwards
+        if(history.replaceState) {
+            history.replaceState(null, null, hash);
+        }
+        else {
+            location.hash = hash;
+        }
       }
-      else {
-          location.hash = hash;
-      }
-    }
-  });
-
+    });
 });
 </script>
 {% endblock %}

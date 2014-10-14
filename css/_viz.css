@@ -10,8 +10,10 @@
   padding-left: 0;
 }
 
-.legend {
+.leaflet-popup-content li {
+  font-size: 12px;
 }
+
 
 .legend dl {
   width: 180px;

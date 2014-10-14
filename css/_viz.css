@@ -38,8 +38,17 @@
   stroke: #000;
 }
 
+.ratio-container {
+  width: 50%;
+  float: left;
+}
+
 #affecting-women-viz-container {
   margin-bottom: 10px;
+}
+
+#affecting-women-viz-container .viz-container {
+  overflow-y: hidden;
 }
 
 #affecting-women-viz-container img {

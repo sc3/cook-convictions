@@ -732,6 +732,7 @@
         var bigger;
         var j;
         var img;
+        var container;
 
         data.sort(function(a, b) {
           return d3.ascending(a.value, b.value);
@@ -741,14 +742,20 @@
 
         ratio = Math.round(bigger.value / smaller.value);
 
+        container = selection.append('div');
+        container.classed('ratio-container', true);
+
         for (j = 0; j < ratio; j++) {
-          img = selection.append('img');
+          img = container.append('img');
           img.attr('src', bigger.image);
-          img.classed('ratio-bigger');
+          img.classed('ratio-bigger', true);
         }
-        img = selection.append('img');
+
+        container = selection.append('div');
+        container.classed('ratio-container', true);
+        img = container.append('img');
         img.attr('src', smaller.image);
-        img.classed('ratio-smaller');
+        img.classed('ratio-smaller', true);
       });
     }
 

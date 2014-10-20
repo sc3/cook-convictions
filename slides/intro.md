@@ -6,6 +6,6 @@ But getting any more information is difficult. According to the [8 Principles of
 
 Instead, a Cook County resident looking for bulk data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
 
-While information about an individual case can be found in the court house or online, to really understand the system, we need to take a step back and look at the data as a whole. 
-
 This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). The goal is to shed a light on criminal convictions in Cook County.
+
+

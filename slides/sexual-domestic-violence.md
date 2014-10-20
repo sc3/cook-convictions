@@ -4,9 +4,11 @@
 
 Less than 1 percent of all convictions in our data are for domestic and sexual violence. This includes crimes such as domestic battery, stalking or violating an order of protection.   
 
-Though our data does not indicate any details about the people victimized by these crimes, studies show incidents of sexual assault and domestic violence are heavily [underreported](http://www.usatoday.com/story/news/nation/2013/11/19/study-sexual-assaults-greatly-underreported-/3648197/). 
+Though our data does not indicate any details about the people victimized by these crimes, we know they are heavily underreported. [The National Crime Victimization Survey estimates](http://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/34650) that only 28 per cent of sexual assaults and 55 per cent of domestic violence is reported. 
 
 The gender disparity for domestic and sexual violence convictions leans heavily toward men - which is the case in all of our data. 
+
+We also know that the vast majority of offenders have a relationship with the survivor to some degree. While stranger attacks may recieve the majority of reporting in local news, they are a statistically small part of sexual and domestic violence. Because our data does not address victimization, it is difficult to place a figure on who is affected by these crimes, and their relationship to the accused.  
 
 <figure id="affecting-women-viz-container">
   <div class="viz-container"></div>

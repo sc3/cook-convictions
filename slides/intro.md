@@ -4,8 +4,8 @@ Rare glimpses of what happens behind the courtroom doors trickle out through med
 
 But getting any more information is difficult. According to the [8 Principles of Open Data](http://opengovdata.org), a measure developed by open government advocates to create a set of universal data principles, Cook County courts, and the [Cook County Clerk of the Circuit Court](http://www.cookcountyclerkofcourt.org) who maintain the court's data, makes it only minimally available online and only meets half of the requirements.
 
-Instead, a Cook County resident looking for data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
+Instead, a Cook County resident looking for bulk data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
 
-<p class="lead"> Until now. </p>
+While information about an individual case can be found in the court house or online, to really understand the system, we need to take a step back and look at the data as a whole. 
 
 This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). The goal is to shed a light on criminal convictions in Cook County.

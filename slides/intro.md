@@ -8,5 +8,7 @@ Instead, a Cook County resident looking for bulk data about the courts meets a m
 
 This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). The goal is to shed a light on criminal convictions in Cook County. 
 
-What we found through our analysis was that 18-24 year olds have more convictions than any other age group, possession convictions far outpace those for manufacturing and delivering drugs, and convictions for sexual and domestic violence are only a small proportion of total convictions.
+While we would have liked to see all convictions from 2005-2009, we aren't sure if we recieved them all. Our data also didn't include the initial charge, how many cases go through Cook County courtrooms, or if an individual had prior convictions that impacted the court's ruling on their case. 
+
+What we did find through our analysis was that 18-24 year olds have more convictions than any other age group, possession convictions far outpace those for manufacturing and delivering drugs, and convictions for sexual and domestic violence are only a small proportion of total convictions.
 

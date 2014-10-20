@@ -2,7 +2,9 @@
 
 ## Youth carry overwhelming number of convictions in Cook County	
 
-Street crime skews young. There are many theories for why this is, including quite simply that young people are more likely to be out on the street.
+Street crime skews young. 
+
+It isn't entirely clear why this is the case, but criminologists theorize that most people simply age out of crime. Following cut-off age - 24 - most people committ less crime and often stop altogther by 35. 
 
 <p class="lead"> Cook County hands down more convictions to young people between the ages of 18-24 than it does to all other age groups combined. </p>
 

@@ -4,7 +4,7 @@
 
 Street crime skews young. 
 
-It isn't entirely clear why this is the case, but criminologists theorize that most people simply age out of crime. Following cut-off age - 24 - most people committ less crime and often stop altogther by 35. Individual's desire to have a family and whether they have access to legitimate employment impacts the likelihood they will committ a crime. 
+It isn't entirely clear why this is the case, but criminologists theorize that most people simply age out of crime. Following cut-off age - 24 - most people commit less crime and often stop altogether by 35. Individual's desire to have a family and whether they have access to legitimate employment impacts the likelihood they will commit a crime. 
 
 <p class="lead"> Cook County hands down more convictions to young people between the ages of 18-24 than it does to all other age groups combined. </p>
 

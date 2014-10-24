@@ -2,7 +2,7 @@ Each year, tens of thousands of people stand in front of judges at the [Cook Cou
 
 Rare glimpses of what happens behind the courtroom doors trickle out through media reports and the few sensational cases that make headlines.
 
-But getting any more information is difficult. According to the [8 Principles of Open Data](http://opengovdata.org), a measure developed by open government advocates to create a set of universal data principles, Cook County courts, and the [Cook County Clerk of the Circuit Court](http://www.cookcountyclerkofcourt.org) who maintain the court's data, makes it only minimally available online and only meets half of the requirements.
+It is [relatively easy to get information](http://crime.chicagotribune.com/) on incidents of crime in the city of Chicago. The police department has [releaed crime incident data](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2) for every incident since 2001. However, an incident of crime is just the [beginning of the criminal justice process](http://crime-punishment.smartchicagoapps.org/). Once an individual is arrested, they begin to go through the court system where it is not simple to gain information about cases. 
 
 Instead, a Cook County resident looking for bulk data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
 

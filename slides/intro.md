@@ -4,7 +4,7 @@ Rare glimpses of what happens behind the courtroom doors trickle out through med
 
 It is [relatively easy to get information](http://crime.chicagotribune.com/) on incidents of crime in the city of Chicago. The police department has [releaed crime incident data](https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2) for every incident since 2001. However, an incident of crime is just the [beginning of the criminal justice process](http://crime-punishment.smartchicagoapps.org/). Once an individual is arrested, they begin to go through the court system where it is not simple to gain information about cases. 
 
-Instead, a Cook County resident looking for bulk data about the courts meets a months-long request process that moves through multiple government agencies, and with the possibility of a large filing fee.
+Unlike crime incident data, there is no bulk data available to clearly understand how a case moves from an incident report through to a convictions, or to get a sense of who is being convicted and what for. The Smart Chicago Collaborative, together with the Chicago Justice Project and FreeGeek Chicago, has built this site as a way to help residents of Cook County understand convictions in Cook County. 
 
 This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). The goal is to shed a light on criminal convictions in Cook County. 
 

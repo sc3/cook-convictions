@@ -6,7 +6,7 @@ It is [relatively easy to get information](http://crime.chicagotribune.com/) on 
 
 Unlike crime incident data, there is no bulk data available to clearly understand how a case moves from an incident report through to a convictions, or to get a sense of who is being convicted and what for. The Smart Chicago Collaborative, together with the Chicago Justice Project and FreeGeek Chicago, has built this site as a way to help residents of Cook County understand convictions in Cook County. 
 
-This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). The goal is to shed a light on criminal convictions in Cook County. 
+This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). You can find a copy of that FOIA request here. 
 
 While we would have liked to see all convictions from 2005-2009, we aren't sure if we recieved them all. Our data also didn't include the initial charge, how many cases go through Cook County courtrooms, or if an individual had prior convictions that impacted the court's ruling on their case. 
 

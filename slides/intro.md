@@ -8,7 +8,9 @@ Unlike crime incident data, there is no bulk data available to clearly understan
 
 This project analyzes five years worth of conviction data received through the [Office of the Chief Judge of the Circuit Court of Cook County](http://www.cookcountycourt.org/ABOUTTHECOURT/OfficeoftheChiefJudge.aspx) by the [Chicago Justice Project](http://chicagojustice.org). You can find a copy of that FOIA request here. 
 
-While we would have liked to see all convictions from 2005-2009, we aren't sure if we recieved them all. Our data also didn't include the initial charge, how many cases go through Cook County courtrooms, or if an individual had prior convictions that impacted the court's ruling on their case. 
+The data we received was messy and incomplete. Our data didn't include the initial charge, how many cases go through Cook County courtrooms, or if an individual had prior convictions that impacted the court's ruling on their case. The data also didn’t include any information on race and the data appeared to include some minors. (The Chicago Justice Project asked for race and had only asked for convictions of adults.) 
+
+FreeGeekChicago helped us to clean up the data and to visualize it. We have included notes throughout the site in which we’ve excluded or modified data as part of this process. 
 
 What we did find through our analysis was that 18-24 year olds have more convictions than any other age group, possession convictions far outpace those for manufacturing and delivering drugs, and convictions for sexual and domestic violence are only a small proportion of total convictions.
 

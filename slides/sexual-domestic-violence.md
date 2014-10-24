@@ -15,6 +15,6 @@ We also know that the vast majority of offenders have a relationship with the su
   <figcaption>For every conviction of a woman for this category of crime, there were {{ domestic_male_to_female_ratio|default(11)|int }} convictions of men. There were a total of {{ statistics.domestic_male.value|int }} convictions of men and {{ statistics.domestic_female.value|int }} convictions of women.</figcaption>
 </figure>
 
-The goal for the project was to dive deeper into the conviction numbers to better understand the issue as it relates to Cook County. However, the number of domestic and sexual violence convictions were too low (649 convictions out of 141,161) to perform any reliable analysis. When we attempted to show these convictions geographically, the variance was too low to be meaningful. Without comprehensive information on charges we can’t know if there were more cases the State’s Attorney attempted to prosecute, but were acquitted.  
+The goal for the project was to dive deeper into the conviction numbers to better understand the issue as it relates to Cook County. However, the number of domestic and sexual violence convictions were too low (649 convictions out of 141,161) to perform any reliable analysis. When we attempted to show these convictions geographically, the variance was too low to be meaningful. Without comprehensive information on charges we can't know if there were more cases the State's Attorney attempted to prosecute, but were acquitted.  
 
 {% include '_warnings.html' %}

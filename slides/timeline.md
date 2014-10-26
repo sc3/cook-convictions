@@ -1,5 +1,3 @@
-{% set slide_id = 'timeline' %}
-
 <div id="timeline-embed"></div>
 <script>
 var timeline_config = {

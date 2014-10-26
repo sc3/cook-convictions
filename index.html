@@ -24,6 +24,7 @@
   {% for slide in slides %}
   {% if slide.section_id == section.id %}
   <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
+    {% if slide.show_title %}<h2>{{ slide.title }}</h2>{% endif %}
     {% if slide.id == "conclude" %}
     {{ render_file("slides/{0}.html".format(slide.id))|safe }}
     {% else %}

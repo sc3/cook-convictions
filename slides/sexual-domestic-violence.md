@@ -1,7 +1,3 @@
-{% set slide_id = 'sexual-domestic-violence' %}
-
-## A slice of reality: convictions for sexual and domestic violence
-
 Less than 1 percent of all convictions in our data are for domestic and sexual violence. This includes crimes such as domestic battery, stalking or violating an order of protection.   
 
 Though our data does not indicate any details about the people victimized by these crimes, we know they are heavily underreported. [The National Crime Victimization Survey estimates](http://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/34650) that only 28 per cent of sexual assaults and 55 per cent of domestic violence is reported. 

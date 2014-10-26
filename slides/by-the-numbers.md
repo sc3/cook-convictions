@@ -1,8 +1,3 @@
-{% set slide_id = 'about-data' %}
-{% from 'macros/_popout.html' import popout %}
-
-## Windy City Convictions by the Numbers
-
 One of the key challenges in analyzing our data was understanding the records in our spreadsheet and learning how they related to other important but unrepresented parts of the criminal justice system.
 
 We faced several changes. Below we've spelled out the difficulties we encountered, and how dealt with them. 
@@ -26,5 +21,3 @@ Frequent misspellings and inconsistent abbreviations
 - Similarly, there were frequent misspellings and abbreviations for city and state values for the home address. In other cases, an individual's home address may be a correctional institution or they may be homeless. Where we could, we used the street address and zip code to geocode the home address and map them to a Chicago community area or suburb. 
 
 The logic for identifying convictions, identifying neighborhoods or suburbs and grouping by charge type were implemented in Python scripts. You can view the source of these scripts in the [project's repository](https://github.com/sc3/cook-convictions-data/).
-
-{% include 'slides/_edit_this.md' %}

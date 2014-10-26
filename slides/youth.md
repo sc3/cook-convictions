@@ -1,7 +1,3 @@
-{% set slide_id = 'story-youth' %}
-
-## Youth carry overwhelming number of convictions in Cook County	
-
 Street crime skews young. 
 
 It isn't entirely clear why this is the case, but criminologists theorize that most people simply age out of crime. Following cut-off age - 24 - most people commit less crime and often stop altogether by 35. Individual's desire to have a family and whether they have access to legitimate employment impacts the likelihood they will commit a crime. 

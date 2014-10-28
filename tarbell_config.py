@@ -49,7 +49,6 @@ S3_BUCKETS = {
 DEFAULT_CONTEXT = {
     'name': NAME, 
     'title': TITLE, 
-    'dispositions_spreadsheet_url': 'https://docs.google.com/spreadsheets/d/1boFklFIIybsAA3dGdfeMW1SEHFmPOz03f3QyB9KPo9g/edit?usp=sharing',
 }
 
 SPREADSHEET_CACHE_TTL = 60

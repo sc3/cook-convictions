@@ -1,0 +1,26 @@
+{% extends '_sandbox.html' %}
+
+{% block content %}
+<div class="container">
+  <table id="table-top-charges" class="table">
+    <thead>
+      <tr>
+        <th>Position</th>
+        <th>Statute</th>
+        <th>Charge Description</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for charge in top_charges %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td><a href="{{ charge.statute_url }}">{{ charge.statute }}</a></td>
+        <td>{{ charge.chrgdesc }}</td>
+        <td>{{ charge.count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

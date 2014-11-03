@@ -139,7 +139,24 @@ $(function() {
   }
 
   sizeMapContainer('#your-city-map-container');
-  var chicagoMap = Convictions.createChicagoMap('#your-city-map-container', COMMUNITY_AREAS_URL, SUBURBS_URL, CHICAGO_URL, true);
+  var communityAreas = new Convictions.ConvictionGeoJSONCollection();
+  var suburbs = new Convictions.ConvictionGeoJSONCollection();
+  var chicago = new Convictions.GeoJSONCollection();
+
+  var chicagoMap = new Convictions.ChicagoMapView({
+    collection: communityAreas,
+    suburbsCollection: suburbs,
+    chicagoCollection: chicago,
+    el: '#your-city-map-container'
+  });
+
+  communityAreas.url = COMMUNITY_AREAS_URL;
+  suburbs.url = SUBURBS_URL;
+  chicago.url = CHICAGO_URL;
+  communityAreas.fetch();
+  suburbs.fetch();
+  chicago.fetch();
+
   $(window).resize(_.debounce(function() {
     sizeMapContainer('#your-city-map-container');
     chicagoMap.invalidateSize();
@@ -194,7 +211,7 @@ $(function() {
        });
      });
 
-     // Look for items with "data-popout-id" attribute set and enable 
+     // Look for items with "data-popout-id" attribute set and enable
      // an explanation popover
      $("[data-popout-id]").each(function() {
        var $el = $(this);

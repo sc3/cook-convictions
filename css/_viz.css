@@ -35,6 +35,10 @@
   width: 140px;
 }
 
+#top-charges-map-container .legend dd {
+  height: 40px;
+}
+
 .chart-bar .tooltip-chart rect {
   fill: #fff;
   stroke: #000;

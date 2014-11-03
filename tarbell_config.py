@@ -4,6 +4,8 @@
 Tarbell project configuration
 """
 
+import json
+
 from flask import Blueprint
 
 from tarbell.app import TEMPLATE_TYPES
@@ -21,6 +23,12 @@ blueprint = Blueprint('cook_convictions', __name__)
 @blueprint.app_template_filter('format_stat')
 def format_stat(fmt, val):
    return fmt.format(int(val))
+
+@blueprint.app_template_filter('community_area_top_charge_json')
+def community_area_top_charge_json(community_areas):
+    data = [{'number': ca['number'], 'top_charge': ca['top_charge']}
+            for ca in community_areas]
+    return json.dumps(data)
 
 # Short project name
 NAME = "cook-convictions"

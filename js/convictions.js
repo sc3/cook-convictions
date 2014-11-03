@@ -67,8 +67,24 @@
     }
   });
 
-  var ConvictionGeoJSONCollection = GeoJSONCollection.extend({
-    model: ConvictionGeoJSONModel
+  Convictions.ConvictionGeoJSONCollection = GeoJSONCollection.extend({
+    model: ConvictionGeoJSONModel,
+
+    join: function(objs, joinAttr) {
+      var collection = this;
+
+      _.each(objs, function(o) {
+        var lookup = {};
+        var model;
+
+        lookup[joinAttr] = o[joinAttr];
+        model = collection.findWhere(lookup);
+
+        if (model) {
+          model.set(o);
+        }
+      });
+    }
   });
 
   // Choropleth bins
@@ -76,34 +92,70 @@
   /**
    * A single bin.
    */
-  var Bin = function(lower, upper, color) {
+  var RangeBin = function(lower, upper, color) {
     this.lower = lower;
     this.upper = upper;
     this.color = color;
   };
 
-  _.extend(Bin.prototype, {
+  _.extend(RangeBin.prototype, {
     contains: function(val) {
       return val >= this.lower && val < this.upper;
+    },
+
+    label: function() {
+      return this.lower + " - " + this.upper;
+    }
+  });
+
+  var CategoryBin = function(category, color) {
+    this.category = category;
+    this.color = color;
+  };
+
+  _.extend(CategoryBin.prototype, {
+    label: function() {
+      return this.category;
     }
   });
 
   /**
    * All the bins for a given property.
    */
-  var BinCollection = function(property, label, breaks, colors) {
-    var brk, i;
 
+  var BinCollection = function(property, label, colors, options) {
     this.property = property;
     this.label = label;
     this.bins = [];
 
-    for (i = 0; i < breaks.length - 1; i++) {
-      this.bins.push(new Bin(breaks[i], breaks[i+1], colors[i]));
-    }
+    this.initialize(colors, options);
   };
 
+  _.each(['each', 'forEach'], function(method) {
+    BinCollection.prototype[method] = function() {
+      var args = Array.prototype.slice.call(arguments);
+      args.unshift(this.bins);
+      return _[method].apply(_, args);
+    };
+  });
+
   _.extend(BinCollection.prototype, {
+    initialize: function() {}
+  });
+
+  var RangeBinCollection = function() {
+     BinCollection.apply(this, arguments);
+  };
+  RangeBinCollection.prototype = new BinCollection();
+  _.extend(RangeBinCollection.prototype, {
+    initialize: function(colors, options) {
+      var breaks = options.breaks;
+      var brk, i;
+      for (i = 0; i < breaks.length - 1; i++) {
+        this.bins.push(new RangeBin(breaks[i], breaks[i+1], colors[i]));
+      }
+    },
+
     get: function(val) {
       var i, bin;
       for (i = 0; i < this.bins.length; i++) {
@@ -117,13 +169,25 @@
     }
   });
 
-  _.each(['each', 'forEach'], function(method) {
-    BinCollection.prototype[method] = function() {
-      var args = Array.prototype.slice.call(arguments);
-      args.unshift(this.bins);
-      return _[method].apply(_, args);
-    };
+  var CategoryBinCollection = function() {
+     BinCollection.apply(this, arguments);
+  };
+  CategoryBinCollection.prototype = new BinCollection();
+  _.extend(CategoryBinCollection.prototype, {
+    initialize: function(colors, options) {
+      this.bins = {};
+      var categories = options.categories;
+      var i, category;
+      for (i = 0; i < categories.length; i++) {
+        this.bins[categories[i]] = new CategoryBin(categories[i], colors[i]);
+      }
+    },
+
+    get: function(val) {
+      return this.bins[val];
+    }
   });
+
 
   /**
    * Get the BinCollection for a given property.
@@ -141,7 +205,6 @@
       return this.bins[property];
     }
   });
-
 
   // Views
 
@@ -272,37 +335,12 @@
     },
 
     renderLegendItem: function(bin) {
-      var label = bin.lower + " - " + bin.upper;
-      var $item = $('<dt style="background-color: ' + bin.color + '"></dt><dd>' + label + '</dd>');
+      var $item = $('<dt style="background-color: ' + bin.color + '"></dt><dd>' + bin.label() + '</dd>');
       return $item;
     }
   });
 
-  /**
-   * A choropleth of conviction rate
-   */
-  var ConvictionRateMapView = MapView.extend({
-    options: _.extend({}, MapView.prototype.options, {
-      popupTemplate: _.template("<%= name %>" +
-        "<ul>" +
-        "<li>Convictions: <%= num_convictions %>" +
-        "<li>Convictions per 1000: <%= convictions_per_1000 %></li>" +
-        "</ul>"
-      ),
-
-      defaultFillProperty: 'convictions_per_1000'
-    }),
-
-    postInitialize: function() {
-      this.fillProperty = this.options.defaultFillProperty;
-      this.legendView = new MapLegendView({
-        map: this.map,
-        bins: this.options.bins,
-        defaultFillProperty: this.options.defaultFillProperty
-      });
-      return this;
-    },
-
+  var ChoroplethMapView = MapView.extend({
     addMapLayer: function(layerAttr, collection, style, onEachFeature) {
       collection = collection || this.collection;
       style = style || _.bind(this.style, this);
@@ -350,11 +388,68 @@
     }
   });
 
+  /**
+   * A choropleth of conviction rate
+   */
+  var ConvictionRateMapView = ChoroplethMapView.extend({
+    options: _.extend({}, MapView.prototype.options, {
+      popupTemplate: _.template("<%= name %>" +
+        "<ul>" +
+        "<li>Convictions: <%= num_convictions %>" +
+        "<li>Convictions per 1000: <%= convictions_per_1000 %></li>" +
+        "</ul>"
+      ),
+
+      defaultFillProperty: 'convictions_per_1000'
+    }),
+
+    postInitialize: function() {
+      this.fillProperty = this.options.defaultFillProperty;
+      this.legendView = new MapLegendView({
+        map: this.map,
+        bins: this.options.bins,
+        defaultFillProperty: this.options.defaultFillProperty
+      });
+      return this;
+    }
+  });
+
+  Convictions.CategoryMapView = ChoroplethMapView.extend({
+    postInitialize: function() {
+      this.fillProperty = this.options.defaultFillProperty;
+      this.fillLabel = this.options.defaultFillLabel;
+      this.joinProperties = this.options.joinProperties;
+
+      return this;
+    },
+
+    bindCollectionEvents: function() {
+      this.collection.on('sync', this.handleSync, this);
+    },
+
+    handleSync: function() {
+      var vals;
+      var bins = new BinLookup();
+      this.collection.join(this.joinProperties, this.options.joinAttr);
+      vals = _.uniq(this.collection.pluck(this.fillProperty));
+      bins.add(new CategoryBinCollection(this.fillProperty, this.fillLabel, this.options.colors, {
+        categories: vals
+      }));
+
+      this.legendView = new MapLegendView({
+        map: this.map,
+        bins: bins,
+        defaultFillProperty: this.fillProperty
+      });
+      this.options.bins = bins;
+      this.addMapLayer('communityAreasLayer', this.collection);
+    }
+  });
+
   var convictionRateBreaks = [0, 10, 30, 60, 100, 225];
   var convictionRateBins = new BinLookup();
-  convictionRateBins.add(new BinCollection('convictions_per_1000',
+  convictionRateBins.add(new RangeBinCollection('convictions_per_1000',
     "Convictions per 1000",
-    convictionRateBreaks,
     // Purples
     /*
     [
@@ -372,20 +467,25 @@
       '#969696',
       '#636363',
       '#252525',
-    ]
+    ],
+    {
+      breaks: convictionRateBreaks,
+    }
   ));
 
   var affectingWomenBreaks = [0, 1, 2, 3];
-  convictionRateBins.add(new BinCollection('affecting_women_per_1000',
+  convictionRateBins.add(new RangeBinCollection('affecting_women_per_1000',
     "Convictions for crimes affecting women per 1000",
-    affectingWomenBreaks,
     [
       '#f7f7f7',
       '#cccccc',
       '#969696',
-    ]));
+    ],
+    {
+      breaks: affectingWomenBreaks
+    }));
 
-  var ChicagoMapView = Convictions.ChicagoMapView = ConvictionRateMapView.extend({
+  Convictions.ChicagoMapView = ConvictionRateMapView.extend({
     options: _.extend({}, ConvictionRateMapView.prototype.options, {
       bins: convictionRateBins
     }),
@@ -435,40 +535,4 @@
 
     onEachFeatureChicago: function() {}
   });
-
-  Convictions.createChicagoMap = function(el, caUrl, suburbsUrl, chicagoUrl, fetch) {
-    var communityAreas = new ConvictionGeoJSONCollection();
-    var suburbs = new ConvictionGeoJSONCollection();
-    var chicago = new GeoJSONCollection();
-    var communityAreasMap = new ChicagoMapView({
-      collection: communityAreas,
-      suburbsCollection: suburbs,
-      chicagoCollection: chicago,
-      el: el
-    });
-
-    communityAreas.url = caUrl;
-    suburbs.url = suburbsUrl;
-    chicago.url = chicagoUrl;
-
-    if (fetch) {
-      communityAreas.fetch();
-      suburbs.fetch();
-      chicago.fetch();
-    }
-
-    return communityAreasMap;
-  };
-
-  Convictions.createAffectingWomenMap = function(el, communityAreas, suburbs, chicagoBorder) {
-    var affectingWomenMap = new ChicagoMapView({
-      collection: communityAreas,
-      suburbsCollection: suburbs,
-      chicagoCollection: chicagoBorder,
-      el: el,
-      defaultFillProperty: 'affecting_women_per_1000'
-    });
-
-    return affectingWomenMap;
-  };
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

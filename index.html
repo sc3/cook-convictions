@@ -25,7 +25,7 @@
   {% if slide.section_id == section.id %}
   <section id="{{ slide.id }}" class="{% if slide.class %}{{ slide.class }}{% endif %}">
     {% if slide.show_title %}<h2>{{ slide.title }}</h2>{% endif %}
-    {% if slide.id == "explore-data" %}
+    {% if slide.id == "explore-data" or slide.id == "about-data" %}
     {{ render_file("slides/{0}.html".format(slide.id))|safe }}
     {% else %}
     {{ render_file("slides/{0}.md".format(slide.id))|markdown }}
@@ -55,6 +55,7 @@ $(function() {
   // Data and URLs to data
   var DATA_BASE_URL = 'data';
   var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
+  var COMMUNITY_AREA_TOP_CHARGES = {{ top_charges_by_community_area|community_area_top_charge_json|safe }};
   var CHICAGO_URL = DATA_BASE_URL + '/chicago.json';
   var SUBURBS_URL = DATA_BASE_URL + '/suburbs.json';
   var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
@@ -139,6 +140,7 @@ $(function() {
   }
 
   sizeMapContainer('#your-city-map-container');
+  sizeMapContainer('#top-charges-map-container');
   var communityAreas = new Convictions.ConvictionGeoJSONCollection();
   var suburbs = new Convictions.ConvictionGeoJSONCollection();
   var chicago = new Convictions.GeoJSONCollection();
@@ -148,6 +150,22 @@ $(function() {
     suburbsCollection: suburbs,
     chicagoCollection: chicago,
     el: '#your-city-map-container'
+  });
+
+  var topChargeMap = new Convictions.CategoryMapView({
+    collection: communityAreas,
+    joinProperties: COMMUNITY_AREA_TOP_CHARGES,
+    joinAttr: 'number',
+    defaultFillProperty: 'top_charge',
+    defaultFillLabel: "Most Common Charge",
+    el: '#top-charges-map-container',
+    // http://colorbrewer2.org/?type=qualitative&scheme=Set1&n=6
+    colors: ['rgb(228,26,28)','rgb(55,126,184)','rgb(77,175,74)','rgb(152,78,163)','rgb(255,127,0)','rgb(255,255,51)'],
+    popupTemplate: _.template("<%= name %>" +
+      "<ul>" +
+      "<li>Most Common Charge: <%= top_charge %>" +
+      "</ul>"
+    )
   });
 
   communityAreas.url = COMMUNITY_AREAS_URL;
@@ -160,6 +178,8 @@ $(function() {
   $(window).resize(_.debounce(function() {
     sizeMapContainer('#your-city-map-container');
     chicagoMap.invalidateSize();
+    sizeMapContainer('#top-charges-map-container');
+    topChargeMap.invalidateSize();
   }, 1000));
 
   renderChart('#charges-categories-chart', Convictions.createCategoryChart,
@@ -168,8 +188,8 @@ $(function() {
   renderChart('#drug-charges-class-chart', Convictions.createDrugChargeChart,
     CONVICTIONS_DRUG_BY_CLASS, DRUG_CHARGE_CLASSES, DRUG_CLASS_COLORS);
 
-  renderChart('#drug-charges-type-chart', Convictions.createDrugChargeChart,
-    CONVICTIONS_DRUG_BY_TYPE, DRUG_TYPES, DRUG_TYPE_COLORS);
+  //renderChart('#drug-charges-type-chart', Convictions.createDrugChargeChart,
+  //  CONVICTIONS_DRUG_BY_TYPE, DRUG_TYPES, DRUG_TYPE_COLORS);
 
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
     renderChart('#convictions-by-age-chart', Convictions.createAgeChart,

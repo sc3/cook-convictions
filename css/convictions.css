@@ -42,7 +42,8 @@ section h2 {
 }
 
 section > p,
-section ul li {
+section ul li,
+section ol li {
   font-size: 18px;
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }
@@ -63,13 +64,22 @@ span[data-popout-id]:hover .glyphicon {
   }
 
   section > p,
-  section ul li {
+  section ul li,
+  section ol li {
     font-size: 22px;
     line-height: 1.5;
   } 
 
   section h2 {
     font-size: 60px;
+  }
+
+  section h3 {
+    font-size: 32px;
+  }
+
+  section h4 {
+    font-size: 28px;
   }
 }
 

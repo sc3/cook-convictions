@@ -1,6 +1,6 @@
-##Drug crimes make up the bulk of convictions 
-
 By far the largest category of convictions are drug convictions.  When an individual is arrested on a drug charge, they can be booked for manufacturing and delivery, or for possession. Whether it is one or the other depends on many factors - the patrolling officer, whether a person has any priors, or even whether they're able to make a deal with the prosecutor. 
+
+<div id="drug-charges-class-chart" class="chart"></div>
 
 The majority of drug-related convictions in Cook County are for possession. 
 

@@ -14,6 +14,9 @@
   font-size: 12px;
 }
 
+.legend h4 {
+  font-size: 18px;
+}
 
 .legend dl {
   width: 180px;

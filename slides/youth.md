@@ -1,3 +1,5 @@
+##Youth carry overwhelming number of convictions in Cook County
+
 Street crime skews young. 
 
 It isn't entirely clear why this is the case, but criminologists theorize that most people simply age out of crime. Following cut-off age - 24 - most people commit less crime and often stop altogether by 35. Individual's desire to have a family and whether they have access to legitimate employment impacts the likelihood they will commit a crime. Nationally, the youth unemployment rate in July of 2014 was 14.3 percent. For African-American youth, youth unemployment spikes to 23.8 percent. The areas that have the most convictions also have high populations of young African-American youth. As a reminder, the data does not indicate the race of the convicted individual.

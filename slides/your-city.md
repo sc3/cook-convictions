@@ -1,7 +1,7 @@
-With more than 100,000 people walking through it's doors, Cook County's courtroom touches people from all over the county - from Rogers Park to Beverly, the Gold Coast to Austin. Many of these people live in Chicago - others are just accused of committing a crime within the city's boundaries.
+##Here's your city
 
-We've mapped how convictions are spread around the city and suburbs in Cook County. This map shows convictions in all areas that make up Chicago's Metropolitan Statistics Area, as the Census calls it. 
+We've mapped how convictions are spread around the city and suburbs in Cook County. For the city, we have divided the map into individual community areas. For suburban areas, the map groups areas by their municipality.
 
-<p class="lead"> In most cases, <span data-term="communityarea">community areas</span> in the city have more convictions than those in the suburbs. And the closer an area is to Chicago, the more convictions it has.</p>
+By far, individual community areas in the City of Chicago have more convictions per capita than any single suburb of Cook County.  Click on the a community area to find out how many convictions its residents get per capita, and what they are most often convicted for. 
 
-Click on the a community area to find out how many convictions its residents get per capita, and what they are most often convicted for.
+The data shows higher amounts of convictions in economically depressed areas. The data provided doesn’t really give us a reason why this is. However, other studies have consistently shown this correlation before. 

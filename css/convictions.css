@@ -43,7 +43,8 @@ section h2 {
 
 section > p,
 section ul li,
-section ol li {
+section ol li,
+section div.collapse > p {
   font-size: 18px;
   font-family: Georgia,Cambria,"Times New Roman",Times,serif;
 }
@@ -52,6 +53,22 @@ section ol li {
 
 span[data-popout-id]:hover .glyphicon {
   color: #555;
+}
+
+/* Collapsing elements */
+
+/* 
+ * HACK: Specifying the collapsing element as the href attribute breaks
+ * scrolling, so use fake a link by making these <a> elements without href
+ * attributes use the pointer cursor type.
+ */
+#about-data a[data-toggle="collapse"] {
+  cursor: pointer;
+
+}
+
+#about-data h4 > a {
+  color: #333;
 }
 
 @media (min-width: 768px) {
@@ -65,7 +82,8 @@ span[data-popout-id]:hover .glyphicon {
 
   section > p,
   section ul li,
-  section ol li {
+  section ol li,
+  section div.collapse > p {
     font-size: 22px;
     line-height: 1.5;
   } 

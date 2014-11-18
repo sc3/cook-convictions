@@ -4,23 +4,48 @@
 
 <p>Below we've spelled out the difficulties we encountered, and how dealt with them.</p>
 
-<p>TODO: Add in details to these sections in auto-collapsing sections.</p>
+<h4><a id="toggle-every-conviction"  data-toggle="collapse" data-target="#data-analysis-every-conviction" aria-expanded="true" aria-controls="data-analysis-every-conviction">We don't know if we received every conviction.</a></h4>
 
-<h4>We don't know if we received every conviction.</h4>
+<div id="data-analysis-every-conviction" class="collapse in">
+    <p>We requested all available data for cases that resulted in a conviction from 2005-2009.  What we received was a mixture of data. Some of our data was from cases that resulted in a conviction during our time period. We also received data regarding court dispositions for cases that resulted in a conviction prior to our time period.  We believe many of these dispositions resulted from probation violations but we don’t have enough data to confirm this in every case.  Because even aggregate counts of cases and convictions in Cook County are not available for public access, we are unable to determine if we received data related to every conviction as we requested. The Clerk of the Circuit Court of Cook County, the office that maintains the Court’s data, did not provide us aggregate totals of convictions &amp; dispositions that would allow us to confirm the contents of the data.</p>
 
-<h4>We don't know how many cases were dismissed or resulted in an acquittal</h4>
+    <p>We requested records from between 2005 and 2009. However, some cases were opened before 2005. To make sure we were analyzing all of the dispositions in a case, we excluded cases that were opened before 2005 from our analysis.</p>
+</div>
 
-<h4>We don't know an individual's initial charge</h4>
+<h4><a id="toggle-how-many-cases" data-toggle="collapse" data-target="#data-analysis-how-many-cases">We don't know how many cases were dismissed or resulted in an acquittal</a></h4>
 
-<h4>An entry in the dataset wasn't necessarily a conviction handed down by a jury of their peers</h4>
+<div id="data-analysis-how-many-cases" class="collapse">
+    <p>Since the data only contains records for cases that resulted in convictions, we don't have any records for cases that were dismissed or resulted in an acquittal. More broadly, we don’t know the total number of cases filed.</p>
+</div>
 
-<h4>Crime values were not entered consistently</h4>
+<h4><a id="toggle-initial-charges"  data-toggle="collapse" data-target="#data-analysis-initial-charges">We don't know an individual's initial charge</a></h4>
 
-<h4>Frequent misspellings and inconsistent abbreviations</h4>
+<div id="data-analysis-initial-charges" class="collapse">
+    <p>The data reflects what happens with a criminal case once it proceeds through the court system, so we don’t know the initial charges of the individuals who appear in our data. While we were given some information about the individuals in the dataset, such as home address, the data didn’t include their race, or their prior convictions.</p>
+</div>
 
+<h4><a id="toggle-not-convictions"  data-toggle="collapse" data-target="#data-analysis-not-convictions">An entry in the dataset wasn't necessarily a conviction handed down by a jury of their peers</a></h4>
+
+<div id="data-analysis-not-convictions" class="collapse">
+    <p>Each row in the dataset represents a disposition in a criminal case that resulted in a conviction. Dispositions are judicial actions in a case. They represent convictions, but also changes in a charge, a case being postponed or a case switching to a different judge. We had to extract convictions from these records.</p> 
+
+    <p>The vast majority of cases are concluded behind closed doors, from the negotiations leading to a suspect's charge through to, most often, a resulting plea deal. The experience of most people who come through Cook County's courts is far removed from the portrayal of jury trials on television.</p>
+</div>
+
+<h4><a id="toggle-crime-statutes"  data-toggle="collapse" data-target="#data-analysis-crime-statutes">Crime values were not entered consistently</a></h4>
+
+<div id="data-analysis-crime-statutes" class="collapse">
+    <p>The data was analyzed primarily by the type of crime that resulted in a conviction and where the convicted person was from. The type of crime is identified in the data by statute and charge description fields. However, these values were not entered consistently. We examined the data and used a variety of database queries to try to group records that corresponded to the same type of crime.</p>
+
+    <p>Data entry errors are a common problem with data sets opened through a Freedom of Information Act requests. Data found on government data portals are often automated and tied directly to the business process and are prone to less errors.</p>
+</div>
+
+<h4><a id="toggle-misspellings-abbreviations" data-toggle="collapse" data-target="#data-analysis-misspellings-abbreviations">Frequent misspellings and inconsistent abbreviations</a></h4>
+
+<div id="data-analysis-misspellings-abbreviations" class="collapse">
+    <p>Similarly, there were frequent misspellings and abbreviations for city and state values for the home address. In other cases, an individual's home address may be a correctional institution or they may be homeless. Where we could, we used the street address and zip code to geocode the home address and map them to a Chicago community area or suburb.</p>
+</div>
 
 <h3>Data processing</h3>
 
-<p>In order to analyze the data and make it available for public access, the project team had to load the raw data, which was provided in <a href="http://en.wikipedia.org/wiki/Comma-separated_values">comma-separated values</a> (CSV) format, into a database.  We also had to perform multiple transforms on the data in order to make it easier to query the data for our analysis.  The data loading and transformations are performed by a series of Python scripts.  You can view the source code repository for the scripts <a href="https://github.com/sc3/cook-convictions-data">here</a>.</p>
-
-<p>TODO: Add link to lengthy section on data processing.</p>
+<p>In order to analyze the data and make it available for public access, the project team had to load the raw data, which was provided in <a href="http://en.wikipedia.org/wiki/Comma-separated_values">comma-separated values</a> (CSV) format, into a database.  We also had to perform multiple transforms on the data in order to make it easier to query the data for our analysis.  The data loading and transformations are performed by a series of Python scripts.  You can view the source code repository for the scripts <a href="https://github.com/sc3/cook-convictions-data">here</a>.  You can read an in-depth description of the data processing steps <a href="/about.html#data-processing">here</a>.</p>  

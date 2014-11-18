@@ -492,13 +492,13 @@
 
     preInitialize: function(options) {
       this.suburbsCollection = options.suburbsCollection;
-      this.chicagoCollection = options.chicagoCollection;
+      this.bordersCollection = options.bordersCollection;
     },
 
     bindCollectionEvents: function() {
       this.collection.on('sync', this.addCommunityAreasLayer, this);
       this.suburbsCollection.on('sync', this.addSuburbsLayer, this);
-      this.chicagoCollection.on('sync', this.addChicagoLayer, this);
+      this.bordersCollection.on('sync', this.addChicagoLayer, this);
     },
 
     addCommunityAreasLayer: function() {
@@ -519,7 +519,7 @@
         this.suburbsCollection.once('sync', this.addChicagoLayer, this);
         return;
       }
-      this.addMapLayer('chicagoLayer', this.chicagoCollection, this.styleChicago,
+      this.addMapLayer('chicagoLayer', this.bordersCollection, this.styleChicago,
         this.onEachFeatureChicago);
     },
 

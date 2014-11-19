@@ -1,4 +1,4 @@
-### Our questions were the following:
+
 
 1. All maps depicting our area display a similar pattern with negative effects being concentrated on Chicago's south and west sides. Is there a similar pattern with convictions? 
 2. Of all convictions in Cook County, what are the top ten offenses?

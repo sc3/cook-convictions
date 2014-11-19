@@ -2,7 +2,7 @@ When we started the project, we wanted to gain insight more about convictions fo
 
 The data shows less than 1 percent of all sexual assault and domestic violence convictions in Cook County from 2005-2009. This includes crimes such as domestic battery, stalking or violating an order of protection. 
 
-Though the data does not indicate any details about the people victimized by these crimes, we know they are heavily underreported. The National Crime Victimization Survey estimates that only 28 per cent of sexual assaults and 55 per cent of domestic violence is reported. 
+Though the data does not indicate any details about the people victimized by these crimes, we know they are heavily underreported. The National Crime Victimization Survey estimates that only 28 percent of sexual assaults and 55 percent of domestic violence is reported. 
 
 One of the few things we were able to discern from the data is that men are convicted of domestic violence at a far greater rate than women. 
 

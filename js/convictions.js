@@ -498,7 +498,7 @@
     bindCollectionEvents: function() {
       this.collection.on('sync', this.addCommunityAreasLayer, this);
       this.suburbsCollection.on('sync', this.addSuburbsLayer, this);
-      this.bordersCollection.on('sync', this.addChicagoLayer, this);
+      this.bordersCollection.on('sync', this.addBordersLayer, this);
     },
 
     addCommunityAreasLayer: function() {
@@ -509,30 +509,39 @@
       this.addMapLayer('suburbsLayer', this.suburbsCollection);
     },
 
-    addChicagoLayer: function() {
+    addBordersLayer: function() {
       // HACK: Ensure that this layer is always added last
       if (!this.communityAreasLayer) {
-        this.collection.once('sync', this.addChicagoLayer, this);
+        this.collection.once('sync', this.addBordersLayer, this);
         return;
       }
       else if (!this.suburbsLayer) {
-        this.suburbsCollection.once('sync', this.addChicagoLayer, this);
+        this.suburbsCollection.once('sync', this.addBordersLayer, this);
         return;
       }
-      this.addMapLayer('chicagoLayer', this.bordersCollection, this.styleChicago,
-        this.onEachFeatureChicago);
+      this.addMapLayer('bordersLayer', this.bordersCollection, this.styleBorders,
+        this.onEachFeatureBorders);
     },
 
-    styleChicago: function(feature) {
-      return {
+    styleBorders: function(feature) {
+      console.debug(feature);
+      var style = {
         fillColor: null,
         fillOpacity: 0,
         color: 'black',
         weight: 3,
         opacity: 1
       };
+
+      // Cook County should have a lighter border and a dashed border to
+      // differentiate it from Chicago's
+      if (feature.properties.name == "Cook County") {
+        style.dashArray = '5';
+        style.opacity = 0.5;
+      }
+      return style;
     },
 
-    onEachFeatureChicago: function() {}
+    onEachFeatureBorders: function() {}
   });
 })(window, document, jQuery, _, Backbone, L, window.Convictions || {});

@@ -56,7 +56,7 @@ $(function() {
   var DATA_BASE_URL = 'data';
   var COMMUNITY_AREAS_URL = DATA_BASE_URL + '/community_areas.json';
   var COMMUNITY_AREA_TOP_CHARGES = {{ top_charges_by_community_area|community_area_top_charge_json|safe }};
-  var CHICAGO_URL = DATA_BASE_URL + '/chicago.json';
+  var BORDERS_URL = DATA_BASE_URL + '/chicago_cook_borders.json';
   var SUBURBS_URL = DATA_BASE_URL + '/suburbs.json';
   var CONVICTIONS_BY_COMMUNITY_AREA_AGE_18_24_URL = DATA_BASE_URL + '/convictions_by_community_area_18_24.json';
   var CONVICTIONS_BY_AGE_URL = DATA_BASE_URL + '/convictions_by_age.json';
@@ -143,12 +143,12 @@ $(function() {
   sizeMapContainer('#top-charges-map-container');
   var communityAreas = new Convictions.ConvictionGeoJSONCollection();
   var suburbs = new Convictions.ConvictionGeoJSONCollection();
-  var chicago = new Convictions.GeoJSONCollection();
+  var borders = new Convictions.GeoJSONCollection();
 
   var chicagoMap = new Convictions.ChicagoMapView({
     collection: communityAreas,
     suburbsCollection: suburbs,
-    chicagoCollection: chicago,
+    bordersCollection: borders,
     el: '#your-city-map-container'
   });
 
@@ -170,10 +170,10 @@ $(function() {
 
   communityAreas.url = COMMUNITY_AREAS_URL;
   suburbs.url = SUBURBS_URL;
-  chicago.url = CHICAGO_URL;
+  borders.url = BORDERS_URL;
   communityAreas.fetch();
   suburbs.fetch();
-  chicago.fetch();
+  borders.fetch();
 
   $(window).resize(_.debounce(function() {
     sizeMapContainer('#your-city-map-container');

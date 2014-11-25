@@ -450,24 +450,9 @@
   var convictionRateBins = new BinLookup();
   convictionRateBins.add(new RangeBinCollection('convictions_per_1000',
     "Convictions per 1000",
-    // Purples
-    /*
-    [
-      '#f2f0f7',
-      '#cbc9e2',
-      '#9e9ac8',
-      '#756bb1',
-      '#54278f',
-    ]
-    */
-    // Grays
-    [
-      '#f7f7f7',
-      '#cccccc',
-      '#969696',
-      '#636363',
-      '#252525',
-    ],
+    // Red multi-hue
+    // http://colorbrewer2.org/?type=sequential&scheme=OrRd&n=5
+    ['rgb(254,240,217)','rgb(253,204,138)','rgb(252,141,89)','rgb(227,74,51)','rgb(179,0,0)'],
     {
       breaks: convictionRateBreaks,
     }
@@ -533,9 +518,9 @@
         opacity: 1
       };
 
-      // Cook County should have a lighter border and a dashed border to
-      // differentiate it from Chicago's
-      if (feature.properties.name == "Cook County") {
+      // Cook County should have a solid, bold border.
+      // Chicago should have a lighter, dashed border.
+      if (feature.properties.name != "Cook County") {
         style.dashArray = '5';
         style.opacity = 0.5;
       }

@@ -5,5 +5,5 @@
 3. For drug convictions, what are the most common types and class of convictions? 
 4. How do convictions vary by age? 
 5. From research, we know that violence against women follows a similar pattern across all demographics. Does the conviction data follow a similar pattern? 
-6. How do DUI (Driving Under the Influence)spread out around the city? 
+6. How are DUI (Driving Under the Influence)convictions spread throughout the city? 
 

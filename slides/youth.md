@@ -4,8 +4,6 @@ It isn't entirely clear why this is the case, but [criminologists theorize](http
  
 What the data does indicate is that Cook County has convicted more young people between the ages of 18-24 than all other age groups combined. 
 
-Our conviction data shows that the vast majority of violence convictions are also young people. 
-
 
 ### Total convictions by age
 

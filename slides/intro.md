@@ -4,7 +4,7 @@ Each year, tens of thousands of people stand in front of judges at the [Cook Cou
 
 When a violent crime is picked up by the news media, it's often sensationalised so that every minor detail is brought into the public purview. Meanwhile, the vast majority of convictions - mostly drug related - are given little notice. 
 
-This project will attempt to answer several question regarding convictions in Cook County. Upon first receiving the data, it became apparent that the data was messy and incomplete. 
+This project will attempt to answer several questions regarding convictions in Cook County. Upon first receiving the data, it became apparent that the data was messy and incomplete. 
 
 While we would have liked to see all convictions from 2005-2009, we aren't sure if we recieved them all because we don't have information on the total number of cases in the court system with which to compare the data. Our data didn't include the initial charge or if an individual had prior convictions that impacted the court's ruling on their case. Our original request asked for data on race and was not provided. While the Chicago Justice Project's request only asked for information on adults, several entries found in the data included minors. 
 

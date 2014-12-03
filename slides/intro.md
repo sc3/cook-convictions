@@ -6,6 +6,6 @@ When a violent crime is picked up by the news media, it's often sensationalised 
 
 This project will attempt to answer several questions regarding convictions in Cook County. Upon first receiving the data, it became apparent that the data was messy and incomplete. 
 
-While we would have liked to see all convictions from 2005-2009, we aren't sure if we recieved them all because we don't have information on the total number of cases in the court system with which to compare the data. Our data didn't include the initial charge or if an individual had prior convictions that impacted the court's ruling on their case. Our original request asked for data on race and was not provided. While the Chicago Justice Project's request only asked for information on adults, several entries found in the data included minors. 
+While we would have liked to have seen all convictions from 2005-2009, we aren't sure if we received them all because we don't have information on the total number of cases in the court system with which to compare the data. Our data didn't include the initial charge or if an individual had prior convictions that impacted the court's ruling on their case. Our original request asked for data on race and was not provided. While the Chicago Justice Project's request only asked for information on adults, several entries found in the data included minors. 
 
 The team at [FreeGeek Chicago](http://freegeekchicago.org) helped us clean the data, visualize it, and try to answer the questions we posed when we first obtained the data. 

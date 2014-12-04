@@ -1,4 +1,4 @@
-When we started the project, we wanted to gain insight more about convictions for crimes against women. However, less than 1 percent of all convictions in Cook County from 2005-2009 were for sexual assault and domestic violence. This includes crimes such as domestic battery, stalking or violating an order of protection. 
+When we started the project, we wanted to gain more insight into those convicted of sexual and domestic violence. However, less than 1 percent of all convictions in Cook County from 2005-2009 were for sexual assault and domestic violence. This includes crimes such as domestic battery, stalking or violating an order of protection. 
 
 The data shows less than 1 percent of all sexual assault and domestic violence convictions in Cook County from 2005-2009. This includes crimes such as domestic battery, stalking or violating an order of protection. 
 

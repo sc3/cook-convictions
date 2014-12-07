@@ -36,3 +36,7 @@ We identified convictions like this:
 ### Querying and exporting data
 
 The data that drives the charts and maps in this project comes from code that implements database queries for statistics of interest.  We also implemented management commands to export the results of these queries in machine-readable file formats like CSV and JSON that can be presented on the web.  There is also a script that exports the version of the data that we've made publicly available which removes exact addresses and other personal identifiers from the records.
+
+### Handling ages
+
+The age of convicted individuals was calculated by taking the difference between the the charge disposition date field and the date of birth field.  We did not expect to receive records for people under the age of 18, though some records for apparent juveniles do appear in the data.  As we were not sure whether we received records for all cases involving juveniles and had no way of differentiating between records for juveniles and incorrectly entered dates of birth, we excluded records of juveniles when doing age-based comparisons.  These records were included in total counts of convictions and in comparisons based on the type of crime.

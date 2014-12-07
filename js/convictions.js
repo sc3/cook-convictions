@@ -509,7 +509,6 @@
     },
 
     styleBorders: function(feature) {
-      console.debug(feature);
       var style = {
         fillColor: null,
         fillOpacity: 0,

@@ -5,15 +5,17 @@
     <th>Statute</th>
     <th>Charge Description</th>
     <th>Count</th>
+    <th>Percent</th>
   </tr>
 </thead>
 <tbody>
-  {% for charge in top_charges %}
+  {% for charge in top_charges[:10] %}
   <tr>
     <td>{{ loop.index }}</td>
     <td><a href="{{ charge.statute_url }}">{{ charge.statute }}</a></td>
     <td>{{ charge.chrgdesc }}</td>
-    <td>{{ charge.count }}</td>
+    <td>{{ charge.count|format_stat('{:,}') }}</td>
+    <td>{{ charge.percent }}</td>
   </tr>
   {% endfor %}
 </tbody>

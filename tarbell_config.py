@@ -21,7 +21,7 @@ TEMPLATE_TYPES.append("text/css")
 blueprint = Blueprint('cook_convictions', __name__)
 
 @blueprint.app_template_filter('format_stat')
-def format_stat(fmt, val):
+def format_stat(val, fmt):
    return fmt.format(int(val))
 
 @blueprint.app_template_filter('community_area_top_charge_json')

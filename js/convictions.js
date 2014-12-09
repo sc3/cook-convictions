@@ -446,7 +446,7 @@
     }
   });
 
-  var convictionRateBreaks = [0, 10, 30, 60, 100, 225];
+  var convictionRateBreaks = [0, 10, 30, 60, 100, 250];
   var convictionRateBins = new BinLookup();
   convictionRateBins.add(new RangeBinCollection('convictions_per_1000',
     "Convictions per 1000",

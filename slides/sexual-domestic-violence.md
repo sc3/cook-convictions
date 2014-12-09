@@ -8,12 +8,12 @@ One of the few things we were able to discern from the data is that men are conv
 
 We also know from [other research](https://rainn.org/get-information/statistics/sexual-assault-offenders) that the vast majority of offenders have a relationship with the survivor to some degree. While stranger attacks may receive the majority of reporting in local news, they are a statistically small part of sexual and domestic violence. Because our data does not address victimization, it is difficult to place a figure on who is affected by these crimes, and their relationship to the accused. 
 
-The number of domestic and sexual violence convictions were too low (649 convictions out of 141,161) to perform any reliable analysis. When we attempted to show these convictions geographically, the variance was too low to be meaningful. Further research will be required to answer questions around domestic violence convictions. 
+The number of domestic and sexual violence convictions were too low ({{ statistics.convictions_domestic.value|format_stat('{:,d}') }} convictions out of {{ statistics.convictions.value|format_stat('{:,d}') }}) to perform any reliable analysis. When we attempted to show these convictions geographically, the variance was too low to be meaningful. Further research will be required to answer questions around domestic violence convictions. 
 
 
 <figure id="affecting-women-viz-container">
   <div class="viz-container"></div>
-  <figcaption>For every conviction of a woman for this category of crime, there were {{ domestic_male_to_female_ratio|default(11)|int }} convictions of men. There were a total of {{ statistics.domestic_male.value|int }} convictions of men and {{ statistics.domestic_female.value|int }} convictions of women.</figcaption>
+  <figcaption>For every conviction of a woman for this category of crime, there were {{ statistics.domestic_male_to_female_ratio.value|default(31)|int }} convictions of men. There were a total of {{ statistics.domestic_male.value|int }} convictions of men and {{ statistics.domestic_female.value|int }} convictions of women.</figcaption>
 </figure>
 
 

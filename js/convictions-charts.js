@@ -593,7 +593,7 @@
     var chart = stackedHorizontalBarChart()
       .margin({
         top: 20,
-        right: 0,
+        right: 20,
         bottom: 30,
         left: 100
       })

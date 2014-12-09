@@ -30,6 +30,24 @@ def community_area_top_charge_json(community_areas):
             for ca in community_areas]
     return json.dumps(data)
 
+@blueprint.app_template_filter('drug_category_json')
+def drug_category_json(data):
+    transformed = []
+    offense_types = set()
+    for row in data:
+        offense_types.add(row['offense_type'])
+
+    for offense_type in list(offense_types):
+        type_data = {
+            'label': offense_type,        
+        }
+        for row in data:
+            if row['offense_type'] == offense_type:
+                type_data[row['slug']] = row
+            transformed.append(type_data)
+
+    return json.dumps(transformed)
+
 # Short project name
 NAME = "cook-convictions"
 

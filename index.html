@@ -62,9 +62,7 @@ $(function() {
   var CONVICTIONS_BY_AGE_URL = DATA_BASE_URL + '/convictions_by_age.json';
 
   var CONVICTIONS_BY_TYPE = [{"value": {{ statistics.convictions_violent_index.value|safe }}, "label": "Violent Index Crimes"}, {"value": {{ statistics.convictions_property_index.value|safe }}, "label": "Property Index Crimes"}, {"value": {{ statistics.convictions_drug.value|safe }}, "label": "Drug Crimes"}];
-  var CONVICTIONS_BY_SEX_AGE_18_24 = {"uknwn_sex": 2, "female": 3809, "male": 39769};
-  var CONVICTIONS_DRUG_BY_CLASS = [{"label": "Manufacture or Delivery", "felony_1": {"label": "Class 1 Felony", "value": 5744}, "unkwn_class": {"label": "Unknown Class", "value": 4530}, "felony_4": {"label": "Class 4 Felony", "value": 1762}, "misd_b": {"label": "Class B Misdemeanor", "value": 25}, "felony_2": {"label": "Class 2 Felony", "value": 853}, "misd_a": {"label": "Class A Misdemeanor", "value": 691}, "felony_x": {"label": "Class X Felony", "value": 34}, "felony_3": {"label": "Class 3 Felony", "value": 1223}}, {"label": "Possession", "no_class": {"label": "No Class", "value": 1}, "felony_2": {"label": "Class 2 Felony", "value": 40}, "misd_a": {"label": "Class A Misdemeanor", "value": 74}, "felony_x": {"label": "Class X Felony", "value": 0}, "misd_c": {"label": "Class C Misdemeanor", "value": 32}, "felony_1": {"label": "Class 1 Felony", "value": 554}, "unkwn_class": {"label": "Unknown Class", "value": 16}, "felony_4": {"label": "Class 4 Felony", "value": 32127}, "misd_b": {"label": "Class B Misdemeanor", "value": 112}, "felony_3": {"label": "Class 3 Felony", "value": 189}}];
-  var CONVICTIONS_DRUG_BY_TYPE = [{"other_drug": {"label": "Other Drug", "value": 8656}, "amphetamine": {"label": "Amphetamine", "value": 0}, "label": "Manufacture or Delivery", "heroin": {"label": "Heroin", "value": 2100}, "cannabis": {"label": "Cannabis", "value": 3694}, "cocaine": {"label": "Cocaine", "value": 3504}, "pcp": {"label": "PCP", "value": 8}, "lsd": {"label": "LSD", "value": 2}, "meth": {"label": "Methamphetamine", "value": 44}, "ecstasy": {"label": "Ecstasy", "value": 20}, "no_drug": {"label": "No Drug", "value": 4524}, "sched_1_2": {"label": "Schedule 1 & 2", "value": 16}}, {"ketamine": {"label": "Ketamine", "value": 0}, "label": "Possession", "other_drug": {"label": "Other Drug", "value": 38}, "ecstasy": {"label": "Ecstasy", "value": 40}, "barbituric": {"label": "Barbituric Acid", "value": 2}, "lsd": {"label": "LSD", "value": 2}, "cannabis": {"label": "Cannabis", "value": 1961}, "steroids": {"label": "Steroids", "value": 8}, "meth": {"label": "Methamphetamine", "value": 126}, "sched_1_2": {"label": "Schedule 1 & 2", "value": 6}, "amphetamine": {"label": "Amphetamine", "value": 0}, "heroin": {"label": "Heroin", "value": 64}, "pcp": {"label": "PCP", "value": 2}, "unkwn_drug": {"label": "Unknown Drug", "value": 30449}, "cocaine": {"label": "Cocaine", "value": 415}, "no_drug": {"label": "No Drug", "value": 1}, "morphine": {"label": "Morphine", "value": 2}}];
+  var CONVICTIONS_DRUG_BY_CLASS = {{ drug_by_class|drug_category_json|safe }};
 
   // Slugs for drug charge classes in above data, in order of
   // increasing severity
@@ -187,9 +185,6 @@ $(function() {
 
   renderChart('#drug-charges-class-chart', Convictions.createDrugChargeChart,
     CONVICTIONS_DRUG_BY_CLASS, DRUG_CHARGE_CLASSES, DRUG_CLASS_COLORS);
-
-  //renderChart('#drug-charges-type-chart', Convictions.createDrugChargeChart,
-  //  CONVICTIONS_DRUG_BY_TYPE, DRUG_TYPES, DRUG_TYPE_COLORS);
 
   $.getJSON(CONVICTIONS_BY_AGE_URL, function(data) {
     renderChart('#convictions-by-age-chart', Convictions.createAgeChart,

@@ -10,7 +10,7 @@ from flask import Blueprint
 
 from tarbell.app import TEMPLATE_TYPES
 
-# HACK: Work around CSS being removed from template rendering in 
+# HACK: Work around CSS being removed from template rendering in
 # https://github.com/newsapps/flask-tarbell/commit/cb1862007ca1a51255faedd0274dd9bbc27f1c75
 # See also https://github.com/newsapps/flask-tarbell/issues/231
 #
@@ -26,7 +26,12 @@ def format_stat(val, fmt):
 
 @blueprint.app_template_filter('community_area_top_charge_json')
 def community_area_top_charge_json(community_areas):
-    data = [{'number': ca['number'], 'top_charge': ca['top_charge']}
+    data = [{
+                'number': ca['number'],
+                'top_charge': ca['top_charge'],
+                'top_charge_count': ca['top_charge_count'],
+                'top_charge_pct': '{:.0%}'.format(ca['top_charge_pct'])
+            }
             for ca in community_areas]
     return json.dumps(data)
 
@@ -39,7 +44,7 @@ def drug_category_json(data):
 
     for offense_type in list(offense_types):
         type_data = {
-            'label': offense_type,        
+            'label': offense_type,
         }
         for row in data:
             if row['offense_type'] == offense_type:
@@ -77,8 +82,8 @@ S3_BUCKETS = {
 
 # Default template variables
 DEFAULT_CONTEXT = {
-    'name': NAME, 
-    'title': TITLE, 
+    'name': NAME,
+    'title': TITLE,
 }
 
 SPREADSHEET_CACHE_TTL = 60

@@ -14,7 +14,7 @@ Here's the top 20 for DUI convictions:
   {% for ca in top_dui_community_areas %}
   <tr>
     <td>{{ loop.index }}</td>
-    <td>{{ ca.community_area }}</td>
+    <td>{{ ca.name }}</td>
     <td>{{ ca.count | int }}</td>
   </tr>
   {% endfor %}

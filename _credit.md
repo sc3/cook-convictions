@@ -2,7 +2,7 @@ This project is part of the [Smart Chicago Collaborative's](http://www.smartchic
 
 Our partners for this project are the [Chicago Justice Project](http://chicagojustice.org/), a nonprofit research organization, and [FreeGeek Chicago](http://freegeekchicago.org/)'s Supreme Chi-Town Coding Crew ([SC3](https://github.com/sc3/sc3)). 
 
-Yana Kunichoff is the project's analyst and editor, Geoffrey Hing is the senior developer and Brian Peterson is the junior developer.  
+Yana Kunichoff is the project's analyst and editor, Geoffrey Hing and Brian Peterson were the developers.
 
 [The Illustrated Press](http://illuspress.com) created the illustrations.
 

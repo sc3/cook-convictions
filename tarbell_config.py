@@ -48,6 +48,10 @@ def drug_category_json(data):
 
     return json.dumps(transformed)
 
+@blueprint.app_template_filter('json')
+def json_filter(val):
+    return json.dumps(val)
+
 # Short project name
 NAME = "cook-convictions"
 

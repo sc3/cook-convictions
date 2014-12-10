@@ -127,10 +127,10 @@ $(function() {
     '#bebada'
   ];
 
-  var DOMESTIC_MALE = {{ statistics.domestic_male|json }}; 
-  var NUM_DOMESTIC_FEMALE = {{ statistics.domestic_female|json }};
-  var GLOSSARY = {{ glossary|json }};
-  var POPOUTS = {{ popouts|json }};
+  var DOMESTIC_MALE = {{ statistics.domestic_male|json|safe }}; 
+  var DOMESTIC_FEMALE = {{ statistics.domestic_female|json|safe }};
+  var GLOSSARY = {{ glossary|json|safe }};
+  var POPOUTS = {{ popouts|json|safe }};
 
   var renderChart = Convictions.renderChart;
 

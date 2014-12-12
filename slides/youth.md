@@ -11,11 +11,6 @@ What the data does indicate is that Cook County has convicted more young people 
 
 The crimes committed by people of different ages also vary. Our conviction data shows that the vast majority of violence convictions are for young people. 
 
-<div class="alert alert-warning" role="alert">
-  <span class="glyphicon glyphicon-warning-sign"></span>
-  This is different to the total number of convictions, since we are picking specific groupings.
-</div>
-
 ### Violent convictions by age
 
 <div class="chart" id="violent-convictions-by-age-chart"></div>

@@ -76,6 +76,10 @@ ul.credit-group {
   max-width: 100%;
 }
 
+.credit-item #logo-cct {
+  max-width: 80%;
+}
+
 .slides {
   margin-top: 20px;
 }

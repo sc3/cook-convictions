@@ -22,7 +22,7 @@ Tract-level demographic data from the American Community Survey (ACS) was export
 
 ### Geocoding and finding spatial relationships
 
-The cleaned records were geocoded using [Mapquest's Open Geocoding API web service](http://developer.mapquest.com/web/products/open/geocoding-service).  Once geocoded we used the database's spatial capabilities to determine the Chicago community area or suburban place corresponding to the convicted person's address.
+The addresses in the cleaned records were geocoded using [Mapquest's Open Geocoding API web service](http://developer.mapquest.com/web/products/open/geocoding-service).  Once geocoded we used the database's spatial capabilities to determine the Chicago community area or suburban place corresponding to the convicted person's address.
 
 ### Identifying convictions
 
@@ -36,6 +36,12 @@ We identified convictions like this:
 ### Querying and exporting data
 
 The data that drives the charts and maps in this project comes from code that implements database queries for statistics of interest.  We also implemented management commands to export the results of these queries in machine-readable file formats like CSV and JSON that can be presented on the web.  There is also a script that exports the version of the data that we've made publicly available which removes exact addresses and other personal identifiers from the records.
+
+### Mapping convictions 
+
+The data includes records for people convicted in Cook County's courts, regardless of their home address.  Many of the convicted had home addresses in Chicago or Cook County, but some had addresses in other parts of Illinois, or other states.  To focus on areas familiar to the audience of this site, we chose to map conviction rates only for the City of Chicago and suburban places in Cook County.
+
+To be able to compare the number of convictions, adjusted to population, we needed to use geographies for which American Community Survey population figures were available.  For Chicago, these were [community areas](http://en.wikipedia.org/wiki/Community_areas_in_Chicago), which roughly correspond to neighborhoods, and for suburbs, we used [census places](https://www.census.gov/geo/reference/gtc/gtc_place.html).  Some suburban places include portions that are outside of Cook County.  Because the purpose of mapping conviction rates was to show overall spatial trends, and because of the challenges of separating both home addresses and population between the areas inside and outside Cook County, our maps reflect the entire area and population of these places.
 
 ### Handling ages
 

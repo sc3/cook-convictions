@@ -94,7 +94,7 @@
     // These can be get/set with accessors defined below
     var svg;
     var margin = {top: 20, right: 30, bottom: 30, left: 60};
-    var aspectRatio = 16 / 9; // Width to height
+    var aspectRatio = 4 / 3; // Width to height
     var renderTooltip; // Function to render tooltip
     // Internal width and height of the chart
     var width;
@@ -148,6 +148,9 @@
     var tooltipOffset = 4;
     // Margins of the popup element
     var tooltipMargin = {top: 4, right: 4, bottom: 4, left: 4};
+    // Size, in pixels at which behavior changes for narrow window widths
+    var narrowBreakpoint = 600; 
+    var isNarrow = false;
 
     /**
      * Position a popup relative to mouse position.
@@ -267,8 +270,6 @@
       var width = axis.node().getBBox().width;
 
       axis.append('text')
-        //.attr('transform', 'rotate(-90)')
-        //.attr('y', 6)
         .attr('dy', '-.25em')
         .attr('x', width)
         .attr('dx', '-.25em')
@@ -281,13 +282,18 @@
         var containerWidth = parseInt(d3.select(this).style('width'), 10);
         width = containerWidth - margin.left - margin.right;
         height = Math.ceil(width * (1 / aspectRatio)) - margin.top - margin.bottom;
+        isNarrow = containerWidth < narrowBreakpoint;
         x = xScale(data);
         y = yScale(data);
+        var xTicks = isNarrow ? 4 : 10;
+        var yTicks = isNarrow ? 4 : 10;
         var xAxis = d3.svg.axis()
-            .scale(x);
+            .scale(x)
+            .ticks(xTicks);
         var yAxis = d3.svg.axis()
             .scale(y)
-            .orient('left');
+            .orient('left')
+            .ticks(yTicks);
         svg = d3.select(this).append('svg')
             .attr('class', 'chart-bar')
             .attr("width", containerWidth)
@@ -310,24 +316,27 @@
           .attr('class', 'y axis')
           .call(yAxis);
 
-        if (isFunction(labelY)) {
-          // labelY is a function.  Call it.
-          svg.call(labelY);
-        }
-        else if (labelY) {
-          // labelY is text.  Call the default label rendering function with
-          // the text
-          svg.call(defaultRenderLabelY, labelY);
-        }
+        if (!isNarrow) {
+          // Only show axis labels on larger displays
+          if (isFunction(labelY)) {
+            // labelY is a function.  Call it.
+            svg.call(labelY);
+          }
+          else if (labelY) {
+            // labelY is text.  Call the default label rendering function with
+            // the text
+            svg.call(defaultRenderLabelY, labelY);
+          }
 
-        if (isFunction(labelX)) {
-          // labelX is a function.  Call it.
-          svg.call(labelX);
-        }
-        else if (labelX) {
-          // labelX is text.  Call the default label rendering function with
-          // the text
-          svg.call(defaultRenderLabelX, labelX);
+          if (isFunction(labelX)) {
+            // labelX is a function.  Call it.
+            svg.call(labelX);
+          }
+          else if (labelX) {
+            // labelX is text.  Call the default label rendering function with
+            // the text
+            svg.call(defaultRenderLabelX, labelX);
+          }
         }
 
         svg.call(postRender);
@@ -339,6 +348,10 @@
     // This property is read-only
     chart.svg = function() {
       return svg;
+    };
+
+    chart.isNarrow = function() {
+      return isNarrow;
     };
 
     chart.margin = function(_) {
@@ -582,6 +595,18 @@
 
   function createCategoryChart(el, data) {
     var chart = barChart()
+      .postRender(function(sel) {
+        // On narrow displays, shorten the x-axis tick text
+        sel.selectAll('.tick text')
+          .each(function() {
+            var textEl = d3.select(this);
+            if (chart.isNarrow()) {
+               textEl.text(textEl.text()
+                 .replace('Crimes', '')
+                 .replace('Index', ''));
+            }
+          });
+      })
       .labelY("Convictions");
 
     d3.select(el)
@@ -709,9 +734,12 @@
     }
 
     render = function() {
+      var $body = $('body');
       $(el).empty();
       renderFn.apply(this, renderArgs);
-      $('body').scrollspy('refresh');
+      if ($body.scrollspy) {
+        $body.scrollspy('refresh');
+      }
     };
 
     render();

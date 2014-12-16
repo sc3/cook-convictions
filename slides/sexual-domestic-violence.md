@@ -4,7 +4,7 @@ Though the data does not indicate any details about the people victimized by the
 
 We also know from [other research](https://rainn.org/get-information/statistics/sexual-assault-offenders) that the vast majority of offenders have a relationship with the survivor to some degree. While stranger attacks may receive the majority of reporting in local news, they are a statistically small part of sexual and domestic violence. Because our data does not address victimization, it is difficult to place a figure on who is affected by these crimes, and their relationship to the accused.
 
-The number of domestic and sexual violence convictions were too low ({{ statistics.convictions_domestic.value|format_stat('{:,d}') }} convictions out of {{ statistics.convictions.value|format_stat('{:,d}') }}) to perform any reliable analysis. When we attempted to show these convictions geographically, we did not observe any significant. Further research will be required to answer questions around domestic violence convictions. 
+The number of domestic and sexual violence convictions were too low ({{ statistics.convictions_domestic.value|format_stat('{:,d}') }} convictions out of {{ statistics.convictions.value|format_stat('{:,d}') }}) to perform any reliable analysis. When we attempted to examine these convictions geographically, we did not observe any significant trends. Further research will be required to answer questions around domestic violence convictions. 
 
 <figure id="affecting-women-viz-container">
   <div class="viz-container"></div>

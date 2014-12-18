@@ -1,5 +1,7 @@
 cook-convictions
-==============
+================
+
+The [Tarbell](http://tarbell.io) project used to generate [Convicted in Cook](http://convictions.smartchicagoapps.org/).
 
 ## Development
 
@@ -7,7 +9,7 @@ In order to get started developing this project, these are the steps to follow.
 
 ### Install Tarbell
 
-First, make sure you have [Tarbell](http://tarbell.tribapps.com/) installed and configured. 
+First, make sure you have [Tarbell](http://tarbell.io) installed and configured. 
 
 It's best to install Tarbell inside of a [virtualenv](http://virtualenv.readthedocs.org/en/latest/).
 

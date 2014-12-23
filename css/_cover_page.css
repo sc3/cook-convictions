@@ -1,30 +1,37 @@
 /* Cover page */
 
+html, body {
+  height: 100%;
+}
+
 #cover-page {
   position: relative;
   width: 100%;
+  height: 100%;
+}
+
+#cover-page .bg-img,
+#cover-page .bg-clear,
+#cover-page .bg-shade {
+  height: 100%;
 }
 
 #cover-page .bg-img,
 #cover-page .bg-clear {
-  height: 100vh;
-  /* fix background */
-  background-attachment: fixed;
-
-  /* center it and clear the top nav bar*/
-  background-position: center 50px;
+  background-position: center 0;
 
   /* Scale it nicely to the element */
   background-size: cover;
 
-  background-image: url(../img/conincook201.jpg)
+  background-image: url(../img/conincook201.jpg);
+
+  background-repeat: no-repeat;
 }
 
 #cover-page .bg-shade {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 100vh;
   background-color: rgba(0, 0, 0, 0.45);
   text-align: center;
 }
@@ -36,6 +43,40 @@
   font-weight: bold;
   color: #fff;
 }
+
+.bg-clear {
+  display: none;
+}
+
+.cssvhunit,
+.cssvhunit body,
+.cssvhunit #cover-page {
+  height: auto;
+}
+
+.cssvhunit #cover-page .bg-img,
+.cssvhunit #cover-page .bg-clear,
+.cssvhunit #cover-page .bg-shade {
+  height: 100vh;
+}
+
+.cssvhunit #cover-page .bg-img,
+.cssvhunit #cover-page .bg-clear {
+  /* center it and clear the top nav bar*/
+  background-position: center 50px;
+}
+
+.no-touch .bg-clear {
+  display: block;
+}
+
+.no-touch #cover-page .bg-img,
+.no-touch #cover-page .bg-clear {
+  /* fix background */
+  background-attachment: fixed;
+}
+
+/* Credits */
 
 #credit-bar {
   position: relative;
